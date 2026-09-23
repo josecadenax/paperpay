@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{"colors":{"surface-dim":"#0f1524","primary":"#7dd3fc","outline":"#4a6070","surface-container":"#141c2e","on-primary-fixed-variant":"#004d73","on-tertiary-fixed":"#1a002e","surface":"#0f1524","secondary":"#88b4cc","surface-container-highest":"#202c42","inverse-on-surface":"#0a0e1a","on-primary-fixed":"#001f2e","on-secondary":"#001f2e","tertiary-fixed":"#e8d0ff","secondary-container":"#1a3a4e","secondary-fixed":"#c0d8e8","on-tertiary":"#1a002e","primary-fixed-dim":"#7dd3fc","on-primary-container":"#c8eaff","on-tertiary-fixed-variant":"#4d2a73","error-container":"#3d1414","surface-tint":"#7dd3fc","error":"#ff6b6b","on-surface":"#e0e8f0","on-surface-variant":"#a0b4c4","on-secondary-fixed":"#0d1f2b","inverse-surface":"#e0e8f0","primary-fixed":"#c8eaff","surface-container-lowest":"#0a0e1a","tertiary-fixed-dim":"#c8a0f0","on-tertiary-container":"#e8d0ff","on-primary":"#001f2e","surface-container-high":"#1a2438","on-secondary-fixed-variant":"#2a4a5e","secondary-fixed-dim":"#88b4cc","on-secondary-container":"#c0d8e8","tertiary":"#c8a0f0","tertiary-container":"#3d2060","surface-variant":"#1a2438","outline-variant":"#2a3a48","primary-container":"#0e4d6e","surface-bright":"#1a2438","on-background":"#e0e8f0","inverse-primary":"#0a4c6e","background":"#0a0e1a","on-error":"#1a0000","on-error-container":"#ffb3b3","surface-container-low":"#111828"},"borderRadius":{"DEFAULT":"0.5rem","lg":"1rem","xl":"1.5rem","full":"9999px"},"spacing":{},"fontFamily":{"headline":["Inter"],"display":["Inter"],"body":["Inter"],"label":["Inter"]},"fontSize":{}}}}</script></head><body class="bg-background font-body text-on-surface min-h-screen flex flex-col"><header class="fixed top-0 left-0 right-0 z-50 bg-surface/75 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.2)]"><div class="h-20 w-full px-6 lg:px-10 flex items-center justify-between gap-6"><div class="flex items-center gap-6"><div class="flex items-center gap-3"><img alt="UnSubbed x402 Protocol Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1UkNf3ofggm4fILRbMzRHNS2aT4twEDBk-49E7PR2WhZ5nJFnuRbJCuBkcw2uAv7Mu8EgFea2wsromvIiGqXcxT09zfIM1Pclhegt7Kdvb_XMtm0ig0dXpOa-iBesPyP1Lz0nY6dc5aUKBTLU_kkwfaqWzXM5JB89XBrca4HxwxFJO3wysB4PIzl2Gi1uJnMQAqT_WxT5v1J3zXmhj1bWbNJ3AtPFSP9_RIzj97538DqGSbVZ08ldLZholk"/><div class="flex flex-col"><div class="flex items-center gap-2"><span class="font-headline font-bold text-base text-on-surface tracking-tight">UnSubbed</span><span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-primary-container text-on-primary-container font-medium">x402 Protocol</span></div><div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-primary"></span><span class="text-[11px] text-on-surface-variant font-label tracking-wide uppercase">Stellar Network</span></div></div></div><nav class="hidden xl:flex items-center gap-1 ml-4" data-active-classes="bg-primary-container text-on-primary-container font-semibold rounded-lg"><a class="px-3.5 py-2 text-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high rounded-lg transition-colors" data-path="revistas-academicas" href="#">Revistas Académicas</a><a class="px-3.5 py-2 text-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high rounded-lg transition-colors" data-path="prensa-digital" href="#">Prensa Digital</a><a class="px-3.5 py-2 text-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high rounded-lg transition-colors" data-path="extension-navegador" href="#">Extensión Navegador</a><a class="px-3.5 py-2 text-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high rounded-lg transition-colors" data-path="docs-protocolo-x402" href="#">Docs Protocolo x402</a><a class="px-3.5 py-2 text-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high rounded-lg transition-colors" data-path="transacciones" href="#">Transacciones</a></nav></div><div class="flex items-center gap-3.5"><div class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface-container text-xs font-mono text-on-surface-variant shadow-inner"><span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span></span><span>Stellar Testnet / Soroban</span></div><div class="flex items-center gap-2.5 px-3.5 py-1.5 rounded-xl bg-surface-container-high/80 text-xs backdrop-blur-md"><span class="material-symbols-outlined text-primary text-[18px]">account_balance_wallet</span><div class="flex flex-col text-right"><span class="font-mono font-medium text-on-surface tracking-tight">GB6X...402A</span><span class="text-[10px] font-mono text-secondary font-semibold">24.85 USDC</span></div></div><button class="hidden md:flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-primary-container text-on-primary-container text-xs font-medium hover:bg-primary hover:text-on-primary transition-all" type="button"><span class="material-symbols-outlined text-[16px]">extension</span><span>Demo Extensión</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="w-full pt-20 bg-background flex-1"><div class="flex flex-col w-full">
+<!-- Subtle Ambient Glow Orbs -->
+<div class="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 pb-20">
+<div class="absolute -top-16 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl pointer-events-none -z-10"></div>
+<div class="absolute top-1/2 right-8 w-80 h-80 bg-tertiary/10 rounded-full blur-3xl pointer-events-none -z-10"></div>
+<!-- Layout Grid: 70% Paper Viewer / 30% Protocol & Wallet Inspector -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+<!-- ========================================================= -->
+<!-- MAIN COLUMN: Academic Paper Viewer (col-span-8)           -->
+<!-- ========================================================= -->
+<div class="lg:col-span-8 flex flex-col space-y-6">
+<!-- Top Context Bar & Metadata Badges -->
+<div class="p-5 rounded-xl bg-surface-container/60 backdrop-blur-md shadow-md space-y-4">
+<div class="flex flex-wrap items-center justify-between gap-3 text-xs">
+<!-- Breadcrumbs -->
+<nav class="flex items-center gap-1.5 text-on-surface-variant font-mono">
+<span class="hover:text-primary transition-colors cursor-pointer">UNAM Repositorio</span>
+<span class="material-symbols-outlined text-[12px]">chevron_right</span>
+<span class="hover:text-primary transition-colors cursor-pointer">Revistas Científicas</span>
+<span class="material-symbols-outlined text-[12px]">chevron_right</span>
+<span class="text-primary font-medium">Nanotecnología</span>
+</nav>
+<!-- Quick Document Utility Actions -->
+<div class="flex items-center gap-2">
+<button class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-surface-container-high hover:bg-surface-container-highest text-on-surface-variant hover:text-on-surface text-xs font-mono transition-colors" type="button">
+<span class="material-symbols-outlined text-[14px]">format_quote</span>
+<span>APA 7</span>
+</button>
+<button class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-surface-container-high hover:bg-surface-container-highest text-on-surface-variant hover:text-on-surface text-xs font-mono transition-colors" type="button">
+<span class="material-symbols-outlined text-[14px]">code</span>
+<span>BibTeX</span>
+</button>
+<button class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-surface-container-high hover:bg-surface-container-highest text-on-surface-variant hover:text-on-surface text-xs transition-colors" title="Copiar DOI Permalink" type="button">
+<span class="material-symbols-outlined text-[14px]">share</span>
+</button>
+</div>
+</div>
+<!-- Badges Rack -->
+<div class="flex flex-wrap items-center gap-2 pt-1">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-surface-container-highest text-on-surface text-[11px] font-medium tracking-wide">
+<span class="material-symbols-outlined text-[13px] text-primary">verified</span>
+              Peer Reviewed (Doble Ciego)
+            </span>
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-primary-container text-on-primary-container text-[11px] font-mono font-medium shadow-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+              Acceso x402 Habilitado · 0.05 USDC
+            </span>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-surface-container-low text-on-surface-variant text-[11px] font-mono">
+<span class="material-symbols-outlined text-[13px] text-tertiary">memory</span>
+              Soroban Contract: #C9...4F2
+            </span>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-surface-container-low text-secondary text-[11px] font-mono ml-auto">
+<span class="material-symbols-outlined text-[13px]">analytics</span>
+              34 Citaciones
+            </span>
+</div>
+</div>
+<!-- Academic Article Container -->
+<article class="relative rounded-2xl bg-surface-container/70 backdrop-blur-xl shadow-xl overflow-hidden p-6 sm:p-10">
+<!-- Publisher Watermark & Header -->
+<div class="flex items-start justify-between gap-4 pb-6">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center text-primary font-mono font-bold text-xs">
+                UNAM
+              </div>
+<div>
+<p class="text-xs font-semibold text-secondary uppercase tracking-wider">
+                  Revista Mexicana de Física & Biotecnología
+                </p>
+<p class="text-[11px] text-on-surface-variant font-mono">
+                  Instituto de Investigaciones en Materiales • Vol. 41, No. 2
+                </p>
+</div>
+</div>
+<div class="text-right text-[11px] font-mono text-on-surface-variant hidden sm:block">
+<p>Publicado: Marzo 2025</p>
+<p class="text-primary hover:underline cursor-pointer">DOI: 10.1016/j.unam.rmfb.2025.04.102</p>
+</div>
+</div>
+<!-- Title & Authors -->
+<div class="space-y-4">
+<h1 class="font-headline font-bold text-2xl sm:text-3xl text-on-surface tracking-tight leading-snug">
+              Síntesis y Caracterización de Nanomateriales Bidimensionales para Captura de Carbono Atmosférico
+            </h1>
+<div class="flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs text-on-surface-variant pt-1">
+<span class="font-medium text-on-surface flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-primary">school</span>
+                Dr. Alejandro Morales-Vance
+              </span>
+<span class="text-outline-variant">•</span>
+<span class="font-medium text-on-surface flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-primary">school</span>
+                Dra. Sofía H. Cárdenas
+              </span>
+<span class="text-outline-variant">•</span>
+<span class="text-on-surface-variant font-mono text-[11px]">UNAM / CONAHCYT</span>
+</div>
+</div>
+<!-- Abstract Section -->
+<div class="mt-8 p-5 sm:p-6 rounded-xl bg-surface-container-high/50 shadow-inner space-y-3">
+<div class="flex items-center justify-between">
+<span class="text-xs font-mono font-semibold uppercase tracking-widest text-primary flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]">menu_book</span>
+                Resumen / Abstract
+              </span>
+<span class="text-[11px] font-mono text-on-surface-variant">Acceso Abierto Parcial</span>
+</div>
+<p class="text-sm leading-relaxed text-on-surface text-justify">
+              Este trabajo presenta una ruta de síntesis verde escalable para membranas compuestas basadas en 
+              <span class="text-primary font-medium">MXenes funcionalizados (Ti₃C₂Tₓ)</span> y grafeno nanoporoso tridimensional. 
+              Evaluamos la capacidad de fisisorción y quimisorción de CO₂ atmosférico a presiones sub-barométricas (0.1–1.0 bar). 
+              Los resultados demuestran una selectividad CO₂/N₂ récord de 82.4 con una capacidad ultra-estable de retención de 
+              <span class="font-mono text-primary">6.42 mmol·g⁻¹</span> tras 2,500 ciclos continuos de adsorción-desorción térmica.
+              Estos hallazgos ofrecen un paradigma termodinámicamente favorable para la captura directa de aire (DAC) modular y descentralizada.
+            </p>
+<div class="pt-2 flex flex-wrap items-center gap-2">
+<span class="text-xs text-on-surface-variant font-medium">Palabras clave:</span>
+<span class="px-2 py-0.5 rounded bg-surface-container text-xs font-mono text-secondary">Nanomateriales 2D</span>
+<span class="px-2 py-0.5 rounded bg-surface-container text-xs font-mono text-secondary">Captura de Carbono</span>
+<span class="px-2 py-0.5 rounded bg-surface-container text-xs font-mono text-secondary">Soroban Smart Contract</span>
+<span class="px-2 py-0.5 rounded bg-surface-container text-xs font-mono text-secondary">Stellar Micropayments</span>
+</div>
+</div>
+<!-- Section 1: Readable Opening Paragraphs -->
+<div class="mt-8 space-y-4 text-sm leading-relaxed text-on-surface">
+<h2 class="font-headline font-semibold text-base text-primary uppercase tracking-wide flex items-center gap-2">
+<span>1. Introducción y Metodología Experimental</span>
+</h2>
+<p class="text-justify text-on-surface-variant">
+              La concentración antropogénica de dióxido de carbono ha superado los 424 ppm, acelerando la urgencia por tecnologías de captura que operen con una penalización energética significativamente menor que los procesos convencionales basados en aminas líquidas. Los materiales bidimensionales ofrecen densidades volumétricas de sitios activos inigualables debido a su relación superficie-volumen cuasi-infinita.
+            </p>
+<p class="text-justify text-on-surface-variant">
+              En este experimento, preparamos precursores MAX phase (Ti₃AlC₂) purificados mediante grabado electroquímico suave con soluciones de LiF/HCl al 9M a 38 °C durante 72 horas. La intercalación subsiguiente con ultrasonido pulsado de baja frecuencia aislada arrojó láminas monocapa uniformes con diámetros medios de 1.8 μm y un espesor atómico verificado por microscopía AFM...
+            </p>
+<!-- Figure Preview Image in paper -->
+<div class="my-6 rounded-xl overflow-hidden bg-surface-container-high p-4 space-y-2">
+<div class="w-full h-48 rounded-lg overflow-hidden relative">
+<img class="w-full h-full object-cover" data-alt="Microscopy atomic force visualization of 2D MXene nanosheet crystal lattices glowing in ice blue and electric cyan tones with molecular adsorption data points against a dark research laboratory background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC0ObjVda3hMXEuYVqx0Qlqu_vQxwFZgDA1uLo-vOvGDdSIdbDdbIunu24o_5oHphZWZUl1xzL34rICUJGlhH6FhzGBdX6wu9gTUKVqx5cCskOt2O413Vf_dYisZM5ExFUTzLg70InOvOzofTP25EUV3oHIxid_hsaQKFPG3JdE4EYEf_JcaEZ7BJy-jtNc6aRbvqHy7j8IWGhZL90mNBLgIarodtZPa-0Q3hGuX1o_5OhbO6O2vQmTkg"/>
+<div class="absolute bottom-2 left-2 px-2.5 py-1 rounded bg-surface-dim/80 backdrop-blur text-[10px] font-mono text-primary">
+                  Figura 1. Micrografía HR-TEM y distribución de poros activos
+                </div>
+</div>
+<p class="text-[11px] text-on-surface-variant font-mono text-center">
+                Fig 1A: Muestra la orientación interfacial de las láminas tras el recocido a 450 °C bajo atmósfera inerte.
+              </p>
+</div>
+</div>
+<!-- ======================================================== -->
+<!-- BLUR & FADEOUT ZONE (Simulation of 14 locked pages)      -->
+<!-- ======================================================== -->
+<div class="relative mt-4">
+<!-- Simulated background blurred content -->
+<div class="select-none pointer-events-none filter blur-md opacity-40 space-y-5 text-justify text-sm">
+<h3 class="font-headline font-semibold text-base text-primary">2. Modelado de Difusión Knudsen y Adsorción Multicapa</h3>
+<p>
+                La isoterma de adsorción se correlaciona con la extensión de BET modificada por el modelo de Guggenheim-Anderson-de Boer (GAB). Las constantes cinéticas derivadas reflejan una entalpía de fisisorción calculada en ΔH = -28.4 kJ/mol, garantizando regeneración térmica pasiva con calor residual industrial a 65 °C...
+              </p>
+<div class="h-28 bg-surface-container-high/50 rounded-lg flex items-center justify-center font-mono text-xs text-outline">
+                [DATOS EXPERIMENTALES OCULTOS: TABLA 4, ECUACIONES 12-28 Y ESPECTROS RAMAN]
+              </div>
+<h3 class="font-headline font-semibold text-base text-primary">3. Eficiencia Energética y Análisis de Ciclo de Vida</h3>
+<p>
+                Al comparar con zeolitas sintéticas 13X y marcos metal-orgánicos (MOF-74), nuestra estructura basada en Ti₃C₂Tₓ demostró un consumo de energía específico de regeneración de tan solo 1.12 GJ por tonelada métrica de CO₂ puro recuperado...
+              </p>
+<p>
+                Asimismo, la estabilidad hidrolítica en condiciones de humedad relativa del 85% fue monitorizada mediante espectroscopía fotoelectrónica de rayos X (XPS) durante 180 días consecutivos sin evidenciar oxidación a TiO₂...
+              </p>
+</div>
+<!-- Gradient Scrim mask fading downwards -->
+<div class="absolute inset-0 bg-gradient-to-b from-transparent via-surface-container/70 to-surface-container pointer-events-none"></div>
+<!-- ====================================================== -->
+<!-- FLOATING GLASSMORPHISM PAYWALL CARD (Glacier Theme)    -->
+<!-- ====================================================== -->
+<div class="relative -mt-40 z-20 mx-auto max-w-xl p-6 sm:p-8 rounded-2xl bg-surface-dim/85 backdrop-blur-2xl shadow-[0_0_40px_rgba(125,211,252,0.15)] flex flex-col space-y-6 text-center">
+<!-- Lock Header & Status -->
+<div class="flex flex-col items-center space-y-2">
+<div class="relative">
+<div class="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center text-primary shadow-inner">
+<span class="material-symbols-outlined text-[32px]">lock_open</span>
+</div>
+<span class="absolute -top-1 -right-1 flex h-3 w-3">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-3 w-3 bg-primary"></span>
+</span>
+</div>
+<div class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-primary-container/80 text-on-primary-container text-xs font-mono font-semibold">
+<span class="material-symbols-outlined text-[14px]">http</span>
+                  HTTP 402: Payment Required
+                </div>
+<h3 class="font-headline font-bold text-xl sm:text-2xl text-on-surface tracking-tight pt-1">
+                  Desbloquea el artículo completo por solo <span class="text-primary font-mono">0.05 USDC</span>
+</h3>
+<p class="text-xs text-on-surface-variant max-w-md">
+                  Acceso perpetuo al paper, datos brutos de laboratorio suplementarios (CSV/XLSX) y código del experimento.
+                </p>
+</div>
+<!-- Comparison Matrix -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-left text-xs">
+<div class="p-3.5 rounded-xl bg-surface-container-high/60 flex flex-col justify-between space-y-2">
+<div class="flex items-center gap-1.5 text-error font-medium">
+<span class="material-symbols-outlined text-[16px]">cancel</span>
+<span>Editorial Tradicional</span>
+</div>
+<p class="text-on-surface-variant text-[11px] leading-relaxed">
+                    Suscripción de <span class="text-on-surface font-semibold">$15.00 USD/mes</span> obligatoria para leer 1 sola referencia. Renovación automática y muros de registro.
+                  </p>
+<div class="text-[10px] text-error font-mono">Ineficiente para investigadores</div>
+</div>
+<div class="p-3.5 rounded-xl bg-primary-container/30 flex flex-col justify-between space-y-2 shadow-sm">
+<div class="flex items-center gap-1.5 text-primary font-semibold">
+<span class="material-symbols-outlined text-[16px]">check_circle</span>
+<span>UnSubbed x402 Protocol</span>
+</div>
+<p class="text-on-surface text-[11px] leading-relaxed">
+<span class="text-primary font-bold font-mono">0.05 USDC (~$1.00 MXN)</span> por lectura. Sin cuentas, sin tarjetas de crédito, sin suscripciones recurrentes.
+                  </p>
+<div class="text-[10px] text-primary font-mono">Liquidación directa en Stellar</div>
+</div>
+</div>
+<!-- CTA Button with Freighter Wallet -->
+<div class="space-y-3 pt-2">
+<button class="w-full py-3.5 px-6 rounded-xl bg-primary hover:bg-primary-fixed-dim text-on-primary font-headline font-semibold text-sm transition-all transform active:scale-[0.99] flex items-center justify-center gap-2.5 shadow-lg shadow-primary/20" id="btn-unlock-paper" type="button">
+<span class="material-symbols-outlined text-[20px]">account_balance_wallet</span>
+<span>Autorizar y Desbloquear (0.05 USDC)</span>
+<span class="text-xs font-mono px-2 py-0.5 rounded bg-on-primary/10">Freighter</span>
+</button>
+<div class="flex items-center justify-center gap-2 text-[11px] font-mono text-on-surface-variant">
+<span class="material-symbols-outlined text-[14px] text-primary">bolt</span>
+<span>Firma en 1-clic · Liquidación en 3.2s en Stellar Ledger</span>
+</div>
+</div>
+<!-- Split Royalty Real-Time Breakdown -->
+<div class="p-4 rounded-xl bg-surface-container/90 text-left space-y-2.5 text-xs">
+<div class="flex items-center justify-between text-on-surface-variant font-mono text-[11px]">
+<span>Distribución del Micropago</span>
+<span class="text-primary">100% On-Chain Verificable</span>
+</div>
+<!-- Mini Split Bar Visual -->
+<div class="w-full h-2 rounded-full bg-surface-container-highest overflow-hidden flex">
+<div class="bg-primary h-full" style="width: 85%" title="85% Investigadores UNAM"></div>
+<div class="bg-secondary h-full" style="width: 10%" title="10% Fondo Editorial UNAM"></div>
+<div class="bg-tertiary h-full" style="width: 5%" title="5% x402 Protocol"></div>
+</div>
+<div class="grid grid-cols-3 gap-2 text-[10px] font-mono pt-1">
+<div class="flex flex-col">
+<span class="text-primary font-semibold">85% ($0.0425)</span>
+<span class="text-on-surface-variant truncate">Investigadores UNAM</span>
+</div>
+<div class="flex flex-col">
+<span class="text-secondary font-semibold">10% ($0.0050)</span>
+<span class="text-on-surface-variant truncate">Biblioteca / Editorial</span>
+</div>
+<div class="flex flex-col">
+<span class="text-tertiary font-semibold">5% ($0.0025)</span>
+<span class="text-on-surface-variant truncate">Validadores Stellar</span>
+</div>
+</div>
+</div>
+<!-- Auto-streaming Toggle -->
+<div class="flex items-center justify-between px-3 py-2.5 rounded-lg bg-surface-container-high/40 text-left">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[18px]">motion_photos_auto</span>
+<div class="flex flex-col">
+<span class="text-xs font-medium text-on-surface">Streaming micropayment</span>
+<span class="text-[10px] text-on-surface-variant">Auto-pagar artículos < 0.10 USDC sin aviso</span>
+</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" id="autopay-toggle" type="checkbox"/>
+<div class="w-9 h-5 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-on-surface after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+</div>
+</div>
+</article>
+</div>
+<!-- ========================================================= -->
+<!-- SIDEBAR: x402 Protocol & Freighter Inspector (col-span-4) -->
+<!-- ========================================================= -->
+<div class="lg:col-span-4 flex flex-col space-y-6">
+<!-- Wallet Status Card -->
+<div class="p-6 rounded-2xl bg-surface-container/70 backdrop-blur-xl shadow-lg space-y-5">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">account_balance_wallet</span>
+</div>
+<div>
+<h2 class="font-headline font-semibold text-sm text-on-surface">Freighter Wallet</h2>
+<span class="text-[10px] font-mono text-secondary">Stellar Testnet / Soroban</span>
+</div>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-primary-container text-on-primary-container text-[10px] font-mono font-medium flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+              Conectada
+            </span>
+</div>
+<!-- Balance Box -->
+<div class="p-4 rounded-xl bg-surface-container-high/60 space-y-1">
+<span class="text-[11px] text-on-surface-variant font-mono">Saldo Disponible USDC</span>
+<div class="flex items-baseline justify-between">
+<span class="font-mono text-2xl font-bold text-on-surface" id="wallet-balance">24.85</span>
+<span class="text-xs font-mono text-primary font-semibold">USDC (Circle)</span>
+</div>
+<div class="flex items-center justify-between text-[10px] font-mono text-on-surface-variant pt-2">
+<span>Cuenta Pública:</span>
+<span class="text-on-surface font-semibold hover:text-primary cursor-pointer">GB6X...402A</span>
+</div>
+</div>
+<!-- Session state badge -->
+<div class="flex items-start gap-2 p-3 rounded-lg bg-surface-container-low text-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-primary text-[18px] shrink-0 mt-0.5">verified_user</span>
+<p class="text-[11px] leading-relaxed">
+<span class="text-on-surface font-medium">Sesión Pre-autorizada:</span> Límite instantáneo de 1.00 USDC por sesión de investigación para navegación continua sin prompts de firma.
+            </p>
+</div>
+</div>
+<!-- Live Protocol Inspector / Soroban Transaction Engine -->
+<div class="p-6 rounded-2xl bg-surface-container/70 backdrop-blur-xl shadow-lg space-y-5">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">terminal</span>
+<h2 class="font-headline font-semibold text-sm text-on-surface">Protocolo x402 Live Inspector</h2>
+</div>
+<span class="text-[10px] font-mono text-on-surface-variant">RFC 9110 §15.5.3</span>
+</div>
+<!-- Transaction Stepper -->
+<div class="space-y-4 text-xs font-mono">
+<!-- Step 1 -->
+<div class="flex items-start gap-3">
+<div class="w-6 h-6 rounded-full bg-primary/20 text-primary flex items-center justify-center text-[12px] shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[14px]">check</span>
+</div>
+<div class="flex flex-col space-y-0.5">
+<div class="flex items-center gap-2">
+<span class="font-semibold text-on-surface">1. Handshake HTTP 402</span>
+<span class="text-[10px] text-secondary">Recibido</span>
+</div>
+<p class="text-[11px] text-on-surface-variant">
+                  Servidor UNAM devolvió cabecera <code class="text-primary font-mono">402 Payment Required</code> con metadata Soroban contract.
+                </p>
+</div>
+</div>
+<!-- Step 2 -->
+<div class="flex items-start gap-3">
+<div class="w-6 h-6 rounded-full bg-primary/20 text-primary flex items-center justify-center text-[12px] shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[14px]">check</span>
+</div>
+<div class="flex flex-col space-y-0.5">
+<div class="flex items-center gap-2">
+<span class="font-semibold text-on-surface">2. Compilación Operación Soroban</span>
+<span class="text-[10px] text-secondary">Listo</span>
+</div>
+<p class="text-[11px] text-on-surface-variant">
+                  Fn: <code class="text-on-surface font-mono">pay_and_grant_access(0.05, "10.1016/unam...")</code>
+</p>
+</div>
+</div>
+<!-- Step 3 -->
+<div class="flex items-start gap-3" id="step-3-container">
+<div class="w-6 h-6 rounded-full bg-surface-container-highest text-on-surface-variant flex items-center justify-center text-[12px] shrink-0 mt-0.5" id="step-3-icon">
+<span class="material-symbols-outlined text-[14px]">hourglass_empty</span>
+</div>
+<div class="flex flex-col space-y-0.5">
+<div class="flex items-center gap-2">
+<span class="font-semibold text-on-surface">3. Consenso Stellar & Token JWT</span>
+<span class="text-[10px] text-on-surface-variant" id="step-3-status">Pendiente</span>
+</div>
+<p class="text-[11px] text-on-surface-variant">
+                  Generación de token de lectura autenticado tras confirmación de ledger.
+                </p>
+</div>
+</div>
+</div>
+<!-- Quick Interactive Simulation Button -->
+<div class="pt-2">
+<button class="w-full py-2.5 px-4 rounded-xl bg-surface-container-high hover:bg-surface-container-highest text-primary font-mono text-xs font-semibold flex items-center justify-center gap-2 transition-colors" id="btn-quick-simulate" type="button">
+<span class="material-symbols-outlined text-[16px]">play_circle</span>
+<span>Simular Desbloqueo Inmediato</span>
+</button>
+</div>
+</div>
+<!-- Student Savings & Impact Dashboard -->
+<div class="p-6 rounded-2xl bg-surface-container/70 backdrop-blur-xl shadow-lg space-y-4">
+<div class="flex items-center justify-between">
+<h2 class="font-headline font-semibold text-sm text-on-surface">Impacto Económico Estudiantil</h2>
+<span class="text-primary material-symbols-outlined text-[18px]">trending_up</span>
+</div>
+<div class="grid grid-cols-2 gap-3">
+<div class="p-3.5 rounded-xl bg-surface-container-high/60">
+<span class="text-[10px] uppercase font-mono text-on-surface-variant tracking-wider">Ahorro Este Mes</span>
+<p class="text-xl font-bold font-mono text-primary mt-1">$89.50</p>
+<span class="text-[10px] text-secondary">vs. suscripciones fijas</span>
+</div>
+<div class="p-3.5 rounded-xl bg-surface-container-high/60">
+<span class="text-[10px] uppercase font-mono text-on-surface-variant tracking-wider">Papers Consultados</span>
+<p class="text-xl font-bold font-mono text-on-surface mt-1">18 papers</p>
+<span class="text-[10px] font-mono text-primary">Gasto: 0.90 USDC</span>
+</div>
+</div>
+<!-- Inline SVG Sparkline: Monthly Paper Reading vs Cost -->
+<div class="p-3.5 rounded-xl bg-surface-container-high/40 space-y-2">
+<div class="flex items-center justify-between text-[11px] font-mono text-on-surface-variant">
+<span>Eficiencia por consulta (Centavos de USDC)</span>
+<span class="text-primary font-semibold">Media: 0.05 USDC</span>
+</div>
+<svg class="w-full h-12 text-primary" fill="none" preserveaspectratio="none" viewbox="0 0 200 40">
+<path d="M0 35 L25 32 L50 28 L75 30 L100 20 L125 15 L150 22 L175 10 L200 8" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+<path d="M0 35 L25 32 L50 28 L75 30 L100 20 L125 15 L150 22 L175 10 L200 8 L200 40 L0 40 Z" fill="currentColor" fill-opacity="0.08"></path>
+<!-- Marker circles on peaks -->
+<circle cx="100" cy="20" fill="currentColor" r="3"></circle>
+<circle cx="175" cy="10" fill="currentColor" r="3"></circle>
+<circle cx="200" cy="8" fill="currentColor" r="3"></circle>
+</svg>
+</div>
+</div>
+<!-- Test Related Papers Rack -->
+<div class="p-6 rounded-2xl bg-surface-container/70 backdrop-blur-xl shadow-lg space-y-3">
+<div class="flex items-center justify-between">
+<h2 class="font-headline font-semibold text-sm text-on-surface">Artículos Relacionados (x402)</h2>
+<span class="text-[10px] font-mono text-on-surface-variant">3 disponibles</span>
+</div>
+<div class="space-y-2">
+<div class="p-2.5 rounded-xl bg-surface-container-high/40 hover:bg-surface-container-high transition-colors cursor-pointer flex items-center justify-between gap-3">
+<div class="flex flex-col min-w-0">
+<span class="text-xs text-on-surface font-medium truncate">Desalación Solar con Óxido de Grafeno</span>
+<span class="text-[10px] font-mono text-on-surface-variant">UAM Iztapalapa • 2025</span>
+</div>
+<span class="px-2 py-0.5 rounded bg-surface-container text-primary font-mono text-[10px] shrink-0">0.03 USDC</span>
+</div>
+<div class="p-2.5 rounded-xl bg-surface-container-high/40 hover:bg-surface-container-high transition-colors cursor-pointer flex items-center justify-between gap-3">
+<div class="flex flex-col min-w-0">
+<span class="text-xs text-on-surface font-medium truncate">Celdas de Perovskita Cuántica en Clima Tropical</span>
+<span class="text-[10px] font-mono text-on-surface-variant">Cinvestav IPN • 2024</span>
+</div>
+<span class="px-2 py-0.5 rounded bg-surface-container text-primary font-mono text-[10px] shrink-0">0.05 USDC</span>
+</div>
+<div class="p-2.5 rounded-xl bg-surface-container-high/40 hover:bg-surface-container-high transition-colors cursor-pointer flex items-center justify-between gap-3">
+<div class="flex flex-col min-w-0">
+<span class="text-xs text-on-surface font-medium truncate">Baterías de Sodio en Estado Sólido</span>
+<span class="text-[10px] font-mono text-on-surface-variant">Facultad de Química UNAM • 2025</span>
+</div>
+<span class="px-2 py-0.5 rounded bg-surface-container text-primary font-mono text-[10px] shrink-0">0.08 USDC</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Interactive JavaScript for Live Demonstration of x402 Micropayment -->
+<script>
+    (function() {
+      const btnUnlock = document.getElementById('btn-unlock-paper');
+      const btnSimulate = document.getElementById('btn-quick-simulate');
+      const walletBalanceEl = document.getElementById('wallet-balance');
+      const step3Container = document.getElementById('step-3-container');
+      const step3Icon = document.getElementById('step-3-icon');
+      const step3Status = document.getElementById('step-3-status');
+
+      let unlocked = false;
+
+      function triggerUnlock() {
+        if (unlocked) return;
+        
+        // Change button state to processing
+        if (btnUnlock) {
+          btnUnlock.disabled = true;
+          btnUnlock.innerHTML = `
+            <span class="material-symbols-outlined text-[20px] animate-spin">sync</span>
+            <span>Firmando transacción Soroban...</span>
+          `;
+        }
+        if (btnSimulate) {
+          btnSimulate.innerHTML = `<span class="material-symbols-outlined text-[16px] animate-spin">sync</span> Procesando...`;
+        }
+
+        // Advance Step 3 in timeline
+        step3Status.textContent = "Validando en Ledger...";
+        step3Status.className = "text-[10px] text-primary animate-pulse font-bold";
+        step3Icon.className = "w-6 h-6 rounded-full bg-primary/20 text-primary flex items-center justify-center text-[12px] shrink-0 mt-0.5";
+        step3Icon.innerHTML = `<span class="material-symbols-outlined text-[14px] animate-spin">progress_activity</span>`;
+
+        setTimeout(() => {
+          // Success state: Deduct 0.05 USDC from balance
+          let curr = parseFloat(walletBalanceEl.textContent);
+          walletBalanceEl.textContent = (curr - 0.05).toFixed(2);
+
+          // Update timeline status
+          step3Status.textContent = "Completado ✓ (Token JWT Activo)";
+          step3Status.className = "text-[10px] text-primary font-bold";
+          step3Icon.innerHTML = `<span class="material-symbols-outlined text-[14px]">check</span>`;
+
+          // Replace paywall card with success grant state
+          if (btnUnlock) {
+            btnUnlock.className = "w-full py-3.5 px-6 rounded-xl bg-surface-container-high text-primary font-headline font-semibold text-sm flex items-center justify-center gap-2";
+            btnUnlock.innerHTML = `
+              <span class="material-symbols-outlined text-[20px]">task_alt</span>
+              <span>¡Artículo Desbloqueado Exitosamente!</span>
+            `;
+          }
+
+          if (btnSimulate) {
+            btnSimulate.innerHTML = `<span class="material-symbols-outlined text-[16px]">done</span> Acceso Garantizado`;
+            btnSimulate.className = "w-full py-2.5 px-4 rounded-xl bg-surface-container text-primary font-mono text-xs flex items-center justify-center gap-2";
+          }
+
+          unlocked = true;
+        }, 1800);
+      }
+
+      if (btnUnlock) btnUnlock.addEventListener('click', triggerUnlock);
+      if (btnSimulate) btnSimulate.addEventListener('click', triggerUnlock);
+    })();
+  </script>
+</div></main><footer class="w-full bg-surface-container-lowest/90 backdrop-blur-md"><div class="max-w-7xl mx-auto px-6 lg:px-12 py-3 flex flex-wrap items-center justify-between gap-4 text-xs font-mono text-on-surface-variant"><div class="flex items-center gap-3"><span class="flex items-center gap-1.5 text-primary"><span class="material-symbols-outlined text-[14px]">bolt</span>Ledger #51,892,104</span><span class="text-outline-variant">•</span><span>3.2s finality</span><span class="text-outline-variant">•</span><span>Fee: 0.00001 XLM</span></div><div class="flex flex-wrap items-center gap-5 font-sans"><a class="hover:text-primary transition-colors" href="#">UNAM Repositorios</a><a class="hover:text-primary transition-colors" href="#">Redalyc</a><a class="hover:text-primary transition-colors" href="#">ArXiv</a><a class="hover:text-primary transition-colors" href="#">Soroban Contracts</a><a class="hover:text-primary transition-colors" href="#">GitHub</a></div></div></footer></body></html>
