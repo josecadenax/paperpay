@@ -4,6 +4,45 @@ Documento vivo. Si una decisión cambia, se edita aquí en el mismo PR que la im
 
 ---
 
+## 0. Contexto del hackathon (Goya Hack 2026)
+
+Bases: [criptounam.xyz/hackathon](https://criptounam.xyz/hackathon)
+
+| Dato | Valor |
+|---|---|
+| Evento | Goya Hack · Facultad de Ingeniería UNAM · 22 al 25 sep 2026, híbrido |
+| **Deadline** | **Viernes 25 sep, 14:00 hora CDMX** |
+| Entrega | Desde el panel del hacker: **repo + demo + video** |
+| Clausura | Viernes 25 sep, 18:00 |
+| Track objetivo | **Stellar** (con BAF): 1.º $150 · 2.º $100 · 3.º $80 USD + aceleradora Instaward |
+| Otros premios posibles | Pollar: bolsa de $200 para quien lo integre (stretch) |
+
+### ⚠️ Requisito obligatorio de Tangem (cada integrante)
+
+Sin esto no se puede entregar ni optar a premios. Aplica a Dev A y Dev B por separado:
+
+1. Descargar la app de Tangem **solo desde el enlace o QR de la página** (join.tangem.com). Si se instala desde App Store o Google Play no cuenta; si ya estaba instalada, desinstalar y reinstalar desde el enlace.
+2. Crear la wallet (guardar la frase de recuperación).
+3. Activar la tarjeta en línea TangemPay dentro de la app y completar KYC con identificación oficial vigente.
+
+Tangem **no** es la wallet de pago de PaperPay: el flujo x402 requiere firmar auth entries de Soroban, que hoy soportan Freighter (extensión) y otras wallets de la lista oficial de Stellar, no Tangem.
+
+### Cómo califican (4 ejes) y cómo lo atacamos
+
+| Eje | Nuestra respuesta |
+|---|---|
+| Implementación técnica (código, arquitectura, smart contracts) | x402 v2 estándar sobre Soroban, monorepo tipado, contrato de API congelado |
+| Innovación y creatividad | HTTP 402 real en la web académica; mismo endpoint sirve a humanos y a agentes de IA |
+| Impacto social y usabilidad (incluye comunidad UNAM) | Estudiantes UNAM pagan $0.50 por artículo en vez de $30 a $50; 1 clic, sin cuenta |
+| Demo funcional sin fallos + pitch | Wallet de demo precargada, modo `SELF_SETTLE` de respaldo y video grabado |
+
+### Pendiente con la organización
+
+- Confirmar elegibilidad: las bases dicen "abierto a estudiantes de cualquier universidad". Si vamos como CellarTech, confirmar que se permite o registrar el equipo a nombre de los devs.
+- Preguntar si un proyecto puede competir en dos tracks (Stellar + AI).
+
+---
+
 ## 1. Decisiones de arquitectura (ADR resumidos)
 
 ### ADR-01 · Usar x402 estándar con facilitador, no "verificar un hash en Horizon"
@@ -85,72 +124,78 @@ Los tipos `PaperPreview`, `PaperFull` y los códigos de error viven en `packages
 
 ---
 
-## 3. Plan de tareas
+## 3. Plan de tareas (47 h: mié 23 tarde → vie 25 14:00)
 
-Leyenda: 🅰️ Dev A (backend) · 🅱️ Dev B (frontend) · 🤝 ambos
+Leyenda: 🅰️ Dev A (backend) · 🅱️ Dev B (frontend) · 🤝 ambos. Cada tarea es un issue en GitHub; la fecha es la del milestone.
 
-### F0 · Setup y contrato (bloqueante, hacerlo juntos)
-- [ ] 🤝 Monorepo pnpm: `apps/api`, `apps/web`, `packages/shared`
-- [ ] 🤝 Tipos y constantes compartidas (red, USDC, precio, headers)
-- [ ] 🤝 Congelar el contrato de API de la sección 2
-- [ ] 🤝 Crear 2 wallets testnet: tesorería (payTo) y lector de demo; trustline USDC + faucet
-- [ ] 🅰️ Obtener API key del facilitador OpenZeppelin (testnet)
-- [ ] 🤝 `.env.example` en cada app
+| Fase | Cierre | Objetivo |
+|---|---|---|
+| F0 Setup | **Mié 23, 22:00** | Repo corriendo, contrato congelado, wallets listas, Tangem cumplido |
+| F1 Core | **Jue 24, 14:00** | Backend responde 402 y liquida; frontend muestra paywall contra mock |
+| F2 Integración | **Jue 24, 23:00** | Pago real end-to-end desplegado |
+| F3 Demo | **Vie 25, 12:00** | Video, slides, README y entrega (2 h de colchón antes del deadline) |
+| F4 Stretch | Solo si sobra tiempo | Nada de aquí bloquea la entrega |
 
-### F1 · Backend x402 (🅰️)
-- [ ] Express + TS, CORS con headers expuestos (ADR-02)
-- [ ] Catálogo `papers.json` con 3 a 5 artículos open access
-- [ ] `GET /api/papers` y `GET /api/papers/:id` con 402 + `PAYMENT-REQUIRED`
-- [ ] Middleware `@x402/express` + `@x402/stellar` apuntando al facilitador
+### F0 · Setup y contrato (mié 23, 22:00)
+- [ ] 🤝 **Requisito Tangem cumplido por ambos** (app desde el enlace oficial + wallet + TangemPay con KYC)
+- [ ] 🤝 Registrar equipo en el panel de Goya Hack y confirmar elegibilidad / track Stellar
+- [ ] 🤝 Monorepo pnpm: `apps/api`, `apps/web`, `packages/shared` + `.env.example`
+- [ ] 🤝 Tipos, constantes y contrato de API congelados en `packages/shared` (sección 2)
+- [ ] 🤝 Wallets testnet: tesorería (payTo) y lector de demo con trustline USDC + faucet
+- [ ] 🅰️ API key del facilitador OpenZeppelin (testnet)
+
+### F1 · Backend x402 (🅰️, jue 24 14:00)
+- [ ] Express + TS con CORS de headers x402 (ADR-02)
+- [ ] Catálogo `papers.json` con 3 a 5 artículos open access; `GET /api/papers`
+- [ ] `GET /api/papers/:id` con 402 + `PAYMENT-REQUIRED` y solo preview (ADR-03)
+- [ ] Middleware `@x402/express` + `@x402/stellar` con verify/settle vía facilitador
 - [ ] Emisión y validación de JWT (ADR-04)
-- [ ] Logs claros: verify, settle, txHash (para mostrar en el pitch)
-- [ ] Modo `SELF_SETTLE` de respaldo (ADR-01)
-- [ ] Deploy (Render / Railway / Fly)
+- [ ] Deploy del API (Render / Railway / Fly)
 
-### F1 · Frontend (🅱️, en paralelo contra mock)
-- [ ] Next.js + Tailwind, layout tipo "revista científica"
-- [ ] Catálogo de artículos
+### F1 · Frontend (🅱️, jue 24 14:00, en paralelo contra mock)
+- [ ] Next.js + Tailwind: layout "revista científica" + catálogo
 - [ ] Vista de artículo con blur paywall + CTA "Leer por $0.50 USDC"
-- [ ] Conexión Freighter: detectar extensión, `requestAccess`, validar red = Testnet
-- [ ] Mock del API (MSW o route handlers) según el contrato
-- [ ] Deploy (Vercel)
+- [ ] Conexión Freighter: detectar extensión, `requestAccess`, validar red Testnet
+- [ ] Mock del API según el contrato
+- [ ] Deploy en Vercel
 
-### F2 · Integración end-to-end (🤝)
-- [ ] 🅱️ Interceptar 402 → firmar con Freighter (`signAuthEntry`) → reintentar con `PAYMENT-SIGNATURE`
-- [ ] 🅱️ Desbloqueo animado + guardar JWT en `localStorage`
-- [ ] 🅱️ Link al explorer (stellar.expert) con el txHash
-- [ ] 🤝 Pruebas: sin Freighter, red equivocada, sin trustline, sin saldo, firma cancelada, JWT expirado
-- [ ] 🅱️ Mensajes de error humanos para cada caso
+### F2 · Integración end-to-end (jue 24 23:00)
+- [ ] 🅱️ Flujo 402 → firma Freighter (`signAuthEntry`) → reintento con `PAYMENT-SIGNATURE`
+- [ ] 🅱️ Desbloqueo animado + JWT en `localStorage` + link a stellar.expert con el txHash
+- [ ] 🅰️ Modo `SELF_SETTLE` de respaldo (ADR-01)
+- [ ] 🤝 Pruebas de casos de error con mensajes humanos (sin Freighter, red equivocada, sin trustline, sin saldo, firma cancelada, JWT expirado)
 
-### F3 · Demo y pitch (🤝)
-- [ ] Guía o botón "Preparar wallet de demo" (friendbot + trustline + faucet)
-- [ ] Dashboard mínimo de editorial: ventas, ingresos, fee PaperPay
-- [ ] Video de respaldo del flujo completo (por si falla la red en vivo)
-- [ ] Slides: problema → demo → modelo de negocio → roadmap
-- [ ] README final con capturas y URLs desplegadas
+### F3 · Demo y entrega (vie 25 12:00)
+- [ ] 🅱️ Pantalla estática de editorial: ventas, ingresos, fee PaperPay (sin backend)
+- [ ] 🤝 Wallet de demo precargada + guía de preparación en el README
+- [ ] 🤝 Video de demo (flujo completo + txHash en explorer)
+- [ ] 🤝 Slides del pitch: problema → demo → impacto UNAM → modelo de negocio → roadmap
+- [ ] 🤝 README final con capturas, URLs y cómo correrlo
+- [ ] 🤝 **Entregar en el panel antes del viernes 14:00** (repo + demo + video)
 
-### F4 · Stretch
+### F4 · Stretch (solo si sobra tiempo; si no, van como roadmap en slides)
+- [ ] Integrar Pollar smart wallets como segunda opción de pago (bolsa de $200)
+- [ ] Agentes de IA pagando vía x402 (mismo endpoint, sin UI)
 - [ ] Contrato Soroban splitter 98/2 (ADR-06)
 - [ ] Descarga de PDF protegido
-- [ ] Soporte a agentes de IA pagando vía x402 (mismo endpoint, sin UI)
 
 ---
 
 ## 4. Flujo de trabajo en GitHub
 
-**Tablero:** GitHub Projects (tabla + board) con columnas `Todo · In progress · In review · Done`. Cada tarea de la sección 3 es un **issue**.
+**Tablero:** [GitHub Project "PaperPay · Goya Hack"](https://github.com/users/josecadenax/projects/2) con vista board `Todo · In progress · Done`. Cada tarea de la sección 3 es un **issue**.
 
-- **Labels:** `backend`, `frontend`, `shared`, `infra`, `demo`, `blocker`
-- **Milestones:** `F0 Setup`, `F1 Core`, `F2 Integración`, `F3 Demo`, `F4 Stretch`
-- **Asignación:** cada issue tiene un solo responsable.
+- **Labels:** `backend`, `frontend`, `shared`, `infra`, `demo`, `blocker`, `stretch`
+- **Milestones:** `F0 Setup`, `F1 Core`, `F2 Integración`, `F3 Demo`, `F4 Stretch` (con fecha)
+- **Asignación:** cada issue tiene un solo responsable. Quien toma un issue se lo asigna y lo mueve a In progress.
 
 **Ramas:**
-- `main` protegida: solo entra por PR, con 1 aprobación del otro dev.
+- `main` protegida: solo entra por PR, con 1 aprobación del otro dev (en F2 y F3 se vale auto-merge si el otro está ocupado, avisando).
 - Nombres: `feat/api-x402-middleware`, `feat/web-freighter-connect`, `fix/...`, `docs/...`
 - PR pequeños; en la descripción `Closes #<issue>` para que el tablero se mueva solo.
 - Cambios a `packages/shared` o al contrato de API: avisar al otro dev antes de hacer merge.
 
-**Sincronía:** check-in corto al inicio y al final de cada bloque de trabajo: qué terminé, qué sigue, qué me bloquea.
+**Sincronía:** check-in de 5 minutos al cierre de cada fase: qué terminé, qué sigue, qué me bloquea.
 
 ---
 
@@ -158,22 +203,24 @@ Leyenda: 🅰️ Dev A (backend) · 🅱️ Dev B (frontend) · 🤝 ambos
 
 | Riesgo | Mitigación |
 |---|---|
+| No cumplir el requisito Tangem = descalificación | Primera tarea de F0, hacerlo hoy |
 | Facilitador caído o lento en la demo | Modo `SELF_SETTLE` + video de respaldo |
-| Onboarding de wallet (trustline, faucet) confunde al jurado | Wallet de demo pre-cargada + botón de preparación |
-| Headers bloqueados por CORS | ADR-02, probarlo en F1 con dominios reales, no solo localhost |
+| Onboarding de wallet (trustline, faucet) confunde al jurado | Wallet de demo precargada |
+| Headers bloqueados por CORS | ADR-02, probar con dominios desplegados, no solo localhost |
 | Contenido completo filtrado al cliente | ADR-03, revisar respuestas 402 en DevTools |
 | Cambios de contrato rompen al otro dev | Tipos en `packages/shared` + aviso previo |
 | Freighter móvil no soporta x402 | Demo en escritorio con la extensión |
+| Entregar tarde | Milestone F3 cierra a las 12:00, 2 h antes del deadline |
 
 ---
 
 ## 6. Preguntas abiertas
 
-1. ¿Fecha y hora límite de entrega del hackathon?
-2. ¿"Lectura única" = acceso por 24 h o acceso permanente para esa wallet?
-3. ¿Facilitador principal: OpenZeppelin o Coinbase?
-4. ¿Se intenta el splitter on-chain (F4) o se queda off-chain?
-5. ¿Nombres de Dev A y Dev B para asignar issues?
+1. ~~¿Fecha límite?~~ Viernes 25 sep, 14:00 CDMX.
+2. ¿"Lectura única" = acceso por 24 h o permanente para esa wallet? (propuesta: 24 h)
+3. ¿Facilitador principal: OpenZeppelin o Coinbase? (propuesta: OpenZeppelin)
+4. ¿Elegibilidad como empresa y posibilidad de doble track? (preguntar en el tablón de dudas)
+5. ¿Nombres/usuarios de GitHub de Dev A y Dev B para asignar issues?
 
 ---
 
