@@ -2,7 +2,7 @@
 
 > Paga $0.50 USDC por leer un artículo científico. Un clic, sin cuenta, liquidado en Stellar en menos de 5 segundos.
 
-Proyecto de **CellarTech.net** para **Goya Hack 2026** ([criptounam.xyz](https://criptounam.xyz/hackathon)), Facultad de Ingeniería UNAM · Track **Stellar**.
+Propuesta de dos exalumnos de la Facultad de Ingeniería de la UNAM para **Goya Hack 2026** ([criptounam.xyz](https://criptounam.xyz/hackathon)) · Track **Stellar**.
 
 > 📅 Entrega: **viernes 25 sep 2026, 14:00 CDMX** · Tablero: [GitHub Project](https://github.com/users/josecadenax/projects/2) · Plan: [docs/PLAN.md](docs/PLAN.md)
 

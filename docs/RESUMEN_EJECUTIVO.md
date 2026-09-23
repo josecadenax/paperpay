@@ -2,7 +2,7 @@
 
 _Actualizado: 23 sep 2026 · Versión editable para comentarios: [Claude Docs](https://claude.ai/code/artifact/764894f4-f397-4a1f-b9ad-1a4472fb7118)_
 
-PaperPay permite leer un artículo científico pagando $0.50 USDC en un clic, sin crear cuenta, usando el estándar HTTP 402 y el protocolo x402 sobre Stellar. Lo presenta CellarTech.net en el track Stellar de Goya Hack 2026 (Facultad de Ingeniería, UNAM).
+PaperPay permite leer un artículo científico pagando $0.50 USDC en un clic, sin crear cuenta, usando el estándar HTTP 402 y el protocolo x402 sobre Stellar. Es una propuesta de dos exalumnos de la Facultad de Ingeniería de la UNAM para el track Stellar de Goya Hack 2026.
 
 ## Problema y oportunidad
 
@@ -74,7 +74,7 @@ Stack: Next.js y Tailwind en el frontend, Express y TypeScript en el backend, co
 
 ## Equipo y plan de ejecución
 
-Dos desarrolladores de CellarTech trabajan en paralelo sobre un contrato de API compartido, con 31 tareas en [GitHub Projects](https://github.com/users/josecadenax/projects/2).
+Dos exalumnos de la Facultad trabajan en paralelo sobre un contrato de API compartido, con 31 tareas en [GitHub Projects](https://github.com/users/josecadenax/projects/2).
 
 | Fase | Cierre (CDMX) | Resultado |
 | --- | --- | --- |
@@ -102,7 +102,7 @@ Dos desarrolladores de CellarTech trabajan en paralelo sobre un contrato de API 
 2. ¿El jurado de Stellar valora más un contrato Soroban propio (el reparto 98/2) que el uso de x402 con facilitador?
 3. ¿Qué facilitador recomiendan para la demo: OpenZeppelin o Coinbase?
 4. ¿La historia de impacto para la comunidad UNAM se entiende, o hay un ángulo más fuerte?
-5. ¿Podemos participar como empresa (CellarTech) y competir en más de un track?
+5. ¿Podemos participar como exalumnos y competir en más de un track?
 6. ¿Qué esperan ver en el pitch para el acceso a la aceleradora Instaward?
 
 ## Fuentes

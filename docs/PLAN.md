@@ -38,7 +38,7 @@ Tangem **no** es la wallet de pago de PaperPay: el flujo x402 requiere firmar au
 
 ### Pendiente con la organización
 
-- Confirmar elegibilidad: las bases dicen "abierto a estudiantes de cualquier universidad". Si vamos como CellarTech, confirmar que se permite o registrar el equipo a nombre de los devs.
+- Confirmar elegibilidad: las bases dicen "abierto a estudiantes de cualquier universidad". Confirmar que pueden participar exalumnos de la Facultad.
 - Preguntar si un proyecto puede competir en dos tracks (Stellar + AI).
 
 ---
