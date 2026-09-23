@@ -43,7 +43,7 @@ El servidor responde con el código estándar HTTP 402 "Payment Required". Un fa
 PaperPay usa estándares abiertos de la web en lugar de una pasarela propia, y eso lo hace reutilizable por cualquier revista.
 
 - **HTTP 402 + x402:** es el estándar abierto de pagos por solicitud. El mismo endpoint sirve a personas desde el navegador y a agentes de IA que compran artículos sin intervención humana.
-- **Stellar:** comisión de red de alrededor de $0.00001 y liquidación en unos 5 segundos. USDC es nativo en la red.
+- **Stellar:** comisión de red de alrededor de $0.0005 por pago (0.1% de una lectura) y liquidación en unos 5 segundos. USDC es nativo en la red.
 - **Sin cuentas:** la wallet es la identidad y el pago es el acceso.
 - **Impacto UNAM:** un estudiante paga $0.50 por el artículo que necesita, en vez de $30 a $50 o de depender de la suscripción de su biblioteca.
 
@@ -57,6 +57,37 @@ PaperPay gana con un porcentaje de cada lectura cobrada y con licencias para qui
 | SaaS / Dashboard | Licencia para publicar artículos, fijar precios y ver ingresos | Revistas independientes y universidades |
 
 En el MVP el pago llega a una tesorería de PaperPay y el reparto con la editorial se lleva fuera de la red. El roadmap incluye un contrato en Soroban que reparta 98% a la editorial y 2% a PaperPay en la misma transacción.
+
+### Costos y margen por lectura (medidos el 23 sep 2026)
+
+Simulación de una transferencia real de 0.50 USDC (SAC) en Stellar mainnet: **~24,300 stroops = 0.0024 XLM ≈ $0.0005 USD** (XLM a $0.20). La cifra de $0.00001 aplica solo a pagos clásicos, no a Soroban.
+
+| Opción de facilitador | Costo del servicio | Comisión de red | Total por pago |
+|---|---|---|---|
+| OpenZeppelin Channels (hospedado) | Sin precio publicado; gratis en testnet | La paga OpenZeppelin | $0 hoy; confirmar tarifa en mainnet |
+| OpenZeppelin autohospedado / `SELF_SETTLE` | $0 + servidor (~$5 a $20 al mes) | La paga PaperPay | ~$0.0005 |
+| Escenario conservador (tarifa tipo Coinbase) | $0.001 | ~$0.0005 | **~$0.0015** |
+
+Coinbase cobra $0.001 por pago (1,000 gratis al mes) pero **no soporta Stellar**; se usa solo como referencia de mercado.
+
+| Por lectura de $0.50 | USD |
+|---|---|
+| Paga el lector | 0.5000 |
+| Editorial (98%) | 0.4900 |
+| Ingreso bruto PaperPay (2%) | 0.0100 |
+| − Comisión de red | −0.0005 |
+| − Facilitador (conservador) | −0.0010 |
+| **Margen neto PaperPay** | **0.0085 (85% del fee)** |
+
+| Lecturas al mes | Ingreso PaperPay | Costo red + facilitador | Margen neto |
+|---|---|---|---|
+| 10,000 | $100 | $15 | $85 |
+| 100,000 | $1,000 | $150 | $850 |
+| 1,000,000 | $10,000 | $1,500 | $8,500 |
+
+- **Precio mínimo viable:** con fee de 2% y costo de $0.0015, el modelo funciona desde $0.075 por lectura.
+- **Riesgo XLM:** si XLM duplica su precio, la red cuesta ~$0.001 y el margen baja de 85% a 80%.
+- Con el contrato splitter (roadmap) serían dos transferencias por pago y la comisión de red sube un poco.
 
 ## Alcance del MVP (entrega viernes 25, 14:00)
 
@@ -100,7 +131,7 @@ Dos exalumnos de la Facultad trabajan en paralelo sobre un contrato de API compa
 
 1. ¿El alcance del MVP es realista para el viernes, o conviene recortar algo más?
 2. ¿El jurado de Stellar valora más un contrato Soroban propio (el reparto 98/2) que el uso de x402 con facilitador?
-3. ¿Qué facilitador recomiendan para la demo: OpenZeppelin o Coinbase?
+3. ¿Cuánto cobra OpenZeppelin por el facilitador en mainnet, o conviene autohospedarlo?
 4. ¿La historia de impacto para la comunidad UNAM se entiende, o hay un ángulo más fuerte?
 5. ¿Podemos participar como exalumnos y competir en más de un track?
 6. ¿Qué esperan ver en el pitch para el acceso a la aceleradora Instaward?

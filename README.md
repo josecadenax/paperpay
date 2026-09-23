@@ -19,7 +19,7 @@ PaperPay es un paywall **stateless** basado en el estándar `HTTP 402 Payment Re
 1. El lector abre un artículo y ve el resumen; el resto aparece difuminado.
 2. El servidor responde `402` con las condiciones de pago ($0.50 USDC, destino, red).
 3. El lector firma con **Freighter Wallet** (un clic). No hay email ni contraseña.
-4. El pago se liquida en Stellar (comisión de red ~$0.00001, fee patrocinado por el facilitador).
+4. El pago se liquida en Stellar (comisión de red ~$0.0005 que paga el facilitador, no el lector).
 5. El servidor entrega el artículo completo + un token de acceso (JWT) ligado a la wallet y al artículo.
 
 ## Modelo de negocio

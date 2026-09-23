@@ -52,15 +52,15 @@ Hay dos formas de cobrar con 402 en Stellar:
 | Opción | Cómo funciona | Problema |
 |---|---|---|
 | A. Hash de tx | El cliente envía la tx él mismo y manda el `txHash` al server, que la busca en Horizon | Hay que evitar replays (guardar hashes usados = estado), el lector paga el fee en XLM, más latencia, no es x402 |
-| **B. x402 exact scheme (elegida)** | El cliente **firma una auth entry de Soroban** para `USDC.transfer(lector, payTo, monto)`. El server la pasa a un **facilitador** que verifica, envía la tx y paga el fee | Depende de un facilitador (hay dos gratuitos en testnet) |
+| **B. x402 exact scheme (elegida)** | El cliente **firma una auth entry de Soroban** para `USDC.transfer(lector, payTo, monto)`. El server la pasa a un **facilitador** que verifica, envía la tx y paga el fee | Depende de un facilitador (OpenZeppelin, gratis en testnet; respaldo con `SELF_SETTLE`) |
 
 Con B, el nonce de la auth entry impide replays on-chain, el lector no necesita XLM para fees y usamos las librerías oficiales:
 
 - Server: `@x402/express` + `@x402/stellar` (v2.x)
 - Cliente: `@x402/fetch` + firmante con Freighter (`signAuthEntry`)
-- Facilitador testnet: **OpenZeppelin Channels** (`https://channels.openzeppelin.com/x402/testnet`, API key en `https://channels.openzeppelin.com/testnet/gen`) o el facilitador de Coinbase.
+- Facilitador testnet: **OpenZeppelin Channels** (`https://channels.openzeppelin.com/x402/testnet`, API key en `https://channels.openzeppelin.com/testnet/gen`). El facilitador de Coinbase **no** soporta Stellar, así que no es alternativa.
 
-**Plan B** si el facilitador falla el día de la demo: Dev A tiene listo un modo `SELF_SETTLE=true` que envía la tx con una cuenta propia del server.
+**Plan B** si el facilitador falla el día de la demo: Dev A tiene listo un modo `SELF_SETTLE=true` que envía la tx con una cuenta propia del server. Plan C (post-hackathon): autohospedar el [facilitador de OpenZeppelin](https://github.com/OpenZeppelin/relayer-plugin-x402-facilitator), que es de código abierto.
 
 ### ADR-02 · Encabezados HTTP (x402 v2)
 
@@ -96,6 +96,37 @@ El exact scheme paga a **una sola** dirección (`payTo`). Para el hackathon:
 
 - `payTo` = tesorería de PaperPay; el reparto a la editorial se registra off-chain y se muestra en el dashboard.
 - **Stretch goal:** contrato Soroban "splitter" que reciba el pago y reparta 98% editorial / 2% PaperPay on-chain. Es un buen diferenciador para el jurado, pero solo si sobra tiempo.
+
+### Costos por transacción (medidos el 23 sep 2026)
+
+Simulación de una transferencia real de 0.50 USDC (SAC) en Stellar mainnet: **~24,300 stroops = 0.0024 XLM ≈ $0.0005 USD** (XLM a $0.20). La cifra de $0.00001 aplica solo a pagos clásicos, no a Soroban.
+
+| Opción de facilitador | Costo del servicio | Comisión de red | Total por pago |
+|---|---|---|---|
+| OpenZeppelin Channels (hospedado) | Sin precio publicado; gratis en testnet | La paga OpenZeppelin | $0 hoy; confirmar tarifa en mainnet |
+| OpenZeppelin autohospedado / `SELF_SETTLE` | $0 + servidor (~$5 a $20 al mes) | La paga PaperPay | ~$0.0005 |
+| Escenario conservador (tarifa tipo Coinbase) | $0.001 | ~$0.0005 | **~$0.0015** |
+
+Coinbase cobra $0.001 por pago (1,000 gratis al mes) pero **no soporta Stellar**; se usa solo como referencia de mercado.
+
+| Por lectura de $0.50 | USD |
+|---|---|
+| Paga el lector | 0.5000 |
+| Editorial (98%) | 0.4900 |
+| Ingreso bruto PaperPay (2%) | 0.0100 |
+| − Comisión de red | −0.0005 |
+| − Facilitador (conservador) | −0.0010 |
+| **Margen neto PaperPay** | **0.0085 (85% del fee)** |
+
+| Lecturas al mes | Ingreso PaperPay | Costo red + facilitador | Margen neto |
+|---|---|---|---|
+| 10,000 | $100 | $15 | $85 |
+| 100,000 | $1,000 | $150 | $850 |
+| 1,000,000 | $10,000 | $1,500 | $8,500 |
+
+- **Precio mínimo viable:** con fee de 2% y costo de $0.0015, el modelo funciona desde $0.075 por lectura.
+- **Riesgo XLM:** si XLM duplica su precio, la red cuesta ~$0.001 y el margen baja de 85% a 80%.
+- Con el contrato splitter (roadmap) serían dos transferencias por pago y la comisión de red sube un poco.
 
 ### ADR-07 · Contenido de la demo
 
@@ -218,7 +249,7 @@ Leyenda: 🅰️ Dev A (backend) · 🅱️ Dev B (frontend) · 🤝 ambos. Cada
 
 1. ~~¿Fecha límite?~~ Viernes 25 sep, 14:00 CDMX.
 2. ¿"Lectura única" = acceso por 24 h o permanente para esa wallet? (propuesta: 24 h)
-3. ¿Facilitador principal: OpenZeppelin o Coinbase? (propuesta: OpenZeppelin)
+3. ~~¿Facilitador?~~ OpenZeppelin Channels (Coinbase no soporta Stellar). Pendiente: tarifa de OpenZeppelin en mainnet.
 4. ¿Elegibilidad como empresa y posibilidad de doble track? (preguntar en el tablón de dudas)
 5. ¿Nombres/usuarios de GitHub de Dev A y Dev B para asignar issues?
 
