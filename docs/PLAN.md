@@ -132,6 +132,31 @@ Coinbase cobra $0.001 por pago (1,000 gratis al mes) pero **no soporta Stellar**
 
 Solo artículos **open access** (arXiv, CC-BY). Nunca PDFs de Elsevier/Springer reales. Catálogo en un JSON (`apps/api/data/papers.json`), sin base de datos.
 
+### ADR-08 · Despliegue: Vercel (web) + Railway (API)
+
+Solo dos piezas se despliegan; Stellar y el facilitador ya existen como servicios. Costo de la demo: $0 o créditos de prueba.
+
+```
+Navegador (Freighter)
+      │
+      ▼
+Vercel: apps/web  ──►  Railway: apps/api  ──►  Facilitador OpenZeppelin  ──►  Stellar Testnet
+```
+
+| Pieza | Dónde | Responsable | Costo |
+|---|---|---|---|
+| Frontend (Next.js) | **Vercel**: deploy automático desde `main`, preview por PR | Dev B | Gratis |
+| Backend (Express + x402) | **Railway**: deploy desde GitHub, servidor siempre encendido | Dev A | Gratis / créditos de prueba |
+| Catálogo | `apps/api/data/papers.json` dentro del backend | Dev A | Sin base de datos |
+| Facilitador x402 | OpenZeppelin Channels | Externo | Gratis en testnet |
+| Blockchain y USDC | Stellar Testnet | Red pública | Gratis |
+
+- **No usar el plan gratis de Render:** duerme el servidor tras 15 min sin uso y tarda ~1 min en despertar; en la demo se vería roto. Fly.io es alternativa válida a Railway.
+- **Variables de entorno (Railway, nunca en el repo):** API key de OpenZeppelin, public key de la tesorería (`payTo`), secreto del JWT, orígenes permitidos para CORS y, solo si se usa `SELF_SETTLE`, la secret key de la cuenta de respaldo.
+- **Variables de entorno (Vercel):** URL pública del API.
+- **CORS:** el API debe permitir el dominio de Vercel (producción y previews). Probarlo con las URLs desplegadas desde el jueves, no solo en local.
+- **Alternativa si Railway o CORS dan problemas:** mover el API a rutas de Next.js con `@x402/next` y desplegar todo en Vercel (un solo deploy, sin CORS). Cuesta un par de horas; se decide el jueves a mediodía si hace falta.
+
 ---
 
 ## 2. Contrato de API (se congela en F0)
@@ -170,10 +195,14 @@ Leyenda: 🅰️ Dev A (backend) · 🅱️ Dev B (frontend) · 🤝 ambos. Cada
 ### F0 · Setup y contrato (mié 23, 22:00)
 - [ ] 🤝 **Requisito Tangem cumplido por ambos** (app desde el enlace oficial + wallet + TangemPay con KYC)
 - [ ] 🤝 Registrar equipo en el panel de Goya Hack y confirmar elegibilidad / track Stellar
-- [ ] 🤝 Monorepo pnpm: `apps/api`, `apps/web`, `packages/shared` + `.env.example`
+- [ ] 🤝 Monorepo pnpm: `apps/api`, `apps/web`, `packages/shared` + `.env.example` + `main` protegida
 - [ ] 🤝 Tipos, constantes y contrato de API congelados en `packages/shared` (sección 2)
-- [ ] 🤝 Wallets testnet: tesorería (payTo) y lector de demo con trustline USDC + faucet
+- [ ] 🤝 Wallets testnet: tesorería (payTo) y lector de demo con trustline USDC + faucet (el lector necesita XLM de reserva para la trustline)
 - [ ] 🅰️ API key del facilitador OpenZeppelin (testnet)
+- [ ] 🤝 Revisión de la propuesta con mentor (preguntas del resumen ejecutivo)
+
+### F1 · Prueba de riesgo (🤝, jue 24 11:00)
+- [ ] **Spike:** firmar un pago x402 con Freighter en testnet y liquidarlo con OpenZeppelin, sin UI. Si falla, activar plan B temprano
 
 ### F1 · Backend x402 (🅰️, jue 24 14:00)
 - [ ] Express + TS con CORS de headers x402 (ADR-02)
@@ -181,14 +210,14 @@ Leyenda: 🅰️ Dev A (backend) · 🅱️ Dev B (frontend) · 🤝 ambos. Cada
 - [ ] `GET /api/papers/:id` con 402 + `PAYMENT-REQUIRED` y solo preview (ADR-03)
 - [ ] Middleware `@x402/express` + `@x402/stellar` con verify/settle vía facilitador
 - [ ] Emisión y validación de JWT (ADR-04)
-- [ ] Deploy del API (Render / Railway / Fly)
+- [ ] Deploy del API en Railway (ADR-08)
 
 ### F1 · Frontend (🅱️, jue 24 14:00, en paralelo contra mock)
 - [ ] Next.js + Tailwind: layout "revista científica" + catálogo
 - [ ] Vista de artículo con blur paywall + CTA "Leer por $0.50 USDC"
 - [ ] Conexión Freighter: detectar extensión, `requestAccess`, validar red Testnet
 - [ ] Mock del API según el contrato
-- [ ] Deploy en Vercel
+- [ ] Deploy en Vercel (ADR-08)
 
 ### F2 · Integración end-to-end (jue 24 23:00)
 - [ ] 🅱️ Flujo 402 → firma Freighter (`signAuthEntry`) → reintento con `PAYMENT-SIGNATURE`
@@ -199,8 +228,9 @@ Leyenda: 🅰️ Dev A (backend) · 🅱️ Dev B (frontend) · 🤝 ambos. Cada
 ### F3 · Demo y entrega (vie 25 12:00)
 - [ ] 🅱️ Pantalla estática de editorial: ventas, ingresos, fee PaperPay (sin backend)
 - [ ] 🤝 Wallet de demo precargada + guía de preparación en el README
+- [ ] 🤝 Ensayo general con URLs desplegadas, otra computadora y wallet de demo, cronometrado
 - [ ] 🤝 Video de demo (flujo completo + txHash en explorer)
-- [ ] 🤝 Slides del pitch: problema → demo → impacto UNAM → modelo de negocio → roadmap
+- [ ] 🤝 Slides del pitch: problema → demo → impacto UNAM → modelo de negocio (flujo del dinero + tabla de costos) → roadmap
 - [ ] 🤝 README final con capturas, URLs y cómo correrlo
 - [ ] 🤝 **Entregar en el panel antes del viernes 14:00** (repo + demo + video)
 
