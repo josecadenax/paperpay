@@ -141,4 +141,7 @@ Dos exalumnos de la Facultad trabajan en paralelo sobre un contrato de API compa
 - [Bases de Goya Hack 2026](https://criptounam.xyz/hackathon)
 - [x402 en Stellar (Stellar Docs)](https://developers.stellar.org/docs/build/agentic-payments/x402)
 - [Facilitador x402 de OpenZeppelin](https://docs.openzeppelin.com/relayer/guides/stellar-x402-facilitator-guide)
+- [Facilitador de Coinbase: redes y precios](https://docs.cdp.coinbase.com/x402/core-concepts/facilitator)
+- [Facilitador de OpenZeppelin (código abierto)](https://github.com/OpenZeppelin/relayer-plugin-x402-facilitator)
+- [Comisiones de Soroban (Stellar Docs)](https://soroban.stellar.org/docs/soroban-internals/fees-and-metering)
 - Plan técnico completo: [docs/PLAN.md](PLAN.md)
