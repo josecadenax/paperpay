@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { COPY } from '@/lib/copy'
+import { LogoMark } from './LogoMark'
 
 export function Navbar() {
   const pathname = usePathname()
@@ -13,11 +14,7 @@ export function Navbar() {
     <header className="sticky top-0 z-30 border-b border-border bg-background/90 px-4 backdrop-blur-md sm:px-6">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4">
         <Link href="/" className="flex items-center gap-2.5">
-          <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-xl bg-primary">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
-              <path d="M3 3h10M3 6h7M3 9h9M3 12h5" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
-            </svg>
-          </span>
+          <LogoMark size={28} />
           <span className="font-display text-lg font-semibold leading-none text-foreground">{COPY.brand.name}</span>
         </Link>
 
