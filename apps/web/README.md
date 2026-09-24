@@ -8,10 +8,10 @@ pnpm install
 pnpm dev:web      # frontend en http://localhost:3000, contra el backend en Railway
 ```
 
-El backend de producción vive en `https://paperpay-backend-production.up.railway.app` y solo acepta peticiones de los orígenes en su
-`CORS_ORIGINS` (hoy `http://localhost:3000` y `https://paperpay.vercel.app`). Si corres el frontend en
-otro puerto o dominio, pide que lo agreguen. Para trabajar con el backend local, corre `pnpm dev:api`
-y usa `NEXT_PUBLIC_API_URL=http://localhost:4000`.
+El navegador nunca llama directo al backend: pide `/api/*` al mismo dominio del frontend y Next lo
+reenvía a `API_PROXY_TARGET` (por defecto Railway, `https://paperpay-backend-production.up.railway.app`). Por eso funciona igual en
+producción, en previews de PR y en cualquier puerto local, sin tocar el CORS del backend. Para el backend
+local, corre `pnpm dev:api` y usa `API_PROXY_TARGET=http://localhost:4000`.
 
 ## Fuente de datos (`NEXT_PUBLIC_DATA_SOURCE`)
 
