@@ -1,10 +1,59 @@
-# PaperPay · Flujo del Usuario y Proceso de Compra (x402)
+# PaperPay · Flujo del Usuario y Experiencia de Compra (x402)
 
-Este documento describe la experiencia de usuario (UX) de punta a punta al adquirir acceso a un artículo académico mediante el protocolo **x402** sobre **Stellar Testnet** utilizando **Freighter Wallet**.
+Este documento detalla la experiencia de usuario y arquitectura de compra en PaperPay, abordando tanto la **visión ideal del producto terminado en producción** como el **flujo técnico de control y manejo de excepciones** implementado para el MVP.
 
 ---
 
-## 1. Diagrama de flujo de compra
+## 1. La Experiencia Ideal (Visión del Producto Terminado)
+
+En su versión final en producción (mainnet), PaperPay elimina toda la fricción de las pasarelas de pago tradicionales: no existen formularios con tarjeta de crédito, registros por correo, contraseñas ni suscripciones mensuales forzadas. La experiencia se reduce a **un clic, tres segundos y acceso total**.
+
+### 1.1 Diagrama del Happy Path (Producto Terminado)
+
+```mermaid
+flowchart TD
+    %% Estilos visuales
+    classDef reader fill:#0f172a,stroke:#38bdf8,stroke-width:2px,color:#f8fafc;
+    classDef ui fill:#1e293b,stroke:#818cf8,stroke-width:2px,color:#f8fafc;
+    classDef soroban fill:#022c22,stroke:#34d399,stroke-width:2px,color:#f8fafc;
+    classDef unlocked fill:#172554,stroke:#60a5fa,stroke-width:2px,color:#f8fafc;
+
+    subgraph Descubrimiento["1. Descubrimiento y Vista Previa Contextual"]
+        A["Investigador / Estudiante llega desde\nGoogle Scholar, arXiv, DOI o enlace universitario"]:::reader --> B["PaperPay: Vista previa de alta fidelidad\n(Abstract, figuras interactivas y métricas de impacto)"]:::ui
+        B --> C["Llamado a la acción claro y transparente:\n'Desbloquear lectura completa · $0.50 USDC'"]:::ui
+    end
+
+    subgraph PagoInstantaneo["2. Autorización en 1 Clic / Toque Biométrico"]
+        C --> D["El lector presiona 'Desbloquear lectura'"]:::reader
+        D --> E["Wallet / Passkey solicita autorización inmediata\n(1 clic en Freighter o huella/FaceID con Smart Wallet)\nAutoriza débito de $0.50 USDC"]:::reader
+    end
+
+    subgraph LiquidacionAtomica["3. Liquidación Atómica en Stellar (< 3 segundos)"]
+        E --> F["Protocolo x402 canaliza la firma al Facilitador\n(Comisión de red ~$0.0005 absorbida transparentemente)"]:::soroban
+        F --> G["Smart Contract Soroban 'Splitter' reparte en el mismo ledger:\n• 98% ($0.49 USDC) directo a la wallet de la Editorial / Autor\n• 2% ($0.01 USDC) a la tesorería de PaperPay"]:::soroban
+        G --> H["Transacción confirmada en bloque y sellada criptográficamente"]:::soroban
+    end
+
+    subgraph ExperienciaCompleta["4. Suite de Lectura Académica Activada"]
+        H --> I["Desbloqueo instantáneo con transición visual fluida"]:::unlocked
+        I --> J["Herramientas Pro inmediatas:\n• Lectura interactiva con citas clickeables\n• Descarga de PDF oficial con recibo criptográfico\n• Asistente de IA integrado para preguntas y síntesis del paper\n• Exportación en 1 clic a Zotero, Mendeley y BibTeX"]:::unlocked
+        I --> K["Acceso permanente respaldado on-chain para esa identidad\n(Reutilizable en cualquier dispositivo sin volver a pagar)"]:::unlocked
+    end
+```
+
+### 1.2 Características clave del producto final:
+* **Sin cuentas ni fricción:** La wallet (vía Freighter, Passkey o Pollar Smart Wallet) es la identidad y el método de pago simultáneamente.
+* **Reparto justo e instantáneo (Splitter On-chain):** Los autores y revistas independientes reciben sus fondos al instante ($0.49 de cada $0.50), sin cortes mensuales ni intermediarios bancarios.
+* **Cero comisiones visibles para el usuario:** El fee de red en XLM es absorbido de forma invisible por el facilitador/paymaster.
+* **Soporte nativo para Agentes Autónomos de IA:** Gracias al estándar HTTP 402, agentes de investigación (como PaperQA o AutoGPT) pueden consultar y pagar automáticamente por papers científicos mediante API sin intervención humana.
+
+---
+
+## 2. Flujo Técnico de Control y Manejo de Excepciones (MVP)
+
+A nivel de protocolo e ingeniería, el frontend y backend gestionan la verificación de estado, la emisión de cabeceras HTTP estándar y la resolución de casos de borde.
+
+### 2.1 Diagrama de Control del Sistema
 
 ```mermaid
 flowchart TD
@@ -54,7 +103,7 @@ flowchart TD
 
 ---
 
-## 2. Desglose paso a paso del flujo
+## 3. Desglose paso a paso del protocolo
 
 ### Paso 1: Petición inicial y detección de paywall
 * El usuario navega al artículo (ej. `/papers/quantum-computing-intro`).
@@ -94,7 +143,7 @@ flowchart TD
 
 ---
 
-## 3. Manejo de errores y casos de borde
+## 4. Manejo de errores y casos de borde
 
 | Escenario | Comportamiento del sistema | Acción para el usuario |
 |---|---|---|
@@ -107,7 +156,7 @@ flowchart TD
 
 ---
 
-## 4. Referencias técnicas
+## 5. Referencias técnicas
 * [docs/PLAN.md](PLAN.md): Decisiones de Arquitectura (ADR-01 a ADR-05) y especificación de endpoints.
 * [docs/RESUMEN_EJECUTIVO.md](RESUMEN_EJECUTIVO.md): Desglose de costos y unit economics por microtransacción.
 * [Especificación oficial x402](https://x402.org): Protocolo de pagos condicionales vía HTTP 402.
