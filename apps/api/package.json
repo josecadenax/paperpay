@@ -7,7 +7,9 @@
     "build": "tsc",
     "start": "node dist/index.js",
     "test": "vitest run",
-    "test:settle": "tsx scripts/test-settle.ts"
+    "test:settle": "tsx scripts/test-settle.ts",
+    "test:testnet": "tsx scripts/testnet-e2e.ts",
+    "generate:treasury": "tsx scripts/generate-treasury.ts"
   },
   "dependencies": {
     "@paperpay/shared": "workspace:*",
