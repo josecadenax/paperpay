@@ -43,6 +43,12 @@ pnpm test:testnet
 
 ## 📡 Guía de Integración para el Frontend (`apps/web`)
 
+### 🔐 Arquitectura de Autenticación (Stateless)
+PaperPay **no tiene base de datos de usuarios, ni login con contraseña**. Toda la "autenticación" es descentralizada:
+1. **Identidad:** La `publicKey` de la wallet de Stellar del usuario es su identidad.
+2. **Autorización Inicial:** Al intentar leer un artículo (`GET /api/papers/:id`), el backend rechaza con un HTTP `402 Payment Required`. El usuario **firma la intención de pago** con su wallet. Tú envías esa firma en la cabecera `payment-signature`.
+3. **Sesión Temporal (JWT):** Si el pago es exitoso, el backend emite un `accessToken` (JWT) válido por 24 horas y exclusivo para *ese artículo*. Lo guardas en `localStorage` y lo envías en la cabecera `Authorization: Bearer <token>` para que el usuario no tenga que volver a firmar (y pagar) al recargar la página.
+
 ### Endpoints Disponibles
 
 | Método | Endpoint | Descripción | Respuesta esperada |
