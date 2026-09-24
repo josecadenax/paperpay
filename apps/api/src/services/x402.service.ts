@@ -122,19 +122,46 @@ export class X402Service {
     payload: X402PaymentSignatureHeader,
     _paperId: string
   ): Promise<{ success: boolean; txHash: string }> {
-    if (!config.stellarBackupSecretKey) {
-      throw new Error('STELLAR_BACKUP_SECRET_KEY no está configurada para el modo SELF_SETTLE.');
+    console.log('[x402Service] Ejecutando SELF_SETTLE (MVP Testnet) enviando XDR firmado a Horizon...');
+    
+    // Para el MVP, asumimos que el frontend envía una transacción estelar clásica firmada (en formato XDR)
+    // dentro del campo payload.signature. El backend la parsea, verifica y envía.
+    const { Transaction, Networks, Horizon } = await import('@stellar/stellar-sdk');
+    
+    let tx;
+    try {
+      tx = new Transaction(payload.signature, Networks.TESTNET);
+    } catch (err) {
+      throw new Error('El campo signature no es un XDR de transacción válido.');
     }
 
-    console.log('[x402Service] Ejecutando SELF_SETTLE con cuenta operativa de respaldo...');
-    // En un escenario de producción aquí se deserializa el SorobanAuthorizationEntry
-    // y se envía mediante Soroban RPC con la cuenta servidora como sourceAccount.
-    // Retornamos un hash válido para la prueba
-    const txHash = `self_settled_${Date.now().toString(16)}`;
-    return {
-      success: true,
-      txHash,
-    };
+    // Validación de seguridad para MVP: asegurar que la transacción paga a nuestra tesorería
+    let isValidPayment = false;
+    for (const op of tx.operations) {
+      if (op.type === 'payment' && op.destination === config.stellarTreasuryPublicKey) {
+        // En producción habría que chequear el asset (USDC) y el amount (0.50)
+        isValidPayment = true;
+        break;
+      }
+    }
+
+    if (!isValidPayment) {
+      throw new Error('La transacción no contiene un pago válido hacia la tesorería de PaperPay.');
+    }
+
+    const server = new Horizon.Server('https://horizon-testnet.stellar.org');
+    
+    try {
+      const response = await server.submitTransaction(tx);
+      console.log(`✅ Transacción confirmada en Testnet! Hash: ${response.hash}`);
+      return {
+        success: true,
+        txHash: response.hash,
+      };
+    } catch (err: any) {
+      console.error('❌ Error enviando transacción a Horizon:', err.response?.data || err.message);
+      throw new Error('Fallo al liquidar la transacción en la red Stellar.');
+    }
   }
 }
 
