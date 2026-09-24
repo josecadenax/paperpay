@@ -1,0 +1,51 @@
+[
+  {
+    "id": "autonomous-ai-micropayments",
+    "title": "Autonomous Agentic Payments: Implementing HTTP 402 and x402 on Decentralized Settlement Rails",
+    "authors": ["Dra. Elena Ramos (FI-UNAM)", "Dr. Carlos V. Mendoza (CriptoUNAM Lab)"],
+    "abstract": "We analyze the latency, transaction fee economics, and security guarantees of autonomous artificial intelligence agents conducting microtransactions over decentralized networks. Traditional credit card rails impose fixed processing fees ($0.30 + 2.9%) that make sub-dollar programmatic resource procurement prohibitive. By leveraging the standardized HTTP 402 Payment Required response combined with the open x402 protocol on Stellar Soroban, agents can acquire pay-per-read academic literature and compute APIs with sub-5-second finality and sub-cent fees ($0.0005 USD).",
+    "publishedDate": "2026-08-14",
+    "publisher": "Journal of Distributed Intelligence & Web3 Systems",
+    "doi": "10.1016/j.diw3s.2026.04.012",
+    "priceUsdc": 0.50,
+    "previewSnippet": "1. Introduction\nThe proliferation of autonomous Large Language Model (LLM) agents has exposed a critical infrastructural deficit in the modern web: the absence of a native, machine-readable payment rail for fine-grained resource acquisition. While human users navigate subscriptions and checkout flows with graphical interfaces, agents require programmatic, stateless settlement protocols.",
+    "fullContentMarkdown": "# Autonomous Agentic Payments: Implementing HTTP 402 and x402 on Decentralized Settlement Rails\n\n**Authors:** Dra. Elena Ramos (FI-UNAM), Dr. Carlos V. Mendoza (CriptoUNAM Lab)\n**DOI:** 10.1016/j.diw3s.2026.04.012\n\n---\n\n## 1. Introduction\nThe proliferation of autonomous Large Language Model (LLM) agents has exposed a critical infrastructural deficit in the modern web: the absence of a native, machine-readable payment rail for fine-grained resource acquisition. While human users navigate subscriptions and checkout flows with graphical interfaces, agents require programmatic, stateless settlement protocols.\n\nSince its formalization in RFC 7231, the HTTP status code `402 Payment Required` remained largely unimplemented as a dead-letter standard due to the lack of decentralized digital cash rails. The emergence of Stellar's Soroban smart contract framework and the x402 specification revitalizes this paradigm.\n\n## 2. Protocol Architecture & Transaction Flow\nWhen an autonomous agent or web client dispatches a standard `GET /resource` request without valid credentials, the server intercepts the request and issues a `402 Payment Required` response. Crucially, the response payload contains the `PAYMENT-REQUIRED` header:\n\n```json\n{\n  \"scheme\": \"exact\",\n  \"network\": \"stellar:testnet\",\n  \"asset\": \"CBIELTK6YBZJU5UP2WWQEUCYKLPU6AUNZ2BQ4WWFEIE3USCIHMXQDAMA\",\n  \"amount\": \"5000000\",\n  \"payTo\": \"GB6X402TREASURYDEMOUNAM2026GOYAHACKPAPERPAYTESTNET\",\n  \"maxTimeoutSeconds\": 300\n}\n```\n\nThe client produces an authenticated Soroban authorization entry (`SorobanAuthorizationEntry`) authorizing a transfer of 0.50 USDC directly from the caller to the merchant treasury.\n\n## 3. Economic Analysis\nEmpirical benchmarks executed on Stellar Mainnet in September 2026 demonstrate the following unit economics for a $0.50 transaction:\n- Network Fee: ~24,300 stroops (0.0024 XLM ≈ $0.00048 USD).\n- Facilitator Overhead: $0.00100 USD.\n- Total Protocol Cost: ~$0.00148 USD (0.29% of gross payment).\n- Publisher Net Revenue (98% split): $0.49000 USD.\n- Platform Fee (2% split): $0.01000 USD.\n- Net Platform Margin: 85.2%.\n\n## 4. Empirical Evaluation\nDuring our 10,000-transaction benchmark across 5 global node clusters, the 99th percentile end-to-end latency from initial 402 challenge to 200 OK content delivery was 4.12 seconds, dominated primarily by Stellar ledger closing time (~3.8s).\n\n## 5. Conclusion\nStateless HTTP 402 microtransactions over Stellar Soroban offer a viable, cost-effective paradigm for machine-to-machine economies and academic paywall democratization.",
+    "references": [
+      "Van Clief, L., & McDermott, R. (2026). Interpretable Context Methodology. arXiv:2603.16021.",
+      "Stellar Development Foundation. (2025). Soroban Smart Contracts Specification and Fee Metering.",
+      "Fielding, R., & Reschke, J. (2014). Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content. RFC 7231."
+    ]
+  },
+  {
+    "id": "quantum-cryptography-post-quantum",
+    "title": "Lattice-Based Post-Quantum Cryptography in Decentralized Ledger State Verification",
+    "authors": ["Dr. Mateo Silva (Instituto de Matemáticas Aplicadas, UNAM)", "Dra. Sophie L. Dupont (Laboratoire d'Informatique de Paris)"],
+    "abstract": "We evaluate the practical throughput and computational overhead of transitioning blockchain signature schemes from ECDSA (secp256k1) and Ed25519 to CRYSTALS-Dilithium and Falcon lattice-based post-quantum signature primitives. Our experimental implementation on zero-knowledge execution rollups reveals a 3.4x increase in proof generation time, but demonstrates that stateless leaf verification remains within the 5ms budget required for high-throughput smart contract engines.",
+    "publishedDate": "2026-07-22",
+    "publisher": "UNAM Academic Series on Applied Cryptography",
+    "doi": "10.1007/s10623-026-00982-x",
+    "priceUsdc": 0.50,
+    "previewSnippet": "1. Motivation\nThe anticipated advent of cryptanalytically relevant quantum computers poses an existential threat to asymmetric cryptographic algorithms based on the discrete logarithm problem and elliptic curves. Decentralized ledgers holding trillions of dollars in value are particularly vulnerable.",
+    "fullContentMarkdown": "# Lattice-Based Post-Quantum Cryptography in Decentralized Ledger State Verification\n\n**Authors:** Dr. Mateo Silva (UNAM), Dra. Sophie L. Dupont (LIP6)\n**DOI:** 10.1007/s10623-026-00982-x\n\n---\n\n## 1. Motivation\nThe anticipated advent of cryptanalytically relevant quantum computers poses an existential threat to asymmetric cryptographic algorithms based on the discrete logarithm problem and elliptic curves. Decentralized ledgers holding trillions of dollars in value are particularly vulnerable to Shor's algorithm, which solves discrete logarithms in polynomial time.\n\n## 2. Candidate Primitives\nWe bench-tested two primary NIST post-quantum standardization finalists:\n1. **CRYSTALS-Dilithium (Mode 3):** Public key size: 1,952 bytes; Signature size: 3,293 bytes.\n2. **Falcon-512:** Public key size: 897 bytes; Signature size: 666 bytes.\n\n## 3. Storage and Bandwidth Impact on Blockchain Ledgers\nWhile Falcon offers significantly smaller signatures, its verification requires high-precision floating-point arithmetic (FPU), introducing non-deterministic execution risks in consensus engines. Conversely, Dilithium utilizes simple integer arithmetic over polynomial rings, making it an ideal candidate for Soroban smart contract virtual machines.\n\n## 4. Conclusion and Roadmap\nTransitioning blockchain transaction envelopes to Dilithium2 preserves high throughput with an acceptable 14% increase in bandwidth overhead.",
+    "references": [
+      "NIST Computer Security Division. (2024). Post-Quantum Cryptography Standardization Report.",
+      "Ducas, L., et al. (2018). CRYSTALS-Dilithium: A lattice-based digital signature scheme."
+    ]
+  },
+  {
+    "id": "crispr-nanomedicine-biotech",
+    "title": "Targeted Lipid Nanoparticle Delivery of CRISPR-Cas9 Ribonucleoproteins for Precision Oncology",
+    "authors": ["Dra. Mariana Gutierrez-Paz (Facultad de Medicina, UNAM)", "Dr. Arthur Pendelton (Cambridge Nanotech Institute)"],
+    "abstract": "We present an ionizable lipid nanoparticle (LNP) formulation engineered for organ-selective tropism targeting metastatic melanoma cells. In vivo murine models demonstrate a 78.4% target gene knockout efficiency with zero detectable off-target cleavage across 48 identified homologous genomic loci, establishing a new therapeutic threshold for non-viral in vivo gene editing.",
+    "publishedDate": "2026-06-11",
+    "publisher": "BioNanotechnology & Gene Delivery Letters",
+    "doi": "10.1038/s41565-026-01452-9",
+    "priceUsdc": 0.50,
+    "previewSnippet": "1. Introduction\nThe clinical translation of CRISPR-Cas9 genome editing for somatic gene therapies has long been constrained by the bioavailability, immunogenicity, and organ-specific targeting limitations of viral vector delivery systems such as adeno-associated viruses (AAV).",
+    "fullContentMarkdown": "# Targeted Lipid Nanoparticle Delivery of CRISPR-Cas9 Ribonucleoproteins for Precision Oncology\n\n**Authors:** Dra. Mariana Gutierrez-Paz (UNAM), Dr. Arthur Pendelton (Cambridge)\n**DOI:** 10.1038/s41565-026-01452-9\n\n---\n\n## 1. Introduction\nThe clinical translation of CRISPR-Cas9 genome editing for somatic gene therapies has long been constrained by the bioavailability, immunogenicity, and organ-specific targeting limitations of viral vector delivery systems such as adeno-associated viruses (AAV). Non-viral synthetic LNPs offer a safer, scalable alternative.\n\n## 2. Nanoparticle Synthesis & Optimization\nLipid nanoparticles were prepared by microfluidic mixing of an ethanol phase containing novel ionizable lipid LP-UNAM-42, cholesterol, DSPC, and DMG-PEG2000 with an aqueous phase containing Cas9 ribonucleoprotein (RNP) complexes.\n\n## 3. Results & In Vivo Efficacy\n- Hydrodynamic size: 84.3 ± 4.1 nm with a polydispersity index (PDI) of 0.082.\n- Encapsulation efficiency: 94.6%.\n- Tumor regression: 62% reduction in tumor volume compared to sham control groups after 21 days post-single intravenous injection.\n\n## 4. Discussion\nThis synthetic delivery vehicle circumvents pre-existing anti-Cas9 neutralizing antibodies while enabling high-efficiency therapeutic editing in deep-seated solid tumors.",
+    "references": [
+      "Doudna, J. A., & Charpentier, E. (2014). The new frontier of genome engineering with CRISPR-Cas9. Science.",
+      "Kulkarni, J. A., et al. (2021). The current landscape of nucleic acid therapeutics. Nature Nanotechnology."
+    ]
+  }
+]
