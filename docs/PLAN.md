@@ -291,3 +291,4 @@ Leyenda: 🅰️ Dev A (backend) · 🅱️ Dev B (frontend) · 🤝 ambos. Cada
 - [Facilitador x402 de OpenZeppelin](https://docs.openzeppelin.com/relayer/guides/stellar-x402-facilitator-guide)
 - [Spec x402](https://github.com/x402-foundation/x402)
 - [Freighter API](https://docs.freighter.app)
+- [Diagrama de flujo de compra y visión del producto](FLUJO_USUARIO.md)

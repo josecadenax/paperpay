@@ -145,3 +145,4 @@ Dos exalumnos de la Facultad trabajan en paralelo sobre un contrato de API compa
 - [Facilitador de OpenZeppelin (código abierto)](https://github.com/OpenZeppelin/relayer-plugin-x402-facilitator)
 - [Comisiones de Soroban (Stellar Docs)](https://soroban.stellar.org/docs/soroban-internals/fees-and-metering)
 - Plan técnico completo: [docs/PLAN.md](PLAN.md)
+- Diagrama de flujo de compra y visión del producto: [docs/FLUJO_USUARIO.md](FLUJO_USUARIO.md)
