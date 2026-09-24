@@ -13,7 +13,7 @@ import type { PaperFull, PaperPreview, PaywallErrorCode, TxReceipt } from '@/lib
 import { clearAccess, isAccessValid, readAccess, writeAccess } from './accessStore'
 import type { Backend, PaperResult } from './backend'
 
-const API_URL = (process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:4000').replace(/\/$/, '')
+const API_URL = (process.env.NEXT_PUBLIC_API_URL ?? 'https://paperpay-backend-production.up.railway.app').replace(/\/$/, '')
 
 // TODO(#32): reemplazar por la auth entry de Soroban firmada con Freighter (signAuthEntry).
 // Hoy el backend en modo desarrollo acepta cualquier firma y devuelve un hash simulado.
