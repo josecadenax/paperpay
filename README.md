@@ -92,12 +92,35 @@ Monorepo con **pnpm workspaces** para que ambos devs compartan tipos sin publica
 
 ## Arranque local
 
-_Pendiente: se completa cuando exista el scaffold (tarea F0 en [docs/PLAN.md](docs/PLAN.md))._
+### 1. Requisitos
+- Node.js >= 20
+- pnpm >= 9 (`npm install -g pnpm`)
 
+### 2. Instalación y ejecución
 ```bash
+# 1. Instalar dependencias en todo el monorepo
 pnpm install
-pnpm dev        # levanta api (:4000) y web (:3000)
+
+# 2. Generar y fondear cuenta de tesorería en Stellar Testnet (crea .env)
+pnpm --filter @paperpay/api generate:treasury
+
+# 3. Levantar la API del backend (:4000)
+pnpm dev:api
+
+# O levantar todos los servicios en paralelo
+pnpm dev
 ```
+
+### 3. Pruebas automatizadas
+```bash
+# Ejecutar suite de 27 pruebas unitarias y de integración (Vitest)
+pnpm test
+
+# Ejecutar prueba en vivo contra Stellar Testnet (Friendbot + Horizon)
+pnpm test:testnet
+```
+
+Guía de integración para frontend: **[apps/api/README.md](apps/api/README.md)**.
 
 ---
 
