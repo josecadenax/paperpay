@@ -3,7 +3,8 @@
 import { useCallback, useState } from 'react'
 import type { PaperFull, PaywallErrorCode, PaywallState, TxReceipt, WalletInfo } from '@/lib/types'
 import { debugUnlock, payForPaper } from '@/services/paperpay'
-import { connectWallet, PaywallError } from '@/services/wallet'
+import { PaywallError } from '@/lib/errors'
+import { connectWallet } from '@/services/wallet'
 
 export function usePaywall(paperId: string) {
   const [state, setState] = useState<PaywallState>('locked')
@@ -35,7 +36,7 @@ export function usePaywall(paperId: string) {
       const result = await payForPaper(paperId, connected.address, () => setState('settling'))
       unlock(result.paper, result.receipt)
     } catch (err) {
-      fail(err instanceof PaywallError ? err.code : 'USER_REJECTED')
+      fail(err instanceof PaywallError ? err.code : 'PAYMENT_FAILED')
     }
   }, [paperId, wallet, unlock, fail])
 

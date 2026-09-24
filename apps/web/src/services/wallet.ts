@@ -1,10 +1,5 @@
-import type { PaywallErrorCode, WalletInfo } from '@/lib/types'
-
-export class PaywallError extends Error {
-  constructor(public readonly code: PaywallErrorCode) {
-    super(code)
-  }
-}
+import { PaywallError } from '@/lib/errors'
+import type { WalletInfo } from '@/lib/types'
 
 const MOCK_ADDRESS = 'GAPAPERPAYDEMOLECTORUNAMTESTNETWALLET2026GOYAHACKX7QZ4MN'
 

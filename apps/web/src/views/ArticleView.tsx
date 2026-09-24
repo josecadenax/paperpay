@@ -13,7 +13,7 @@ import { usePaywall } from '@/hooks/usePaywall'
 import { COPY } from '@/lib/copy'
 import { formatLongDate } from '@/lib/format'
 import type { PaperPreview } from '@/lib/types'
-import { getPaper, isSimulatedPayment } from '@/services/paperpay'
+import { getPaper, isSimulatedTx } from '@/services/paperpay'
 
 // El snippet del backend empieza con el título de la sección ("1. Introduction") en su propia línea.
 function PreviewSnippet({ text }: { text: string }) {
@@ -35,6 +35,8 @@ export function ArticleView({ paperId }: { paperId: string }) {
   const [preview, setPreview] = useState<PaperPreview | null>(null)
   const [loading, setLoading] = useState(true)
   const [notFound, setNotFound] = useState(false)
+  const [loadError, setLoadError] = useState(false)
+  const [attempt, setAttempt] = useState(0)
   const [showModal, setShowModal] = useState(false)
   const [showToast, setShowToast] = useState(false)
   const [debug, setDebug] = useState(false)
@@ -47,6 +49,8 @@ export function ArticleView({ paperId }: { paperId: string }) {
 
   useEffect(() => {
     let cancelled = false
+    setLoading(true)
+    setLoadError(false)
     getPaper(paperId)
       .then((result) => {
         if (cancelled) return
@@ -58,12 +62,16 @@ export function ArticleView({ paperId }: { paperId: string }) {
           if (result.expired) fail('EXPIRED')
         }
       })
-      .catch(() => !cancelled && setNotFound(true))
+      .catch((err: unknown) => {
+        if (cancelled) return
+        if (err instanceof Error && err.message === 'PAPER_NOT_FOUND') setNotFound(true)
+        else setLoadError(true)
+      })
       .finally(() => !cancelled && setLoading(false))
     return () => {
       cancelled = true
     }
-  }, [paperId, unlock, fail])
+  }, [paperId, unlock, fail, attempt])
 
   const handleConnect = async () => {
     setShowModal(false)
@@ -80,6 +88,21 @@ export function ArticleView({ paperId }: { paperId: string }) {
         <Link href="/" className="font-semibold text-primary hover:underline">
           {COPY.paper.backHome}
         </Link>
+      </main>
+    )
+  }
+
+  if (loadError) {
+    return (
+      <main className="mx-auto max-w-3xl px-4 py-24 text-center sm:px-6">
+        <p className="mb-6 font-display text-2xl text-foreground">{COPY.paper.loadError}</p>
+        <button
+          type="button"
+          onClick={() => setAttempt((n) => n + 1)}
+          className="min-h-[44px] rounded-xl bg-primary px-6 text-sm font-semibold text-primary-foreground hover:bg-primary-hover"
+        >
+          {COPY.paper.retry}
+        </button>
       </main>
     )
   }
@@ -104,7 +127,7 @@ export function ArticleView({ paperId }: { paperId: string }) {
     state,
     errorCode,
     receipt,
-    simulated: isSimulatedPayment,
+    simulated: receipt ? isSimulatedTx(receipt.txHash) : true,
     onPay: () => setShowModal(true),
     onRetry: retry,
   }

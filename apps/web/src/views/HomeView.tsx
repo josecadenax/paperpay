@@ -9,14 +9,19 @@ import { getPapers } from '@/services/paperpay'
 export function HomeView() {
   const [papers, setPapers] = useState<PaperPreview[]>([])
   const [loading, setLoading] = useState(true)
+  const [loadError, setLoadError] = useState(false)
+  const [attempt, setAttempt] = useState(0)
   const [query, setQuery] = useState('')
   const [discipline, setDiscipline] = useState(COPY.home.allDisciplines)
 
   useEffect(() => {
+    setLoading(true)
+    setLoadError(false)
     getPapers()
       .then(setPapers)
+      .catch(() => setLoadError(true))
       .finally(() => setLoading(false))
-  }, [])
+  }, [attempt])
 
   const disciplines = useMemo(() => {
     const found = papers.map((p) => p.discipline).filter((d): d is string => Boolean(d))
@@ -122,7 +127,7 @@ export function HomeView() {
             <h2 className="font-display text-2xl font-semibold text-foreground">{COPY.home.papersTitle}</h2>
             <p className="mt-1 text-sm text-muted-foreground">{COPY.home.papersSubtitle}</p>
           </div>
-          {!loading && (
+          {!loading && !loadError && (
             <span className="text-sm text-muted-foreground">
               {filtered.length} artículo{filtered.length !== 1 ? 's' : ''}
             </span>
@@ -134,6 +139,17 @@ export function HomeView() {
             {[1, 2, 3].map((i) => (
               <div key={i} className="h-72 animate-pulse rounded-2xl bg-muted" />
             ))}
+          </div>
+        ) : loadError ? (
+          <div className="py-24 text-center">
+            <p className="mb-6 font-display text-lg text-muted-foreground">{COPY.home.loadError}</p>
+            <button
+              type="button"
+              onClick={() => setAttempt((n) => n + 1)}
+              className="min-h-[44px] rounded-xl bg-primary px-6 text-sm font-semibold text-primary-foreground hover:bg-primary-hover"
+            >
+              {COPY.home.retry}
+            </button>
           </div>
         ) : filtered.length === 0 ? (
           <p className="py-24 text-center font-display text-lg text-muted-foreground">{COPY.home.noResults}</p>

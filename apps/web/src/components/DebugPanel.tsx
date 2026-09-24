@@ -7,7 +7,7 @@ interface Props {
 }
 
 const STATES: PaywallState[] = ['locked', 'connecting', 'awaitingSignature', 'settling', 'unlocked']
-const ERRORS: PaywallErrorCode[] = ['NO_WALLET', 'WRONG_NETWORK', 'INSUFFICIENT_FUNDS', 'NO_TRUSTLINE', 'USER_REJECTED', 'EXPIRED']
+const ERRORS: PaywallErrorCode[] = ['NO_WALLET', 'WRONG_NETWORK', 'INSUFFICIENT_FUNDS', 'NO_TRUSTLINE', 'USER_REJECTED', 'EXPIRED', 'PAYMENT_FAILED']
 
 export function DebugPanel({ onForceState, onForceError }: Props) {
   return (

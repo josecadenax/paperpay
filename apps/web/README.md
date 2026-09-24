@@ -3,25 +3,36 @@
 Frontend de PaperPay (Next.js + Tailwind), portado del prototipo de Figma Make.
 
 ```bash
+cp apps/web/.env.example apps/web/.env.local
 pnpm install
-pnpm dev:web      # desde la raíz → http://localhost:3000
+pnpm dev:api      # backend en :4000 (otra terminal)
+pnpm dev:web      # frontend en http://localhost:3000
 ```
 
-## Qué está simulado hoy
+## Fuente de datos (`NEXT_PUBLIC_DATA_SOURCE`)
 
-Mientras el backend termina la liquidación real, todo corre en el navegador:
-
-| Pieza | Hoy | Cuando el backend esté listo |
+| Valor | Qué hace | Cuándo usarlo |
 |---|---|---|
-| Catálogo | `src/mocks/papers.json` (copia de `apps/api/data/papers.json`) | `GET /api/papers` |
-| Artículo bloqueado / desbloqueado | `src/services/paperpay.ts` | `GET /api/papers/:id` (402 o 200 con `Bearer`) |
-| Pago | Demoras simuladas y hash aleatorio | Firma con Freighter + `PAYMENT-SIGNATURE` |
-| Wallet | `NEXT_PUBLIC_WALLET=mock` (default) | `NEXT_PUBLIC_WALLET=freighter` ya conecta y valida la red |
-| Acceso de 24 h | `localStorage` (`paperpay:access:<id>`) | Igual, guardando el JWT del backend |
+| `api` | Catálogo, 402, pago y token de 24 h contra `apps/api` | Desarrollo normal y demo |
+| `mock` (default si no hay variable) | Todo en el navegador, sin API | Respaldo si el backend se cae en la demo |
 
-Para integrar el backend solo cambia `src/services/paperpay.ts`; las pantallas y `usePaywall` no deberían tocarse.
+Toda la lógica vive en `src/services/`: `apiBackend.ts` y `mockBackend.ts` cumplen el mismo
+contrato (`backend.ts`) y `paperpay.ts` elige uno. Las pantallas y `usePaywall` no cambian.
+
+## Estado del pago real
+
+En modo `api` el flujo HTTP ya es el definitivo: 402 → `payment-signature` → 200 + `payment-response`
++ JWT. Lo único pendiente es la firma: hoy se manda una firma de relleno (`PLACEHOLDER_SIGNATURE` en
+`apiBackend.ts`) y el backend en desarrollo responde con un hash simulado (`mock_tx_...`). Cuando exista
+la firma real con Freighter (#32), solo cambia ese punto de `payForPaper`.
+
+El recibo detecta los hashes simulados y muestra "Pago simulado" en lugar del link al explorador.
+
+## Wallet (`NEXT_PUBLIC_WALLET`)
+
+`mock` (default) usa una dirección de prueba sin extensión. `freighter` conecta la extensión real y
+valida que esté en Testnet.
 
 ## Revisar todos los estados
 
-Agrega `?debug=1` a la URL de un artículo para forzar cualquier estado del pago o error
-(wallet no detectada, red incorrecta, fondos insuficientes, etc.).
+Agrega `?debug=1` a la URL de un artículo para forzar cualquier estado del pago o error.

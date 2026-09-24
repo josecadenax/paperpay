@@ -45,6 +45,8 @@ export const COPY = {
     papersSubtitle: 'Acceso inmediato · Sin suscripción',
     readFor: 'Leer por',
     noResults: 'No se encontraron artículos para tu búsqueda.',
+    loadError: 'No pudimos cargar el catálogo. Revisa tu conexión e intenta de nuevo.',
+    retry: 'Reintentar',
     footerLeft: '© 2026 PaperPay · Pagos en Stellar Testnet',
     footerRight: '98% a la editorial · 2% de comisión',
   },
@@ -58,6 +60,8 @@ export const COPY = {
     previewEnds: 'Vista previa termina aquí',
     unlockToRead: 'Desbloquea el artículo completo para continuar leyendo.',
     notFound: 'No encontramos este artículo.',
+    loadError: 'No pudimos cargar el artículo. Revisa tu conexión e intenta de nuevo.',
+    retry: 'Reintentar',
     backHome: 'Volver al catálogo',
   },
   paywall: {
@@ -144,6 +148,11 @@ export const COPY = {
       title: 'Acceso expirado',
       description: 'Tu acceso de 24 horas ya venció. Paga de nuevo para seguir leyendo.',
       action: 'Pagar de nuevo',
+    },
+    PAYMENT_FAILED: {
+      title: 'No se pudo completar el pago',
+      description: 'Hubo un problema al procesar el pago. No se cobró nada.',
+      action: 'Intentar de nuevo',
     },
   },
   dashboard: {
