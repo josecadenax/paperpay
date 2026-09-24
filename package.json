@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
+    "start": "pnpm --filter @paperpay/api start",
     "dev": "pnpm --parallel --filter \"./apps/*\" dev",
     "build": "pnpm --filter \"./packages/*\" build && pnpm --filter \"./apps/*\" build",
     "dev:api": "pnpm --filter @paperpay/api dev",
