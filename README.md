@@ -90,7 +90,11 @@ Monorepo con **pnpm workspaces** para que ambos devs compartan tipos sin publica
 
 > Esto se documentará paso a paso (o se automatizará con un botón "Preparar wallet de demo") antes del pitch.
 
-## Arranque local
+## Entornos y URLs
+- **Backend API (Producción):** `https://paperpay-backend-production.up.railway.app`
+- **Documentación API:** Puedes hacer `GET /api/papers` a esa URL para ver los artículos.
+
+## Arranque local (Si deseas desarrollar el backend)
 
 ### 1. Requisitos
 - Node.js >= 20

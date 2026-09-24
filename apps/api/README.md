@@ -4,9 +4,22 @@ Backend stateless con soporte para el protocolo **x402** sobre **Stellar Testnet
 
 ---
 
-## 🚀 Arranque Rápido para Dev B (Frontend)
+## 🚀 Integración Rápida para Dev B (Frontend)
 
-### 1. Levantar el Backend Localmente
+El backend ya está **desplegado en producción en Railway**, por lo que **no necesitas correrlo localmente** para trabajar en el frontend.
+
+**URL Base de Producción:**
+`https://paperpay-backend-production.up.railway.app`
+
+Para integrarlo en el frontend, simplemente configura tu variable de entorno en `apps/web/.env.local`:
+```env
+NEXT_PUBLIC_API_URL=https://paperpay-backend-production.up.railway.app
+# o VITE_API_URL= si usas Vite
+```
+
+---
+
+### Si prefieres Levantar el Backend Localmente (Opcional)
 Desde la raíz del monorepo (`paperpay/`):
 
 ```bash
@@ -48,7 +61,7 @@ Puedes importar directamente los tipos y constantes desde `@paperpay/shared` en 
 import { X402_HEADERS, PaperPreview, PaperFull, decodeBase64Json, encodeBase64Json } from '@paperpay/shared';
 import { signAuthEntry } from '@stellar/freighter-api';
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'https://paperpay-backend-production.up.railway.app';
 
 // 1. Petición inicial (espera 402)
 const response = await fetch(`${API_BASE}/api/papers/${paperId}`);
