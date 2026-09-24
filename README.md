@@ -60,7 +60,7 @@ PaperPay es un paywall **stateless** basado en el estándar `HTTP 402 Payment Re
 | Contrato compartido | Tipos TS y ejemplos de payload en `packages/shared` | Ambos |
 | Red | Stellar Testnet (`stellar:testnet`), USDC SEP-41 | n/a |
 
-Resumen para mentores y jurado: **[docs/RESUMEN_EJECUTIVO.md](docs/RESUMEN_EJECUTIVO.md)** · Detalle técnico y plan de tareas: **[docs/PLAN.md](docs/PLAN.md)**.
+Resumen para mentores y jurado: **[docs/RESUMEN_EJECUTIVO.md](docs/RESUMEN_EJECUTIVO.md)** · Detalle técnico: **[docs/PLAN.md](docs/PLAN.md)** · Diagrama de flujo de compra: **[docs/FLUJO_USUARIO.md](docs/FLUJO_USUARIO.md)**.
 
 ---
 
