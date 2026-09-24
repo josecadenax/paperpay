@@ -145,29 +145,28 @@ export class X402Service {
     try {
       tx = new Transaction(payload.signature, Networks.TESTNET);
     } catch {
-      // Si no es un XDR válido pero estamos en entorno de desarrollo/test, no romper la demo
-      if (config.nodeEnv === 'development' || process.env.NODE_ENV === 'test') {
-        const fallbackHash = `self_settled_${Date.now().toString(16)}_${Math.random().toString(16).slice(2, 10)}`;
-        console.warn('[x402Service] Signature no es XDR válido; retornando hash fallback en entorno de prueba/dev.');
-        return {
-          success: true,
-          txHash: fallbackHash,
-        };
-      }
       throw new Error('El campo signature no es un XDR de transacción válido.');
     }
 
-    // Validación de seguridad para MVP: asegurar que la transacción paga a nuestra tesorería
+    // Validación de seguridad para MVP: asegurar que la transacción paga a nuestra tesorería, en USDC, y el monto es 0.50
     let isValidPayment = false;
+    const USDC_ISSUER = 'GBBD47IF6LWK7P7MDEVSCWR7DPUWV3NY3DTQEVFL4NAT4AQH3ZLLFLA5';
+
     for (const op of tx.operations) {
       if (op.type === 'payment' && op.destination === config.stellarTreasuryPublicKey) {
-        isValidPayment = true;
-        break;
+        // En stellar-sdk, amount viene como string decimal (ej. "0.5000000")
+        const amount = Number(op.amount);
+        const isUSDC = op.asset && !op.asset.isNative() && op.asset.code === 'USDC' && op.asset.issuer === USDC_ISSUER;
+        
+        if (isUSDC && amount >= 0.5) {
+          isValidPayment = true;
+          break;
+        }
       }
     }
 
     if (!isValidPayment) {
-      throw new Error('La transacción no contiene un pago válido hacia la tesorería de PaperPay.');
+      throw new Error('La transacción no contiene un pago válido (0.50 USDC) hacia la tesorería de PaperPay.');
     }
 
     const server = new Horizon.Server('https://horizon-testnet.stellar.org');
