@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Fraunces, Inter, JetBrains_Mono } from 'next/font/google'
 import { Navbar } from '@/components/Navbar'
+import { PollarProviderGate } from '@/components/PollarProviderGate'
 import './globals.css'
 
 const fraunces = Fraunces({ subsets: ['latin'], variable: '--font-fraunces', display: 'swap' })

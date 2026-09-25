@@ -27,3 +27,18 @@ El panel editorial lee pagos entrantes desde Horizon. Su cifra de 98% para la ed
 Para revisar estados de la interfaz durante desarrollo, agrega `?debug=1` a un artículo. El panel de depuración no aparece en builds de producción.
 
 Verificación estática: `pnpm --filter @paperpay/web typecheck`. Compilación: `pnpm --filter @paperpay/web build`.
+
+## v2 — Pollar (en construcción, rama `feat/pollar-v2`)
+
+Login social (Google/email) con [Pollar](https://pollar.xyz): la wallet la crea Pollar,
+activa USDC y patrocina la comisión. A diferencia de Freighter (v1: el frontend firma y el
+backend envía), **Pollar firma y envía la transacción**, así que el backend verifica por hash.
+
+Andamiaje ya presente, aislado detrás de `NEXT_PUBLIC_WALLET=pollar` + `NEXT_PUBLIC_POLLAR_PUBLISHABLE_KEY`:
+- `services/walletMode.ts` — modo de wallet (`mock` | `freighter` | `pollar`).
+- `components/PollarProviderGate.tsx` — monta `PollarProvider` solo si el modo pollar está activo y hay key; si no, no cambia nada (v1 intacto).
+- `services/pollarPayment.ts` — parámetros de `runTx` y `settleByHash` (verify-by-hash contra el backend).
+- `hooks/usePollarCheckout.ts` — login + pago + verify, listo para conectar en `ArticleView`.
+
+**Pendiente para completar v2:** endpoint de verify-by-hash en el backend (#32), la publishable key
+de Pollar en el dashboard, y cablear `usePollarCheckout` en el flujo de pago.
