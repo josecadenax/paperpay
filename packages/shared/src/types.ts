@@ -43,6 +43,15 @@ export interface X402PaymentSignatureHeader {
   signerPublicKey: string;// G...
 }
 
+// Pago ya enviado por una wallet custodial, como Pollar. El backend verifica el
+// hash en Horizon antes de conceder el acceso.
+export interface X402PaymentVerificationHeader {
+  scheme: 'exact';
+  network: typeof STELLAR_NETWORK;
+  signerPublicKey: string;
+  txHash: string;
+}
+
 export interface X402PaymentResponseHeader {
   success: boolean;
   txHash: string;

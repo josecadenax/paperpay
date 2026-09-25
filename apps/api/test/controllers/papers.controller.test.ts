@@ -2,6 +2,7 @@ import { describe, it, expect, vi } from 'vitest';
 import request from 'supertest';
 import app from '../../src/app';
 import { x402Service } from '../../src/services/x402.service';
+import { paymentVerificationService } from '../../src/services/payment-verification.service';
 import { decodeBase64Json, encodeBase64Json } from '../../src/utils/base64';
 import { jwtService } from '../../src/services/jwt.service';
 import {
@@ -158,6 +159,47 @@ describe('Papers Controller & x402 Endpoints', () => {
       expect(res.status).toBe(402);
       expect(res.body.preview).toBeDefined();
       expect(res.body.paper).toBeUndefined();
+    });
+  });
+
+  describe('POST /api/papers/:id/verify - Pollar payment flow', () => {
+    const txHash = 'b'.repeat(64);
+    const signerPublicKey = 'GCLIENTPOLLARTESTNETWALLET1234567890ABCDEF';
+    const verificationHeader = {
+      scheme: 'exact' as const,
+      network: 'stellar:testnet' as const,
+      txHash,
+      signerPublicKey,
+    };
+
+    it('returns the paper and a JWT after an on-chain hash is verified', async () => {
+      const verification = vi.spyOn(paymentVerificationService, 'verifyByHash').mockResolvedValueOnce({
+        paperId: targetPaperId,
+        signerPublicKey,
+        txHash,
+      });
+
+      const res = await request(app)
+        .post(`/api/papers/${targetPaperId}/verify`)
+        .set('payment-signature', encodeBase64Json(verificationHeader))
+        .send({ txHash, signerPublicKey });
+
+      expect(res.status).toBe(200);
+      expect(res.body.paper.id).toBe(targetPaperId);
+      expect(res.body.accessToken).toBeDefined();
+      expect(res.body.txHash).toBe(txHash);
+      expect(verification).toHaveBeenCalledWith({ paperId: targetPaperId, signerPublicKey, txHash });
+      verification.mockRestore();
+    });
+
+    it('rejects a body that differs from its payment-signature header', async () => {
+      const res = await request(app)
+        .post(`/api/papers/${targetPaperId}/verify`)
+        .set('payment-signature', encodeBase64Json(verificationHeader))
+        .send({ txHash: 'c'.repeat(64), signerPublicKey });
+
+      expect(res.status).toBe(400);
+      expect(res.body.error).toBe('PAYMENT_VERIFICATION_FAILED');
     });
   });
 });
