@@ -5,7 +5,7 @@ import type { NextConfig } from 'next'
 const apiProxyTarget = (process.env.API_PROXY_TARGET ?? 'https://paperpay-backend-production.up.railway.app').replace(/\/$/, '')
 
 const nextConfig: NextConfig = {
-  transpilePackages: ['@paperpay/shared'],
+  transpilePackages: ['@paperpay/shared', '@pollar/react', '@pollar/core'],
   async rewrites() {
     return [{ source: '/api/:path*', destination: `${apiProxyTarget}/api/:path*` }]
   },
