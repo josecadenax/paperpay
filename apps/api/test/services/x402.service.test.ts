@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { x402Service } from '../../src/services/x402.service';
+import { config } from '../../src/config';
 import { encodeBase64Json } from '../../src/utils/base64';
 import {
   DEFAULT_PAPER_PRICE_STROOPS,
@@ -56,7 +57,7 @@ describe('X402Service', () => {
     expect(() => x402Service.parseSignatureHeader('not valid base64 or json!')).toThrow();
   });
 
-  it('should settle payment and return txHash in test/demo mode', async () => {
+  it('should reject a simulated signature without explicit demo mode', async () => {
     const signaturePayload: X402PaymentSignatureHeader = {
       scheme: 'exact',
       network: 'stellar:testnet',
@@ -64,10 +65,23 @@ describe('X402Service', () => {
       signature: 'mock_signature_data',
     };
 
-    const result = await x402Service.settlePayment(signaturePayload, 'autonomous-ai-micropayments');
-    expect(result.success).toBe(true);
-    expect(result.txHash).toBeDefined();
-    expect(typeof result.txHash).toBe('string');
+    await expect(x402Service.settlePayment(signaturePayload, 'autonomous-ai-micropayments'))
+      .rejects.toThrow('Los pagos simulados están deshabilitados');
+  });
+
+  it('should issue a clearly simulated hash only when demo mode is enabled', async () => {
+    const previous = config.demoPayments;
+    config.demoPayments = true;
+    try {
+      const result = await x402Service.settlePayment({
+        scheme: 'exact', network: 'stellar:testnet',
+        signerPublicKey: 'GDEMOLECTORUNAMTESTNETWALLET1234567890ABCDEF',
+        signature: 'unsigned-demo-signature',
+      }, 'autonomous-ai-micropayments');
+      expect(result.txHash).toMatch(/^mock_tx_/);
+    } finally {
+      config.demoPayments = previous;
+    }
   });
 
   it('should reject settlement if signature or signer is missing', async () => {

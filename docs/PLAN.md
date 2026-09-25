@@ -1,5 +1,7 @@
 # PaperPay: Arquitectura y plan de trabajo
 
+> Documento de planificación histórica. Para el estado comprobado consulta [QA.md](QA.md) y el [README](../README.md). Las tareas y fechas aquí no certifican funcionalidades terminadas.
+
 Documento vivo. Si una decisión cambia, se edita aquí en el mismo PR que la implementa.
 
 ---

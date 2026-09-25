@@ -1,5 +1,7 @@
 # PaperPay · Resumen ejecutivo
 
+> Propuesta histórica para el hackathon. La afirmación de pago real describe el objetivo, no un resultado verificado. Estado actual: [QA.md](QA.md).
+
 _Actualizado: 23 sep 2026 · Versión editable para comentarios: [Claude Docs](https://claude.ai/code/artifact/764894f4-f397-4a1f-b9ad-1a4472fb7118)_
 
 PaperPay permite leer un artículo científico pagando $0.50 USDC en un clic, sin crear cuenta, usando el estándar HTTP 402 y el protocolo x402 sobre Stellar. Es una propuesta de dos exalumnos de la Facultad de Ingeniería de la UNAM para el track Stellar de Goya Hack 2026.

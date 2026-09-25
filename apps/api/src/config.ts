@@ -9,7 +9,7 @@ export interface AppConfig {
   nodeEnv: string;
   stellarTreasuryPublicKey: string;
   selfSettle: boolean;
-  stellarBackupSecretKey?: string;
+  demoPayments: boolean;
   openZeppelinChannelsUrl: string;
   openZeppelinApiKey: string;
   jwtSecret: string;
@@ -23,7 +23,7 @@ export const config: AppConfig = {
   nodeEnv: process.env.NODE_ENV || 'development',
   stellarTreasuryPublicKey: process.env.STELLAR_TREASURY_PUBLIC_KEY || defaultTreasuryKey,
   selfSettle: process.env.SELF_SETTLE === 'true',
-  stellarBackupSecretKey: process.env.STELLAR_BACKUP_SECRET_KEY,
+  demoPayments: process.env.DEMO_PAYMENTS === 'true' && process.env.NODE_ENV !== 'production',
   openZeppelinChannelsUrl: process.env.OPENZEPPELIN_CHANNELS_URL || 'https://channels.openzeppelin.com/x402/testnet',
   openZeppelinApiKey: process.env.OPENZEPPELIN_API_KEY || 'demo_key',
   jwtSecret: process.env.JWT_SECRET || 'paperpay_hackathon_goya_2026_default_secret_key',

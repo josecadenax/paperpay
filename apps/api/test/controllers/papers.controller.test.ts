@@ -1,6 +1,7 @@
-import { describe, it, expect, beforeAll, afterAll } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import request from 'supertest';
-import app, { server } from '../../src/index';
+import app from '../../src/app';
+import { x402Service } from '../../src/services/x402.service';
 import { decodeBase64Json, encodeBase64Json } from '../../src/utils/base64';
 import { jwtService } from '../../src/services/jwt.service';
 import {
@@ -11,10 +12,6 @@ import {
 
 describe('Papers Controller & x402 Endpoints', () => {
   const targetPaperId = 'autonomous-ai-micropayments';
-
-  afterAll(() => {
-    server.close();
-  });
 
   describe('GET /api/health', () => {
     it('should return 200 OK and health info', async () => {
@@ -76,6 +73,7 @@ describe('Papers Controller & x402 Endpoints', () => {
     });
 
     it('should return 200 OK and full paper when valid payment-signature is provided', async () => {
+      const settlement = vi.spyOn(x402Service, 'settlePayment').mockResolvedValueOnce({ success: true, txHash: 'a'.repeat(64) });
       const signaturePayload: X402PaymentSignatureHeader = {
         scheme: 'exact',
         network: 'stellar:testnet',
@@ -103,6 +101,7 @@ describe('Papers Controller & x402 Endpoints', () => {
       expect(res.body.paper.fullContentMarkdown).toBeDefined();
       expect(res.body.accessToken).toBeDefined();
       expect(res.body.txHash).toBe(paymentResponse.txHash);
+      settlement.mockRestore();
     });
 
     it('should return 402 with error message if payment-signature is malformed', async () => {

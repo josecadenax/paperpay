@@ -1,6 +1,7 @@
 import { Horizon, Keypair } from '@stellar/stellar-sdk';
 import fs from 'fs';
 import path from 'path';
+import { randomBytes } from 'crypto';
 
 const HORIZON_TESTNET_URL = 'https://horizon-testnet.stellar.org';
 const FRIENDBOT_URL = 'https://friendbot.stellar.org';
@@ -39,11 +40,11 @@ PORT=4000
 NODE_ENV=development
 STELLAR_NETWORK=testnet
 STELLAR_TREASURY_PUBLIC_KEY=${publicKey}
-STELLAR_BACKUP_SECRET_KEY=${secretKey}
 SELF_SETTLE=false
+DEMO_PAYMENTS=false
 OPENZEPPELIN_CHANNELS_URL=https://channels.openzeppelin.com/x402/testnet
-OPENZEPPELIN_API_KEY=oz_test_paperpay_demo
-JWT_SECRET=paperpay_jwt_secret_goya_hack_2026_${Date.now()}
+OPENZEPPELIN_API_KEY=
+JWT_SECRET=${randomBytes(32).toString('hex')}
 CORS_ORIGINS=http://localhost:3000,http://localhost:4000,https://paperpay.vercel.app
 `;
 

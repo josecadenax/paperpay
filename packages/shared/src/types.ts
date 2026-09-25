@@ -38,7 +38,7 @@ export interface X402PaymentRequiredHeader {
 export interface X402PaymentSignatureHeader {
   scheme: 'exact';
   network: typeof STELLAR_NETWORK;
-  signature: string;      // Base64 xdr.SorobanAuthorizationEntry
+  signature: string;      // Facilitador: autorización; SELF_SETTLE: sobre de transacción XDR
   signerPublicKey: string;// G...
 }
 

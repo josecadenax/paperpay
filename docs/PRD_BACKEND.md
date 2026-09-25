@@ -1,5 +1,7 @@
 # PaperPay · PRD (Product Requirements Document) - Backend API
 
+> Requisitos propuestos. Para distinguir la implementación actual de lo pendiente consulta [QA.md](QA.md) y [apps/api/README.md](../apps/api/README.md).
+
 * **Proyecto:** PaperPay
 * **Componente:** Backend API (`apps/api`)
 * **Responsable:** Dev A (Backend & Protocolo x402)

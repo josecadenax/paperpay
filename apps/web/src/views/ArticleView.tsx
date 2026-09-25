@@ -44,7 +44,7 @@ export function ArticleView({ paperId }: { paperId: string }) {
   const { state, errorCode, paper, receipt, startPayment, retry, unlock, fail, forceState } = usePaywall(paperId)
 
   useEffect(() => {
-    setDebug(new URLSearchParams(window.location.search).get('debug') === '1')
+    setDebug(process.env.NODE_ENV === 'development' && new URLSearchParams(window.location.search).get('debug') === '1')
   }, [])
 
   useEffect(() => {

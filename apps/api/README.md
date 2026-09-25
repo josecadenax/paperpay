@@ -1,135 +1,42 @@
-# PaperPay Backend API (`@paperpay/api`)
+# API de PaperPay
 
-Backend stateless con soporte para el protocolo **x402** sobre **Stellar Testnet**, desarrollado con Express y TypeScript en un monorepo pnpm.
+API Express en el puerto 4000. Carga tres artículos ficticios desde `data/papers.json`.
 
----
+## Inicio
 
-## 🚀 Integración Rápida para Dev B (Frontend)
-
-El backend ya está **desplegado en producción en Railway**, por lo que **no necesitas correrlo localmente** para trabajar en el frontend.
-
-**URL Base de Producción:**
-`https://paperpay-backend-production.up.railway.app`
-
-Para integrarlo en el frontend, simplemente configura tu variable de entorno en `apps/web/.env.local`:
-```env
-NEXT_PUBLIC_API_URL=https://paperpay-backend-production.up.railway.app
-# o VITE_API_URL= si usas Vite
-```
-
----
-
-### Si prefieres Levantar el Backend Localmente (Opcional)
-Desde la raíz del monorepo (`paperpay/`):
+Desde la raíz del repositorio:
 
 ```bash
-# 1. Instalar dependencias
-pnpm install
-
-# 2. Levantar la API en modo desarrollo (escucha en http://localhost:4000)
+cp apps/api/.env.example apps/api/.env
 pnpm dev:api
-```
-
-### 2. Ejecutar Pruebas Automatizadas
-```bash
-# Correr la suite de 27 pruebas unitarias y de integración (Vitest)
 pnpm test
-
-# Correr la prueba en vivo contra Stellar Testnet (Friendbot + Horizon)
-pnpm test:testnet
 ```
 
----
+La ruta `/api/health` indica que el proceso responde; no comprueba Horizon ni el facilitador. La URL de Railway mencionada en documentos anteriores no se verifica automáticamente en este repositorio.
 
-## 📡 Guía de Integración para el Frontend (`apps/web`)
+## Contrato HTTP
 
-### 🔐 Arquitectura de Autenticación (Stateless)
-PaperPay **no tiene base de datos de usuarios, ni login con contraseña**. Toda la "autenticación" es descentralizada:
-1. **Identidad:** La `publicKey` de la wallet de Stellar del usuario es su identidad.
-2. **Autorización Inicial:** Al intentar leer un artículo (`GET /api/papers/:id`), el backend rechaza con un HTTP `402 Payment Required`. El usuario **firma la intención de pago** con su wallet. Tú envías esa firma en la cabecera `payment-signature`.
-3. **Sesión Temporal (JWT):** Si el pago es exitoso, el backend emite un `accessToken` (JWT) válido por 24 horas y exclusivo para *ese artículo*. Lo guardas en `localStorage` y lo envías en la cabecera `Authorization: Bearer <token>` para que el usuario no tenga que volver a firmar (y pagar) al recargar la página.
+| Solicitud | Respuesta |
+| --- | --- |
+| `GET /api/health` | `200`: estado, red, modo y dirección configurada |
+| `GET /api/papers` | `200`: previews, sin `fullContentMarkdown` |
+| `GET /api/papers/:id` sin credenciales | `402`: `{ preview }` y `payment-required` en Base64 JSON |
+| `GET /api/papers/:id` con pago aceptado | `200`: `{ paper, accessToken, txHash }` y `payment-response` |
+| `GET /api/papers/:id` con `Authorization: Bearer <jwt>` válido para ese artículo | `200`: `{ paper }` |
+| ID inexistente | `404`: `PAPER_NOT_FOUND` |
 
-### Endpoints Disponibles
+El requisito de pago declara `exact`, `stellar:testnet`, USDC SAC, `5000000` unidades de 7 decimales y la tesorería. `payment-signature` se decodifica como Base64 JSON (también acepta JSON directo). Una respuesta fallida devuelve `402 PAYMENT_FAILED`.
 
-| Método | Endpoint | Descripción | Respuesta esperada |
-|---|---|---|---|
-| `GET` | `/api/health` | Estado del backend y red activa | `200 OK` + `{ status: "ok", network: "stellar:testnet", treasuryPublicKey: "..." }` |
-| `GET` | `/api/papers` | Catálogo de artículos disponibles | `200 OK` + `PaperPreview[]` |
-| `GET` | `/api/papers/:id` | Consulta de artículo (protegido) | `402` si no hay pago / `200` si hay JWT o firma válida |
+## Modos de liquidación
 
----
+Por defecto la API intenta enviar la firma al URL configurado en `OPENZEPPELIN_CHANNELS_URL`. Exige una respuesta con `success: true` y un hash de 64 caracteres hexadecimales. **Ese contrato de integración no se ha probado con un pago real**; confirmar el formato y el endpoint del facilitador antes de usarlo.
 
-### Cómo Implementar el Flujo x402 en Next.js (Código de Referencia)
+`SELF_SETTLE=true` intenta enviar a Horizon un sobre de transacción clásica Stellar ya firmado. Comprueba que el origen coincida con `signerPublicKey` y que incluya un pago de al menos 0.50 USDC a la tesorería. No firma por el lector, no realiza una llamada Soroban y no asocia el pago criptográficamente con un artículo concreto.
 
-Puedes importar directamente los tipos y constantes desde `@paperpay/shared` en tu frontend:
+`DEMO_PAYMENTS=true` acepta las firmas de prueba `unsigned-demo-signature`, `mock_*` y `demo_*`, y emite un hash `mock_tx_*` y JWT sin transferir fondos. Funciona solo con `NODE_ENV` distinto de `production`. Déjalo en `false` salvo para una demo local. Sin este modo, una firma de prueba recibe `402`.
 
-```typescript
-import { X402_HEADERS, PaperPreview, PaperFull, decodeBase64Json, encodeBase64Json } from '@paperpay/shared';
-import { signAuthEntry } from '@stellar/freighter-api';
+En producción son obligatorios un `JWT_SECRET` de al menos 32 caracteres, una `STELLAR_TREASURY_PUBLIC_KEY` válida y `OPENZEPPELIN_API_KEY` si se usa el facilitador. El ejemplo de `.env` usa una clave de tesorería ficticia. `generate:treasury` crea y fondea una cuenta de Testnet con Friendbot, pero no obtiene USDC ni verifica pagos.
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'https://paperpay-backend-production.up.railway.app';
+## Pruebas
 
-// 1. Petición inicial (espera 402)
-const response = await fetch(`${API_BASE}/api/papers/${paperId}`);
-
-if (response.status === 402) {
-  // 2. Extraer requerimientos de pago
-  const rawHeader = response.headers.get('payment-required');
-  const requirement = JSON.parse(atob(rawHeader)); // o decodeBase64Json
-  const terms = requirement.accepts[0];
-  // terms = { asset: "...", amount: "5000000", payTo: "...", network: "stellar:testnet" }
-
-  // 3. Solicitar firma a Freighter
-  // En la demo de hackathon, puedes pedir la firma de la auth entry o firmar con Freighter:
-  const signatureResult = await signAuthEntry({ ... });
-
-  // 4. Reintentar enviando la firma en la cabecera 'payment-signature'
-  const unlockRes = await fetch(`${API_BASE}/api/papers/${paperId}`, {
-    headers: {
-      'payment-signature': btoa(JSON.stringify({
-        scheme: 'exact',
-        network: 'stellar:testnet',
-        signerPublicKey: userPublicKey,
-        signature: signatureResult,
-      })),
-    },
-  });
-
-  if (unlockRes.ok) {
-    const data = await unlockRes.json();
-    // data.paper -> Contenido completo del artículo (PaperFull)
-    // data.accessToken -> Token JWT con vigencia de 24h
-    // Guardar en localStorage para visitas futuras:
-    localStorage.setItem(`paperpay:access:${paperId}`, data.accessToken);
-  }
-}
-```
-
-### Acceso con Sesión Previa (JWT)
-Si el usuario ya compró el artículo en las últimas 24 horas:
-
-```typescript
-const token = localStorage.getItem(`paperpay:access:${paperId}`);
-
-const res = await fetch(`${API_BASE}/api/papers/${paperId}`, {
-  headers: token ? { Authorization: `Bearer ${token}` } : {},
-});
-
-// Si el token es válido, responde 200 OK directamente sin pedir pago
-if (res.ok) {
-  const { paper } = await res.json();
-  // Mostrar paper.fullContentMarkdown
-}
-```
-
----
-
-## 🔒 Variables de Entorno (`apps/api/.env`)
-
-El archivo `.env` ya se autogenera con `pnpm --filter @paperpay/api generate:treasury`, pero si necesitas configurarlo manualmente, copia de `.env.example`:
-
-* `PORT=4000`
-* `STELLAR_NETWORK=testnet`
-* `STELLAR_TREASURY_PUBLIC_KEY`: Clave pública de tesorería (recibe los 0.50 USDC).
-* `SELF_SETTLE=false`: Si se activa en `true`, el servidor liquida con su clave de respaldo.
-* `CORS_ORIGINS`: Incluye `http://localhost:3000` para desarrollo local y tu dominio de Vercel.
+`pnpm test` ejecuta 28 pruebas locales. El caso de desbloqueo simula la respuesta de liquidación para comprobar el contrato HTTP; no prueba un pago. `pnpm --filter @paperpay/api test:testnet` verifica Friendbot, Horizon y el paywall de una API local, sin comprar artículos. `pnpm --filter @paperpay/api test:settle` usa una firma de prueba y solo puede desbloquear con `DEMO_PAYMENTS=true`.

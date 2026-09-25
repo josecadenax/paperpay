@@ -1,5 +1,7 @@
 # PaperPay · TDD (Technical Design Document) - Backend API
 
+> Diseño propuesto. La firma con Freighter y la liquidación real no están verificadas; consulta [QA.md](QA.md) y [apps/api/README.md](../apps/api/README.md).
+
 * **Proyecto:** PaperPay
 * **Componente:** Backend API (`apps/api`) & Shared Contract (`packages/shared`)
 * **Responsable:** Dev A (Backend & Protocolo x402)

@@ -111,7 +111,7 @@ async function runTests() {
   }
   console.log('   ✅ Sesión verificada: El JWT permite leer el artículo sin volver a pagar.');
 
-  console.log('\n🎉 ¡TODAS LAS PRUEBAS DEL PROTOCOLO x402 PASARON CON ÉXITO!\n');
+  console.log('\n✅ Flujo HTTP de demo completado. No se transfirió USDC.\n');
   server.close();
 }
 

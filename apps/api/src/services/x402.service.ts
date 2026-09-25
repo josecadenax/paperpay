@@ -46,8 +46,17 @@ export class X402Service {
     signaturePayload: X402PaymentSignatureHeader,
     paperId: string
   ): Promise<{ success: boolean; txHash: string }> {
-    if (!signaturePayload.signature || !signaturePayload.signerPublicKey) {
+    if (signaturePayload.scheme !== 'exact' || signaturePayload.network !== STELLAR_NETWORK ||
+        !signaturePayload.signature || !signaturePayload.signerPublicKey) {
       throw new Error('Firma o clave pública del lector no proporcionada en la cabecera.');
+    }
+
+    const isPlaceholder = signaturePayload.signature === 'unsigned-demo-signature' ||
+      signaturePayload.signature.startsWith('mock_') ||
+      signaturePayload.signature.startsWith('demo_');
+    if (isPlaceholder) {
+      if (!config.demoPayments) throw new Error('Los pagos simulados están deshabilitados.');
+      return { success: true, txHash: `mock_tx_${Date.now().toString(16)}_${Math.random().toString(16).slice(2, 10)}` };
     }
 
     console.log(`[x402Service] Iniciando liquidación para paper ${paperId} desde wallet ${signaturePayload.signerPublicKey}`);
@@ -63,22 +72,6 @@ export class X402Service {
     } catch (err: unknown) {
       const errorMsg = err instanceof Error ? err.message : String(err);
       console.warn(`[x402Service] Facilitador de OpenZeppelin falló o no disponible: ${errorMsg}`);
-
-      // Si existe clave de respaldo, conmutar automáticamente a SELF_SETTLE
-      if (config.stellarBackupSecretKey) {
-        console.log('[x402Service] Activando conmutación por fallo a SELF_SETTLE...');
-        return this.selfSettle(signaturePayload, paperId);
-      }
-
-      // Si es entorno de desarrollo o demo sin conexión al facilitador externo, generar txHash de demo
-      if (config.nodeEnv === 'development' || config.openZeppelinApiKey === 'demo_key') {
-        const mockTxHash = `mock_tx_${Date.now().toString(16)}_${Math.random().toString(16).slice(2, 10)}`;
-        console.log(`[x402Service] Modo DEMO activado. Hash simulado: ${mockTxHash}`);
-        return {
-          success: true,
-          txHash: mockTxHash,
-        };
-      }
 
       throw new Error(`Error en facilitador x402: ${errorMsg}`);
     }
@@ -111,7 +104,10 @@ export class X402Service {
       throw new Error(`OpenZeppelin Channels HTTP ${response.status}: ${errorBody}`);
     }
 
-    const result = (await response.json()) as { success?: boolean; txHash: string };
+    const result = (await response.json()) as { success?: boolean; txHash?: string };
+    if (result.success !== true || !result.txHash || !/^[0-9a-f]{64}$/i.test(result.txHash)) {
+      throw new Error('El facilitador no confirmó una transacción válida.');
+    }
     return {
       success: true,
       txHash: result.txHash,
@@ -124,21 +120,6 @@ export class X402Service {
   ): Promise<{ success: boolean; txHash: string }> {
     console.log('[x402Service] Evaluando liquidación en modo SELF_SETTLE...');
     
-    // Si la firma es un placeholder/demo (ej. pruebas unitarias o wallet simulada en el frontend)
-    const isPlaceholder = !payload.signature || 
-      payload.signature === 'unsigned-demo-signature' || 
-      payload.signature.startsWith('mock_') || 
-      payload.signature.startsWith('demo_');
-
-    if (isPlaceholder) {
-      const mockTxHash = `mock_tx_${Date.now().toString(16)}_${Math.random().toString(16).slice(2, 10)}`;
-      console.log(`[x402Service] Firma simulada recibida. Generando hash de demo: ${mockTxHash}`);
-      return {
-        success: true,
-        txHash: mockTxHash,
-      };
-    }
-
     const { Transaction, Networks, Horizon } = await import('@stellar/stellar-sdk');
     
     let tx;
@@ -147,13 +128,17 @@ export class X402Service {
     } catch {
       throw new Error('El campo signature no es un XDR de transacción válido.');
     }
+    if (tx.source !== payload.signerPublicKey) {
+      throw new Error('La wallet firmante no coincide con el origen de la transacción.');
+    }
 
     // Validación de seguridad para MVP: asegurar que la transacción paga a nuestra tesorería, en USDC, y el monto es 0.50
     let isValidPayment = false;
     const USDC_ISSUER = 'GBBD47IF6LWK7P7MDEVSCWR7DPUWV3NY3DTQEVFL4NAT4AQH3ZLLFLA5';
 
     for (const op of tx.operations) {
-      if (op.type === 'payment' && op.destination === config.stellarTreasuryPublicKey) {
+      if (op.type === 'payment' && (!op.source || op.source === payload.signerPublicKey) &&
+          op.destination === config.stellarTreasuryPublicKey) {
         // En stellar-sdk, amount viene como string decimal (ej. "0.5000000")
         const amount = Number(op.amount);
         const isUSDC = op.asset && !op.asset.isNative() && op.asset.code === 'USDC' && op.asset.issuer === USDC_ISSUER;

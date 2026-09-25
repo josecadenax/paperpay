@@ -1,5 +1,7 @@
 # PaperPay · Flujo del Usuario y Experiencia de Compra (x402)
 
+> Flujo objetivo. La demo actual simula el pago; consulta [QA.md](QA.md) para el estado comprobado.
+
 Este documento detalla la experiencia de usuario y arquitectura de compra en PaperPay, abordando tanto la **visión ideal del producto terminado en producción** como el **flujo técnico de control y manejo de excepciones** implementado para el MVP.
 
 ---
