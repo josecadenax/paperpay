@@ -31,30 +31,50 @@ export interface PollarSettleResult {
   txHash: string
 }
 
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
+
 /*
  * Verificación por hash contra el backend v2:
  * POST /api/papers/:id/verify con { txHash, signerPublicKey } → { paper, accessToken, txHash }.
  * El backend confirma en Horizon que el pago de 0.50 USDC a la tesorería es real y reciente.
+ *
+ * Importante: el pago (sendPayment) ya ocurrió cuando se llama esto, así que NO se puede
+ * "cancelar". El verify se pide justo después y Horizon puede tardar unos segundos en indexar
+ * la transacción (mientras tanto responde 402 "no encontrada", o hay un 5xx transitorio).
+ * Por eso se reintenta con el MISMO hash (el backend es idempotente): así un pago exitoso
+ * siempre termina desbloqueando, sin que el usuario tenga que pagar de nuevo.
  */
 export async function settleByHash(paperId: string, txHash: string, signerPublicKey: string): Promise<PollarSettleResult> {
-  const res = await fetch(`${API_URL}/api/papers/${encodeURIComponent(paperId)}/verify`, {
-    method: 'POST',
-    headers: {
-      'content-type': 'application/json',
-      // Reusa la cabecera x402 para transportar el hash y el firmante, en base64.
-      [X402_HEADERS.PAYMENT_SIGNATURE]: encodeBase64Json({
-        scheme: 'exact',
-        network: 'stellar:testnet',
-        signerPublicKey,
-        txHash,
-      }),
-    },
-    body: JSON.stringify({ txHash, signerPublicKey }),
-    signal: AbortSignal.timeout(30_000),
-  })
-  if (!res.ok) {
+  const paymentSignature = encodeBase64Json({ scheme: 'exact', network: 'stellar:testnet', signerPublicKey, txHash })
+  // Reintentos ante lag de indexación de Horizon (402) o errores transitorios (5xx / red).
+  const delaysMs = [0, 1500, 2500, 4000, 6000, 8000]
+  let lastError: Error = new Error('No fue posible verificar el pago.')
+
+  for (const delay of delaysMs) {
+    if (delay) await sleep(delay)
+
+    let res: Response
+    try {
+      res = await fetch(`${API_URL}/api/papers/${encodeURIComponent(paperId)}/verify`, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json', [X402_HEADERS.PAYMENT_SIGNATURE]: paymentSignature },
+        body: JSON.stringify({ txHash, signerPublicKey }),
+        signal: AbortSignal.timeout(30_000),
+      })
+    } catch {
+      lastError = new Error('No se pudo contactar al servidor de verificación.')
+      continue // error de red: reintentar
+    }
+
+    if (res.ok) return (await res.json()) as PollarSettleResult
+
     const body = (await res.json().catch(() => ({}))) as { message?: string }
-    throw new Error(body.message ?? `verify → ${res.status}`)
+    lastError = new Error(body.message ?? `verify → ${res.status}`)
+
+    // 409 (ya usado) y 400 (petición inválida) son terminales: no tiene sentido reintentar.
+    if (res.status === 409 || res.status === 400) throw lastError
+    // 402 (aún no indexada / fuera de ventana) y 5xx (transitorio): reintentar.
   }
-  return (await res.json()) as PollarSettleResult
+
+  throw lastError
 }
