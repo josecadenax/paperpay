@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { useCallback, useEffect, useState } from 'react'
 import { ConnectWalletModal } from '@/components/ConnectWalletModal'
+import { PollarPaymentModal } from '@/components/PollarPaymentModal'
 import { DebugPanel } from '@/components/DebugPanel'
 import { DisciplineChip } from '@/components/DisciplineChip'
 import { MarkdownContent } from '@/components/MarkdownContent'
@@ -14,6 +15,7 @@ import { COPY } from '@/lib/copy'
 import { formatLongDate } from '@/lib/format'
 import type { PaperPreview } from '@/lib/types'
 import { getPaper, isSimulatedTx } from '@/services/paperpay'
+import { isPollarConfigured } from '@/services/walletMode'
 
 // El snippet del backend empieza con el título de la sección ("1. Introduction") en su propia línea.
 function PreviewSnippet({ text }: { text: string }) {
@@ -40,11 +42,15 @@ export function ArticleView({ paperId }: { paperId: string }) {
   const [showModal, setShowModal] = useState(false)
   const [showToast, setShowToast] = useState(false)
   const [debug, setDebug] = useState(false)
+  const [pollar, setPollar] = useState(false)
 
   const { state, errorCode, paper, receipt, startPayment, retry, unlock, fail, forceState } = usePaywall(paperId)
 
   useEffect(() => {
     setDebug(process.env.NODE_ENV === 'development' && new URLSearchParams(window.location.search).get('debug') === '1')
+    // Pollar (v2) solo se activa en cliente y cuando está configurado; en cualquier otro caso
+    // se usa el modal clásico (Freighter/simulado), sin tocar v1.
+    setPollar(isPollarConfigured())
   }, [])
 
   useEffect(() => {
@@ -240,7 +246,21 @@ export function ArticleView({ paperId }: { paperId: string }) {
         <PaywallBarMobile {...cardProps} />
       </div>
 
-      {showModal && <ConnectWalletModal onConnect={handleConnect} onClose={() => setShowModal(false)} />}
+      {showModal &&
+        (pollar ? (
+          <PollarPaymentModal
+            paperId={paperId}
+            onClose={() => setShowModal(false)}
+            onState={forceState}
+            onUnlocked={(fullPaper, txReceipt) => {
+              unlock(fullPaper, txReceipt)
+              setShowToast(true)
+            }}
+            onError={fail}
+          />
+        ) : (
+          <ConnectWalletModal onConnect={handleConnect} onClose={() => setShowModal(false)} />
+        ))}
       {showToast && state === 'unlocked' && <Toast message={COPY.toast.unlocked} onDismiss={dismissToast} />}
     </>
   )

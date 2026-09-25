@@ -1,4 +1,4 @@
-import { USDC_TESTNET_ISSUER, X402_HEADERS, type X402PaymentRequiredHeader } from '@paperpay/shared'
+import { USDC_TESTNET_ISSUER, X402_HEADERS, type PaperFull, type X402PaymentRequiredHeader } from '@paperpay/shared'
 import { encodeBase64Json } from '@/lib/base64'
 
 /*
@@ -8,7 +8,7 @@ import { encodeBase64Json } from '@/lib/base64'
  *  3. Enviamos ese txHash al backend, que VERIFICA el pago on-chain y emite el JWT.
  *
  * A diferencia de Freighter (v1, el frontend firma y el backend envía), aquí Pollar envía
- * la transacción. Por eso el backend necesita un modo "verificar por hash" (pendiente, #32).
+ * la transacción. Por eso el backend verifica por hash (POST /api/papers/:id/verify).
  */
 
 const STROOPS_PER_UNIT = 10_000_000
@@ -27,15 +27,15 @@ export function pollarPaymentParams(terms: X402PaymentRequiredHeader['accepts'][
 }
 
 export interface PollarSettleResult {
-  paper: { id: string; title: string; fullContentMarkdown: string; references: string[] }
+  paper: PaperFull
   accessToken: string
   txHash: string
 }
 
 /*
- * Verificación por hash contra el backend v2. El endpoint aún no existe (lo hace Fernando):
- * se espera POST /api/papers/:id/verify con { txHash, signerPublicKey } → { paper, accessToken }.
- * Se deja el cliente listo para conectarlo en cuanto el backend lo exponga.
+ * Verificación por hash contra el backend v2:
+ * POST /api/papers/:id/verify con { txHash, signerPublicKey } → { paper, accessToken, txHash }.
+ * El backend confirma en Horizon que el pago de 0.50 USDC a la tesorería es real y reciente.
  */
 export async function settleByHash(paperId: string, txHash: string, signerPublicKey: string): Promise<PollarSettleResult> {
   const res = await fetch(`${API_URL}/api/papers/${encodeURIComponent(paperId)}/verify`, {
