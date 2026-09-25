@@ -21,6 +21,48 @@
     ]
   },
   {
+    "id": "cartografia-de-circuitos-del-sueno-con-optogenet",
+    "discipline": "Neurociencia",
+    "title": "Cartografía de Circuitos del Sueño con Optogenética",
+    "authors": [
+      "Dr. Nnamdi Okoye",
+      "Dr. Sofía Márquez"
+    ],
+    "publisher": "Open Journal of Neurociencia",
+    "doi": "10.48550/oa.2026.69692",
+    "publishedDate": "2026-08-12",
+    "priceUsdc": 0.5,
+    "abstract": "Este trabajo aborda cartografía de Circuitos del Sueño con Optogenética desde una perspectiva reproducible y de acceso abierto. Presentamos métodos, resultados cuantitativos y una discusión de sus implicaciones para la disciplina de neurociencia.",
+    "previewSnippet": "1. Introducción\nEl estudio de cartografía de Circuitos del Sueño con Optogenética ha cobrado relevancia por su impacto teórico y aplicado; aquí resumimos el estado del arte y la contribución principal de este artículo.",
+    "fullContentMarkdown": "## 1. Introducción\nMotivamos el problema de cartografía de Circuitos del Sueño con Optogenética y su relevancia en neurociencia.\n\n## 2. Métodos\nDescribimos el diseño experimental o analítico, los datos utilizados y los criterios de evaluación.\n\n## 3. Resultados y discusión\nReportamos los hallazgos principales con métricas cuantitativas y discutimos sus límites.\n\n## 4. Conclusiones\nResumimos las contribuciones y proponemos líneas futuras. Publicado en acceso abierto.",
+    "references": [
+      "Referencia representativa de acceso abierto (2024).",
+      "Autor, A. y Autor, B. (2025). Trabajo relacionado. Open Science Press.",
+      "Consorcio de Investigación Abierta (2026). Conjunto de datos y protocolo."
+    ]
+  },
+  {
+    "id": "grafos-expansores-y-sus-aplicaciones-en-codigos",
+    "discipline": "Matemáticas",
+    "title": "Grafos Expansores y sus Aplicaciones en Códigos Correctores",
+    "authors": [
+      "Dr. Liang Chen",
+      "Dr. Iván Delgado"
+    ],
+    "publisher": "Open Letters in Matemáticas",
+    "doi": "10.48550/oa.2026.84085",
+    "publishedDate": "2026-07-28",
+    "priceUsdc": 0.5,
+    "abstract": "Este trabajo aborda grafos Expansores y sus Aplicaciones en Códigos Correctores desde una perspectiva reproducible y de acceso abierto. Presentamos métodos, resultados cuantitativos y una discusión de sus implicaciones para la disciplina de matemáticas.",
+    "previewSnippet": "1. Introducción\nEl estudio de grafos Expansores y sus Aplicaciones en Códigos Correctores ha cobrado relevancia por su impacto teórico y aplicado; aquí resumimos el estado del arte y la contribución principal de este artículo.",
+    "fullContentMarkdown": "## 1. Introducción\nMotivamos el problema de grafos Expansores y sus Aplicaciones en Códigos Correctores y su relevancia en matemáticas.\n\n## 2. Métodos\nDescribimos el diseño experimental o analítico, los datos utilizados y los criterios de evaluación.\n\n## 3. Resultados y discusión\nReportamos los hallazgos principales con métricas cuantitativas y discutimos sus límites.\n\n## 4. Conclusiones\nResumimos las contribuciones y proponemos líneas futuras. Publicado en acceso abierto.",
+    "references": [
+      "Referencia representativa de acceso abierto (2024).",
+      "Autor, A. y Autor, B. (2025). Trabajo relacionado. Open Science Press.",
+      "Consorcio de Investigación Abierta (2026). Conjunto de datos y protocolo."
+    ]
+  },
+  {
     "id": "quantum-cryptography-post-quantum",
     "discipline": "Criptografía",
     "title": "Criptografía Post-Cuántica Basada en Retículas para la Verificación de Estado en Libros Distribuidos",
@@ -35,6 +77,93 @@
     "abstract": "El avance de la computación cuántica amenaza los esquemas de firma de curva elíptica. Analizamos firmas post-cuánticas basadas en retículas (CRYSTALS-Dilithium, FALCON) adaptadas a la verificación de estado en libros distribuidos y proponemos un esquema híbrido compatible.",
     "previewSnippet": "1. Motivación\nLa seguridad de las redes actuales descansa en la dificultad del logaritmo discreto sobre curvas elípticas, que un computador cuántico suficientemente potente rompería.",
     "fullContentMarkdown": "## 1. Introducción\nLa mayoría de las cadenas usan ECDSA o Schnorr, vulnerables ante el algoritmo de Shor. La migración debe comenzar ahora para claves de larga vida.\n\n## 2. Métodos\nConstruimos un esquema híbrido que mantiene una firma ECDSA externa y embebe una firma Dilithium, validada por una capa de contrato para una migración por etapas.\n\n## 3. Resultados y discusión\nEl sobrecosto por transacción es modesto (~740 bytes) y la tasa de aceptación en red fue del 99.9%, mostrando una ruta práctica y no disruptiva.\n\n## 4. Conclusiones\nLos resultados presentados abren líneas de trabajo futuras y se publican bajo acceso abierto para su libre consulta y reproducción.",
+    "references": [
+      "Referencia representativa de acceso abierto (2024).",
+      "Autor, A. y Autor, B. (2025). Trabajo relacionado. Open Science Press.",
+      "Consorcio de Investigación Abierta (2026). Conjunto de datos y protocolo."
+    ]
+  },
+  {
+    "id": "efectos-de-la-banca-abierta-sobre-la-inclusion-f",
+    "discipline": "Economía",
+    "title": "Efectos de la Banca Abierta sobre la Inclusión Financiera",
+    "authors": [
+      "Dr. Tomás Herrera",
+      "Dra. Mariana Gutiérrez"
+    ],
+    "publisher": "Open Letters in Economía",
+    "doi": "10.48550/oa.2026.15482",
+    "publishedDate": "2026-07-14",
+    "priceUsdc": 0.5,
+    "abstract": "Este trabajo aborda efectos de la Banca Abierta sobre la Inclusión Financiera desde una perspectiva reproducible y de acceso abierto. Presentamos métodos, resultados cuantitativos y una discusión de sus implicaciones para la disciplina de economía.",
+    "previewSnippet": "1. Introducción\nEl estudio de efectos de la Banca Abierta sobre la Inclusión Financiera ha cobrado relevancia por su impacto teórico y aplicado; aquí resumimos el estado del arte y la contribución principal de este artículo.",
+    "fullContentMarkdown": "## 1. Introducción\nMotivamos el problema de efectos de la Banca Abierta sobre la Inclusión Financiera y su relevancia en economía.\n\n## 2. Métodos\nDescribimos el diseño experimental o analítico, los datos utilizados y los criterios de evaluación.\n\n## 3. Resultados y discusión\nReportamos los hallazgos principales con métricas cuantitativas y discutimos sus límites.\n\n## 4. Conclusiones\nResumimos las contribuciones y proponemos líneas futuras. Publicado en acceso abierto.",
+    "references": [
+      "Referencia representativa de acceso abierto (2024).",
+      "Autor, A. y Autor, B. (2025). Trabajo relacionado. Open Science Press.",
+      "Consorcio de Investigación Abierta (2026). Conjunto de datos y protocolo."
+    ]
+  },
+  {
+    "id": "compiladores-just-in-time-guiados-por-perfiles-d",
+    "discipline": "Informática",
+    "title": "Compiladores Just-in-Time Guiados por Perfiles de Ejecución en Tiempo Real",
+    "authors": [
+      "Dr. Tomás Herrera",
+      "Dr. Carlos Mendoza",
+      "Dr. Yuki Tanaka"
+    ],
+    "publisher": "Open Letters in Informática",
+    "doi": "10.48550/oa.2026.13905",
+    "publishedDate": "2026-07-11",
+    "priceUsdc": 0.5,
+    "abstract": "Este trabajo aborda compiladores Just-in-Time Guiados por Perfiles de Ejecución en Tiempo Real desde una perspectiva reproducible y de acceso abierto. Presentamos métodos, resultados cuantitativos y una discusión de sus implicaciones para la disciplina de informática.",
+    "previewSnippet": "1. Introducción\nEl estudio de compiladores Just-in-Time Guiados por Perfiles de Ejecución en Tiempo Real ha cobrado relevancia por su impacto teórico y aplicado; aquí resumimos el estado del arte y la contribución principal de este artículo.",
+    "fullContentMarkdown": "## 1. Introducción\nMotivamos el problema de compiladores Just-in-Time Guiados por Perfiles de Ejecución en Tiempo Real y su relevancia en informática.\n\n## 2. Métodos\nDescribimos el diseño experimental o analítico, los datos utilizados y los criterios de evaluación.\n\n## 3. Resultados y discusión\nReportamos los hallazgos principales con métricas cuantitativas y discutimos sus límites.\n\n## 4. Conclusiones\nResumimos las contribuciones y proponemos líneas futuras. Publicado en acceso abierto.",
+    "references": [
+      "Referencia representativa de acceso abierto (2024).",
+      "Autor, A. y Autor, B. (2025). Trabajo relacionado. Open Science Press.",
+      "Consorcio de Investigación Abierta (2026). Conjunto de datos y protocolo."
+    ]
+  },
+  {
+    "id": "microplasticos-en-cuencas-fluviales-fuentes-y-tr",
+    "discipline": "Ciencias Ambientales",
+    "title": "Microplásticos en Cuencas Fluviales: Fuentes y Transporte",
+    "authors": [
+      "Dra. Lucas Moreau",
+      "Dr. Tomás Herrera",
+      "Dra. Nadia Petrova"
+    ],
+    "publisher": "Open Journal of Ciencias Ambientales",
+    "doi": "10.48550/oa.2026.19171",
+    "publishedDate": "2026-06-23",
+    "priceUsdc": 0.5,
+    "abstract": "Este trabajo aborda microplásticos en Cuencas Fluviales: Fuentes y Transporte desde una perspectiva reproducible y de acceso abierto. Presentamos métodos, resultados cuantitativos y una discusión de sus implicaciones para la disciplina de ciencias ambientales.",
+    "previewSnippet": "1. Introducción\nEl estudio de microplásticos en Cuencas Fluviales: Fuentes y Transporte ha cobrado relevancia por su impacto teórico y aplicado; aquí resumimos el estado del arte y la contribución principal de este artículo.",
+    "fullContentMarkdown": "## 1. Introducción\nMotivamos el problema de microplásticos en Cuencas Fluviales: Fuentes y Transporte y su relevancia en ciencias ambientales.\n\n## 2. Métodos\nDescribimos el diseño experimental o analítico, los datos utilizados y los criterios de evaluación.\n\n## 3. Resultados y discusión\nReportamos los hallazgos principales con métricas cuantitativas y discutimos sus límites.\n\n## 4. Conclusiones\nResumimos las contribuciones y proponemos líneas futuras. Publicado en acceso abierto.",
+    "references": [
+      "Referencia representativa de acceso abierto (2024).",
+      "Autor, A. y Autor, B. (2025). Trabajo relacionado. Open Science Press.",
+      "Consorcio de Investigación Abierta (2026). Conjunto de datos y protocolo."
+    ]
+  },
+  {
+    "id": "firmas-de-umbral-distribuidas-para-custodia-inst",
+    "discipline": "Criptografía",
+    "title": "Firmas de Umbral Distribuidas para Custodia Institucional de Activos",
+    "authors": [
+      "Dra. Martin Kessler",
+      "Dra. Sophie Dupont",
+      "Dra. Sofía Márquez"
+    ],
+    "publisher": "Open Journal of Criptografía",
+    "doi": "10.48550/oa.2026.95909",
+    "publishedDate": "2026-06-16",
+    "priceUsdc": 0.5,
+    "abstract": "Este trabajo aborda firmas de Umbral Distribuidas para Custodia Institucional de Activos desde una perspectiva reproducible y de acceso abierto. Presentamos métodos, resultados cuantitativos y una discusión de sus implicaciones para la disciplina de criptografía.",
+    "previewSnippet": "1. Introducción\nEl estudio de firmas de Umbral Distribuidas para Custodia Institucional de Activos ha cobrado relevancia por su impacto teórico y aplicado; aquí resumimos el estado del arte y la contribución principal de este artículo.",
+    "fullContentMarkdown": "## 1. Introducción\nMotivamos el problema de firmas de Umbral Distribuidas para Custodia Institucional de Activos y su relevancia en criptografía.\n\n## 2. Métodos\nDescribimos el diseño experimental o analítico, los datos utilizados y los criterios de evaluación.\n\n## 3. Resultados y discusión\nReportamos los hallazgos principales con métricas cuantitativas y discutimos sus límites.\n\n## 4. Conclusiones\nResumimos las contribuciones y proponemos líneas futuras. Publicado en acceso abierto.",
     "references": [
       "Referencia representativa de acceso abierto (2024).",
       "Autor, A. y Autor, B. (2025). Trabajo relacionado. Open Science Press.",
@@ -84,6 +213,48 @@
     ]
   },
   {
+    "id": "biomarcadores-en-sangre-para-deteccion-temprana",
+    "discipline": "Biomedicina",
+    "title": "Biomarcadores en Sangre para Detección Temprana de Cáncer de Páncreas",
+    "authors": [
+      "Dra. Diego Salinas",
+      "Dr. Hiroshi Nakamura"
+    ],
+    "publisher": "Open Letters in Biomedicina",
+    "doi": "10.48550/oa.2026.89818",
+    "publishedDate": "2026-05-26",
+    "priceUsdc": 0.5,
+    "abstract": "Este trabajo aborda biomarcadores en Sangre para Detección Temprana de Cáncer de Páncreas desde una perspectiva reproducible y de acceso abierto. Presentamos métodos, resultados cuantitativos y una discusión de sus implicaciones para la disciplina de biomedicina.",
+    "previewSnippet": "1. Introducción\nEl estudio de biomarcadores en Sangre para Detección Temprana de Cáncer de Páncreas ha cobrado relevancia por su impacto teórico y aplicado; aquí resumimos el estado del arte y la contribución principal de este artículo.",
+    "fullContentMarkdown": "## 1. Introducción\nMotivamos el problema de biomarcadores en Sangre para Detección Temprana de Cáncer de Páncreas y su relevancia en biomedicina.\n\n## 2. Métodos\nDescribimos el diseño experimental o analítico, los datos utilizados y los criterios de evaluación.\n\n## 3. Resultados y discusión\nReportamos los hallazgos principales con métricas cuantitativas y discutimos sus límites.\n\n## 4. Conclusiones\nResumimos las contribuciones y proponemos líneas futuras. Publicado en acceso abierto.",
+    "references": [
+      "Referencia representativa de acceso abierto (2024).",
+      "Autor, A. y Autor, B. (2025). Trabajo relacionado. Open Science Press.",
+      "Consorcio de Investigación Abierta (2026). Conjunto de datos y protocolo."
+    ]
+  },
+  {
+    "id": "ondas-de-radio-rapidas-como-sondas-del-medio-int",
+    "discipline": "Astronomía",
+    "title": "Ondas de Radio Rápidas como Sondas del Medio Intergaláctico",
+    "authors": [
+      "Dr. Diego Salinas",
+      "Dra. Amara Osei"
+    ],
+    "publisher": "Open Journal of Astronomía",
+    "doi": "10.48550/oa.2026.24029",
+    "publishedDate": "2026-05-13",
+    "priceUsdc": 0.5,
+    "abstract": "Este trabajo aborda ondas de Radio Rápidas como Sondas del Medio Intergaláctico desde una perspectiva reproducible y de acceso abierto. Presentamos métodos, resultados cuantitativos y una discusión de sus implicaciones para la disciplina de astronomía.",
+    "previewSnippet": "1. Introducción\nEl estudio de ondas de Radio Rápidas como Sondas del Medio Intergaláctico ha cobrado relevancia por su impacto teórico y aplicado; aquí resumimos el estado del arte y la contribución principal de este artículo.",
+    "fullContentMarkdown": "## 1. Introducción\nMotivamos el problema de ondas de Radio Rápidas como Sondas del Medio Intergaláctico y su relevancia en astronomía.\n\n## 2. Métodos\nDescribimos el diseño experimental o analítico, los datos utilizados y los criterios de evaluación.\n\n## 3. Resultados y discusión\nReportamos los hallazgos principales con métricas cuantitativas y discutimos sus límites.\n\n## 4. Conclusiones\nResumimos las contribuciones y proponemos líneas futuras. Publicado en acceso abierto.",
+    "references": [
+      "Referencia representativa de acceso abierto (2024).",
+      "Autor, A. y Autor, B. (2025). Trabajo relacionado. Open Science Press.",
+      "Consorcio de Investigación Abierta (2026). Conjunto de datos y protocolo."
+    ]
+  },
+  {
     "id": "battery-solid-state-electrolyte",
     "discipline": "Química",
     "title": "Electrolitos Sólidos de Sulfuro para Baterías de Estado Sólido de Alta Densidad Energética",
@@ -126,6 +297,27 @@
     ]
   },
   {
+    "id": "interferometria-atomica-para-deteccion-de-ondas",
+    "discipline": "Física",
+    "title": "Interferometría Atómica para Detección de Ondas Gravitacionales",
+    "authors": [
+      "Dr. Tomás Herrera",
+      "Dra. Liang Chen"
+    ],
+    "publisher": "Open Journal of Física",
+    "doi": "10.48550/oa.2026.19305",
+    "publishedDate": "2026-04-10",
+    "priceUsdc": 0.5,
+    "abstract": "Este trabajo aborda interferometría Atómica para Detección de Ondas Gravitacionales desde una perspectiva reproducible y de acceso abierto. Presentamos métodos, resultados cuantitativos y una discusión de sus implicaciones para la disciplina de física.",
+    "previewSnippet": "1. Introducción\nEl estudio de interferometría Atómica para Detección de Ondas Gravitacionales ha cobrado relevancia por su impacto teórico y aplicado; aquí resumimos el estado del arte y la contribución principal de este artículo.",
+    "fullContentMarkdown": "## 1. Introducción\nMotivamos el problema de interferometría Atómica para Detección de Ondas Gravitacionales y su relevancia en física.\n\n## 2. Métodos\nDescribimos el diseño experimental o analítico, los datos utilizados y los criterios de evaluación.\n\n## 3. Resultados y discusión\nReportamos los hallazgos principales con métricas cuantitativas y discutimos sus límites.\n\n## 4. Conclusiones\nResumimos las contribuciones y proponemos líneas futuras. Publicado en acceso abierto.",
+    "references": [
+      "Referencia representativa de acceso abierto (2024).",
+      "Autor, A. y Autor, B. (2025). Trabajo relacionado. Open Science Press.",
+      "Consorcio de Investigación Abierta (2026). Conjunto de datos y protocolo."
+    ]
+  },
+  {
     "id": "microbiome-gut-brain-axis",
     "discipline": "Biomedicina",
     "title": "El Eje Intestino-Cerebro: Metabolitos Microbianos y Modulación de la Neuroinflamación",
@@ -140,6 +332,48 @@
     "abstract": "Revisamos y ampliamos la evidencia sobre cómo los metabolitos producidos por la microbiota intestinal modulan la neuroinflamación, con implicaciones para trastornos neurodegenerativos.",
     "previewSnippet": "1. Introducción\nLa comunicación bidireccional entre el intestino y el cerebro ha emergido como un eje central en la salud neurológica.",
     "fullContentMarkdown": "## 1. Introducción\nLos ácidos grasos de cadena corta y otros metabolitos microbianos cruzan barreras y modulan la microglía.\n\n## 2. Métodos\nCombinamos metagenómica con modelos murinos gnotobióticos para aislar el efecto de metabolitos específicos.\n\n## 3. Resultados y discusión\nLa suplementación con butirato redujo marcadores de neuroinflamación, sugiriendo una vía terapéutica.\n\n## 4. Conclusiones\nLos resultados presentados abren líneas de trabajo futuras y se publican bajo acceso abierto para su libre consulta y reproducción.",
+    "references": [
+      "Referencia representativa de acceso abierto (2024).",
+      "Autor, A. y Autor, B. (2025). Trabajo relacionado. Open Science Press.",
+      "Consorcio de Investigación Abierta (2026). Conjunto de datos y protocolo."
+    ]
+  },
+  {
+    "id": "simulacion-cuantica-de-materiales-fuertemente-co",
+    "discipline": "Física",
+    "title": "Simulación Cuántica de Materiales Fuertemente Correlacionados",
+    "authors": [
+      "Dr. Sophie Dupont",
+      "Dra. Liang Chen"
+    ],
+    "publisher": "Open Journal of Física",
+    "doi": "10.48550/oa.2026.82063",
+    "publishedDate": "2026-03-25",
+    "priceUsdc": 0.5,
+    "abstract": "Este trabajo aborda simulación Cuántica de Materiales Fuertemente Correlacionados desde una perspectiva reproducible y de acceso abierto. Presentamos métodos, resultados cuantitativos y una discusión de sus implicaciones para la disciplina de física.",
+    "previewSnippet": "1. Introducción\nEl estudio de simulación Cuántica de Materiales Fuertemente Correlacionados ha cobrado relevancia por su impacto teórico y aplicado; aquí resumimos el estado del arte y la contribución principal de este artículo.",
+    "fullContentMarkdown": "## 1. Introducción\nMotivamos el problema de simulación Cuántica de Materiales Fuertemente Correlacionados y su relevancia en física.\n\n## 2. Métodos\nDescribimos el diseño experimental o analítico, los datos utilizados y los criterios de evaluación.\n\n## 3. Resultados y discusión\nReportamos los hallazgos principales con métricas cuantitativas y discutimos sus límites.\n\n## 4. Conclusiones\nResumimos las contribuciones y proponemos líneas futuras. Publicado en acceso abierto.",
+    "references": [
+      "Referencia representativa de acceso abierto (2024).",
+      "Autor, A. y Autor, B. (2025). Trabajo relacionado. Open Science Press.",
+      "Consorcio de Investigación Abierta (2026). Conjunto de datos y protocolo."
+    ]
+  },
+  {
+    "id": "organoides-cerebrales-para-modelar-enfermedades",
+    "discipline": "Biomedicina",
+    "title": "Organoides Cerebrales para Modelar Enfermedades Neurodegenerativas",
+    "authors": [
+      "Dr. Sofía Márquez",
+      "Dr. Ana Cruz"
+    ],
+    "publisher": "Open Journal of Biomedicina",
+    "doi": "10.48550/oa.2026.88172",
+    "publishedDate": "2026-03-23",
+    "priceUsdc": 0.5,
+    "abstract": "Este trabajo aborda organoides Cerebrales para Modelar Enfermedades Neurodegenerativas desde una perspectiva reproducible y de acceso abierto. Presentamos métodos, resultados cuantitativos y una discusión de sus implicaciones para la disciplina de biomedicina.",
+    "previewSnippet": "1. Introducción\nEl estudio de organoides Cerebrales para Modelar Enfermedades Neurodegenerativas ha cobrado relevancia por su impacto teórico y aplicado; aquí resumimos el estado del arte y la contribución principal de este artículo.",
+    "fullContentMarkdown": "## 1. Introducción\nMotivamos el problema de organoides Cerebrales para Modelar Enfermedades Neurodegenerativas y su relevancia en biomedicina.\n\n## 2. Métodos\nDescribimos el diseño experimental o analítico, los datos utilizados y los criterios de evaluación.\n\n## 3. Resultados y discusión\nReportamos los hallazgos principales con métricas cuantitativas y discutimos sus límites.\n\n## 4. Conclusiones\nResumimos las contribuciones y proponemos líneas futuras. Publicado en acceso abierto.",
     "references": [
       "Referencia representativa de acceso abierto (2024).",
       "Autor, A. y Autor, B. (2025). Trabajo relacionado. Open Science Press.",
@@ -168,6 +402,27 @@
     ]
   },
   {
+    "id": "geometria-de-la-optimizacion-en-redes-neuronales",
+    "discipline": "Matemáticas",
+    "title": "Geometría de la Optimización en Redes Neuronales Sobreparametrizadas",
+    "authors": [
+      "Dra. Martin Kessler",
+      "Dr. Sophie Dupont"
+    ],
+    "publisher": "Open Journal of Matemáticas",
+    "doi": "10.48550/oa.2026.87992",
+    "publishedDate": "2026-03-12",
+    "priceUsdc": 0.5,
+    "abstract": "Este trabajo aborda geometría de la Optimización en Redes Neuronales Sobreparametrizadas desde una perspectiva reproducible y de acceso abierto. Presentamos métodos, resultados cuantitativos y una discusión de sus implicaciones para la disciplina de matemáticas.",
+    "previewSnippet": "1. Introducción\nEl estudio de geometría de la Optimización en Redes Neuronales Sobreparametrizadas ha cobrado relevancia por su impacto teórico y aplicado; aquí resumimos el estado del arte y la contribución principal de este artículo.",
+    "fullContentMarkdown": "## 1. Introducción\nMotivamos el problema de geometría de la Optimización en Redes Neuronales Sobreparametrizadas y su relevancia en matemáticas.\n\n## 2. Métodos\nDescribimos el diseño experimental o analítico, los datos utilizados y los criterios de evaluación.\n\n## 3. Resultados y discusión\nReportamos los hallazgos principales con métricas cuantitativas y discutimos sus límites.\n\n## 4. Conclusiones\nResumimos las contribuciones y proponemos líneas futuras. Publicado en acceso abierto.",
+    "references": [
+      "Referencia representativa de acceso abierto (2024).",
+      "Autor, A. y Autor, B. (2025). Trabajo relacionado. Open Science Press.",
+      "Consorcio de Investigación Abierta (2026). Conjunto de datos y protocolo."
+    ]
+  },
+  {
     "id": "prime-gaps-analytic-number-theory",
     "discipline": "Matemáticas",
     "title": "Cotas Superiores para Brechas entre Primos Consecutivos mediante Métodos de Criba",
@@ -189,6 +444,69 @@
     ]
   },
   {
+    "id": "marcadores-neuronales-de-la-toma-de-decisiones-b",
+    "discipline": "Neurociencia",
+    "title": "Marcadores Neuronales de la Toma de Decisiones bajo Incertidumbre",
+    "authors": [
+      "Dra. Lucía Fernández",
+      "Dr. Nadia Petrova"
+    ],
+    "publisher": "Open Reports in Neurociencia",
+    "doi": "10.48550/oa.2026.38683",
+    "publishedDate": "2026-02-23",
+    "priceUsdc": 0.5,
+    "abstract": "Este trabajo aborda marcadores Neuronales de la Toma de Decisiones bajo Incertidumbre desde una perspectiva reproducible y de acceso abierto. Presentamos métodos, resultados cuantitativos y una discusión de sus implicaciones para la disciplina de neurociencia.",
+    "previewSnippet": "1. Introducción\nEl estudio de marcadores Neuronales de la Toma de Decisiones bajo Incertidumbre ha cobrado relevancia por su impacto teórico y aplicado; aquí resumimos el estado del arte y la contribución principal de este artículo.",
+    "fullContentMarkdown": "## 1. Introducción\nMotivamos el problema de marcadores Neuronales de la Toma de Decisiones bajo Incertidumbre y su relevancia en neurociencia.\n\n## 2. Métodos\nDescribimos el diseño experimental o analítico, los datos utilizados y los criterios de evaluación.\n\n## 3. Resultados y discusión\nReportamos los hallazgos principales con métricas cuantitativas y discutimos sus límites.\n\n## 4. Conclusiones\nResumimos las contribuciones y proponemos líneas futuras. Publicado en acceso abierto.",
+    "references": [
+      "Referencia representativa de acceso abierto (2024).",
+      "Autor, A. y Autor, B. (2025). Trabajo relacionado. Open Science Press.",
+      "Consorcio de Investigación Abierta (2026). Conjunto de datos y protocolo."
+    ]
+  },
+  {
+    "id": "terapia-genica-con-vectores-aav-para-retinopatia",
+    "discipline": "Biomedicina",
+    "title": "Terapia Génica con Vectores AAV para Retinopatías Hereditarias",
+    "authors": [
+      "Dr. Kenji Watanabe",
+      "Dra. Hassan Ali"
+    ],
+    "publisher": "Open Frontiers in Biomedicina",
+    "doi": "10.48550/oa.2026.50306",
+    "publishedDate": "2026-02-21",
+    "priceUsdc": 0.5,
+    "abstract": "Este trabajo aborda terapia Génica con Vectores AAV para Retinopatías Hereditarias desde una perspectiva reproducible y de acceso abierto. Presentamos métodos, resultados cuantitativos y una discusión de sus implicaciones para la disciplina de biomedicina.",
+    "previewSnippet": "1. Introducción\nEl estudio de terapia Génica con Vectores AAV para Retinopatías Hereditarias ha cobrado relevancia por su impacto teórico y aplicado; aquí resumimos el estado del arte y la contribución principal de este artículo.",
+    "fullContentMarkdown": "## 1. Introducción\nMotivamos el problema de terapia Génica con Vectores AAV para Retinopatías Hereditarias y su relevancia en biomedicina.\n\n## 2. Métodos\nDescribimos el diseño experimental o analítico, los datos utilizados y los criterios de evaluación.\n\n## 3. Resultados y discusión\nReportamos los hallazgos principales con métricas cuantitativas y discutimos sus límites.\n\n## 4. Conclusiones\nResumimos las contribuciones y proponemos líneas futuras. Publicado en acceso abierto.",
+    "references": [
+      "Referencia representativa de acceso abierto (2024).",
+      "Autor, A. y Autor, B. (2025). Trabajo relacionado. Open Science Press.",
+      "Consorcio de Investigación Abierta (2026). Conjunto de datos y protocolo."
+    ]
+  },
+  {
+    "id": "sintesis-verde-de-nanoparticulas-metalicas-asist",
+    "discipline": "Química",
+    "title": "Síntesis Verde de Nanopartículas Metálicas Asistida por Enzimas",
+    "authors": [
+      "Dra. Hiroshi Nakamura",
+      "Dr. Liang Chen"
+    ],
+    "publisher": "Open Journal of Química",
+    "doi": "10.48550/oa.2026.31798",
+    "publishedDate": "2026-02-17",
+    "priceUsdc": 0.5,
+    "abstract": "Este trabajo aborda síntesis Verde de Nanopartículas Metálicas Asistida por Enzimas desde una perspectiva reproducible y de acceso abierto. Presentamos métodos, resultados cuantitativos y una discusión de sus implicaciones para la disciplina de química.",
+    "previewSnippet": "1. Introducción\nEl estudio de síntesis Verde de Nanopartículas Metálicas Asistida por Enzimas ha cobrado relevancia por su impacto teórico y aplicado; aquí resumimos el estado del arte y la contribución principal de este artículo.",
+    "fullContentMarkdown": "## 1. Introducción\nMotivamos el problema de síntesis Verde de Nanopartículas Metálicas Asistida por Enzimas y su relevancia en química.\n\n## 2. Métodos\nDescribimos el diseño experimental o analítico, los datos utilizados y los criterios de evaluación.\n\n## 3. Resultados y discusión\nReportamos los hallazgos principales con métricas cuantitativas y discutimos sus límites.\n\n## 4. Conclusiones\nResumimos las contribuciones y proponemos líneas futuras. Publicado en acceso abierto.",
+    "references": [
+      "Referencia representativa de acceso abierto (2024).",
+      "Autor, A. y Autor, B. (2025). Trabajo relacionado. Open Science Press.",
+      "Consorcio de Investigación Abierta (2026). Conjunto de datos y protocolo."
+    ]
+  },
+  {
     "id": "stablecoins-emerging-markets",
     "discipline": "Economía",
     "title": "Adopción de Stablecoins y Remesas en Economías Emergentes: Evidencia Empírica",
@@ -203,6 +521,27 @@
     "abstract": "Analizamos datos de adopción de stablecoins en corredores de remesas de economías emergentes y estimamos el ahorro en comisiones frente a canales tradicionales.",
     "previewSnippet": "1. Introducción\nLas remesas son una fuente crítica de ingresos en muchas economías emergentes, con comisiones históricamente altas.",
     "fullContentMarkdown": "## 1. Introducción\nLas stablecoins prometen transferencias más baratas y rápidas, pero la evidencia empírica de adopción es escasa.\n\n## 2. Métodos\nConstruimos un panel con datos on-chain y encuestas de usuarios en cinco corredores de remesas.\n\n## 3. Resultados y discusión\nEstimamos un ahorro medio del 4-6% en comisiones y una reducción sustancial en tiempos de liquidación.\n\n## 4. Conclusiones\nLos resultados presentados abren líneas de trabajo futuras y se publican bajo acceso abierto para su libre consulta y reproducción.",
+    "references": [
+      "Referencia representativa de acceso abierto (2024).",
+      "Autor, A. y Autor, B. (2025). Trabajo relacionado. Open Science Press.",
+      "Consorcio de Investigación Abierta (2026). Conjunto de datos y protocolo."
+    ]
+  },
+  {
+    "id": "metodos-espectrales-para-ecuaciones-en-derivadas",
+    "discipline": "Matemáticas",
+    "title": "Métodos Espectrales para Ecuaciones en Derivadas Parciales No Lineales",
+    "authors": [
+      "Dr. Valeria Campos",
+      "Dr. Oskar Lindqvist"
+    ],
+    "publisher": "Proceedings of Open Matemáticas",
+    "doi": "10.48550/oa.2026.81066",
+    "publishedDate": "2026-01-28",
+    "priceUsdc": 0.5,
+    "abstract": "Este trabajo aborda métodos Espectrales para Ecuaciones en Derivadas Parciales No Lineales desde una perspectiva reproducible y de acceso abierto. Presentamos métodos, resultados cuantitativos y una discusión de sus implicaciones para la disciplina de matemáticas.",
+    "previewSnippet": "1. Introducción\nEl estudio de métodos Espectrales para Ecuaciones en Derivadas Parciales No Lineales ha cobrado relevancia por su impacto teórico y aplicado; aquí resumimos el estado del arte y la contribución principal de este artículo.",
+    "fullContentMarkdown": "## 1. Introducción\nMotivamos el problema de métodos Espectrales para Ecuaciones en Derivadas Parciales No Lineales y su relevancia en matemáticas.\n\n## 2. Métodos\nDescribimos el diseño experimental o analítico, los datos utilizados y los criterios de evaluación.\n\n## 3. Resultados y discusión\nReportamos los hallazgos principales con métricas cuantitativas y discutimos sus límites.\n\n## 4. Conclusiones\nResumimos las contribuciones y proponemos líneas futuras. Publicado en acceso abierto.",
     "references": [
       "Referencia representativa de acceso abierto (2024).",
       "Autor, A. y Autor, B. (2025). Trabajo relacionado. Open Science Press.",
@@ -245,6 +584,524 @@
     "abstract": "Entrenamos modelos clínicos sobre datos de múltiples hospitales sin centralizar información sensible, combinando aprendizaje federado con privacidad diferencial, y evaluamos el compromiso entre privacidad y desempeño.",
     "previewSnippet": "1. Introducción\nLos datos clínicos están fragmentados entre instituciones y protegidos por regulación, lo que dificulta entrenar modelos robustos.",
     "fullContentMarkdown": "## 1. Introducción\nCentralizar datos clínicos es inviable por privacidad y regulación. El aprendizaje federado entrena sin mover los datos.\n\n## 2. Métodos\nImplementamos agregación segura con ruido de privacidad diferencial y evaluamos en tres tareas clínicas.\n\n## 3. Resultados y discusión\nCon un presupuesto de privacidad razonable, el desempeño se mantuvo cercano al modelo centralizado, habilitando colaboración entre hospitales.\n\n## 4. Conclusiones\nLos resultados presentados abren líneas de trabajo futuras y se publican bajo acceso abierto para su libre consulta y reproducción.",
+    "references": [
+      "Referencia representativa de acceso abierto (2024).",
+      "Autor, A. y Autor, B. (2025). Trabajo relacionado. Open Science Press.",
+      "Consorcio de Investigación Abierta (2026). Conjunto de datos y protocolo."
+    ]
+  },
+  {
+    "id": "cronologia-de-la-reionizacion-cosmica-con-galaxi",
+    "discipline": "Astronomía",
+    "title": "Cronología de la Reionización Cósmica con Galaxias Tempranas",
+    "authors": [
+      "Dra. Oskar Lindqvist",
+      "Dr. Yuki Tanaka",
+      "Dra. Mateo Silva"
+    ],
+    "publisher": "Open Reports in Astronomía",
+    "doi": "10.48550/oa.2025.83519",
+    "publishedDate": "2025-09-23",
+    "priceUsdc": 0.5,
+    "abstract": "Este trabajo aborda cronología de la Reionización Cósmica con Galaxias Tempranas desde una perspectiva reproducible y de acceso abierto. Presentamos métodos, resultados cuantitativos y una discusión de sus implicaciones para la disciplina de astronomía.",
+    "previewSnippet": "1. Introducción\nEl estudio de cronología de la Reionización Cósmica con Galaxias Tempranas ha cobrado relevancia por su impacto teórico y aplicado; aquí resumimos el estado del arte y la contribución principal de este artículo.",
+    "fullContentMarkdown": "## 1. Introducción\nMotivamos el problema de cronología de la Reionización Cósmica con Galaxias Tempranas y su relevancia en astronomía.\n\n## 2. Métodos\nDescribimos el diseño experimental o analítico, los datos utilizados y los criterios de evaluación.\n\n## 3. Resultados y discusión\nReportamos los hallazgos principales con métricas cuantitativas y discutimos sus límites.\n\n## 4. Conclusiones\nResumimos las contribuciones y proponemos líneas futuras. Publicado en acceso abierto.",
+    "references": [
+      "Referencia representativa de acceso abierto (2024).",
+      "Autor, A. y Autor, B. (2025). Trabajo relacionado. Open Science Press.",
+      "Consorcio de Investigación Abierta (2026). Conjunto de datos y protocolo."
+    ]
+  },
+  {
+    "id": "microcreditos-descentralizados-y-riesgo-creditic",
+    "discipline": "Economía",
+    "title": "Microcréditos Descentralizados y Riesgo Crediticio en Zonas Rurales",
+    "authors": [
+      "Dr. Hassan Ali",
+      "Dr. Mateo Silva"
+    ],
+    "publisher": "Open Journal of Economía",
+    "doi": "10.48550/oa.2025.91351",
+    "publishedDate": "2025-09-23",
+    "priceUsdc": 0.5,
+    "abstract": "Este trabajo aborda microcréditos Descentralizados y Riesgo Crediticio en Zonas Rurales desde una perspectiva reproducible y de acceso abierto. Presentamos métodos, resultados cuantitativos y una discusión de sus implicaciones para la disciplina de economía.",
+    "previewSnippet": "1. Introducción\nEl estudio de microcréditos Descentralizados y Riesgo Crediticio en Zonas Rurales ha cobrado relevancia por su impacto teórico y aplicado; aquí resumimos el estado del arte y la contribución principal de este artículo.",
+    "fullContentMarkdown": "## 1. Introducción\nMotivamos el problema de microcréditos Descentralizados y Riesgo Crediticio en Zonas Rurales y su relevancia en economía.\n\n## 2. Métodos\nDescribimos el diseño experimental o analítico, los datos utilizados y los criterios de evaluación.\n\n## 3. Resultados y discusión\nReportamos los hallazgos principales con métricas cuantitativas y discutimos sus límites.\n\n## 4. Conclusiones\nResumimos las contribuciones y proponemos líneas futuras. Publicado en acceso abierto.",
+    "references": [
+      "Referencia representativa de acceso abierto (2024).",
+      "Autor, A. y Autor, B. (2025). Trabajo relacionado. Open Science Press.",
+      "Consorcio de Investigación Abierta (2026). Conjunto de datos y protocolo."
+    ]
+  },
+  {
+    "id": "restauracion-de-manglares-como-sumideros-de-carb",
+    "discipline": "Ciencias Ambientales",
+    "title": "Restauración de Manglares como Sumideros de Carbono Azul",
+    "authors": [
+      "Dr. Lucía Fernández",
+      "Dra. Iván Delgado",
+      "Dra. Ingrid Sørensen"
+    ],
+    "publisher": "Open Letters in Ciencias Ambientales",
+    "doi": "10.48550/oa.2025.13617",
+    "publishedDate": "2025-09-20",
+    "priceUsdc": 0.5,
+    "abstract": "Este trabajo aborda restauración de Manglares como Sumideros de Carbono Azul desde una perspectiva reproducible y de acceso abierto. Presentamos métodos, resultados cuantitativos y una discusión de sus implicaciones para la disciplina de ciencias ambientales.",
+    "previewSnippet": "1. Introducción\nEl estudio de restauración de Manglares como Sumideros de Carbono Azul ha cobrado relevancia por su impacto teórico y aplicado; aquí resumimos el estado del arte y la contribución principal de este artículo.",
+    "fullContentMarkdown": "## 1. Introducción\nMotivamos el problema de restauración de Manglares como Sumideros de Carbono Azul y su relevancia en ciencias ambientales.\n\n## 2. Métodos\nDescribimos el diseño experimental o analítico, los datos utilizados y los criterios de evaluación.\n\n## 3. Resultados y discusión\nReportamos los hallazgos principales con métricas cuantitativas y discutimos sus límites.\n\n## 4. Conclusiones\nResumimos las contribuciones y proponemos líneas futuras. Publicado en acceso abierto.",
+    "references": [
+      "Referencia representativa de acceso abierto (2024).",
+      "Autor, A. y Autor, B. (2025). Trabajo relacionado. Open Science Press.",
+      "Consorcio de Investigación Abierta (2026). Conjunto de datos y protocolo."
+    ]
+  },
+  {
+    "id": "plasticidad-sinaptica-durante-la-consolidacion-d",
+    "discipline": "Neurociencia",
+    "title": "Plasticidad Sináptica durante la Consolidación de la Memoria",
+    "authors": [
+      "Dr. Martin Kessler",
+      "Dra. Hiroshi Nakamura",
+      "Dr. Amara Osei"
+    ],
+    "publisher": "Open Journal of Neurociencia",
+    "doi": "10.48550/oa.2025.22240",
+    "publishedDate": "2025-09-20",
+    "priceUsdc": 0.5,
+    "abstract": "Este trabajo aborda plasticidad Sináptica durante la Consolidación de la Memoria desde una perspectiva reproducible y de acceso abierto. Presentamos métodos, resultados cuantitativos y una discusión de sus implicaciones para la disciplina de neurociencia.",
+    "previewSnippet": "1. Introducción\nEl estudio de plasticidad Sináptica durante la Consolidación de la Memoria ha cobrado relevancia por su impacto teórico y aplicado; aquí resumimos el estado del arte y la contribución principal de este artículo.",
+    "fullContentMarkdown": "## 1. Introducción\nMotivamos el problema de plasticidad Sináptica durante la Consolidación de la Memoria y su relevancia en neurociencia.\n\n## 2. Métodos\nDescribimos el diseño experimental o analítico, los datos utilizados y los criterios de evaluación.\n\n## 3. Resultados y discusión\nReportamos los hallazgos principales con métricas cuantitativas y discutimos sus límites.\n\n## 4. Conclusiones\nResumimos las contribuciones y proponemos líneas futuras. Publicado en acceso abierto.",
+    "references": [
+      "Referencia representativa de acceso abierto (2024).",
+      "Autor, A. y Autor, B. (2025). Trabajo relacionado. Open Science Press.",
+      "Consorcio de Investigación Abierta (2026). Conjunto de datos y protocolo."
+    ]
+  },
+  {
+    "id": "modelos-de-estres-hidrico-bajo-escenarios-de-cam",
+    "discipline": "Ciencias Ambientales",
+    "title": "Modelos de Estrés Hídrico bajo Escenarios de Cambio Climático",
+    "authors": [
+      "Dra. Ingrid Sørensen",
+      "Dra. Martin Kessler",
+      "Dra. Tomás Herrera"
+    ],
+    "publisher": "Open Frontiers in Ciencias Ambientales",
+    "doi": "10.48550/oa.2025.35144",
+    "publishedDate": "2025-09-14",
+    "priceUsdc": 0.5,
+    "abstract": "Este trabajo aborda modelos de Estrés Hídrico bajo Escenarios de Cambio Climático desde una perspectiva reproducible y de acceso abierto. Presentamos métodos, resultados cuantitativos y una discusión de sus implicaciones para la disciplina de ciencias ambientales.",
+    "previewSnippet": "1. Introducción\nEl estudio de modelos de Estrés Hídrico bajo Escenarios de Cambio Climático ha cobrado relevancia por su impacto teórico y aplicado; aquí resumimos el estado del arte y la contribución principal de este artículo.",
+    "fullContentMarkdown": "## 1. Introducción\nMotivamos el problema de modelos de Estrés Hídrico bajo Escenarios de Cambio Climático y su relevancia en ciencias ambientales.\n\n## 2. Métodos\nDescribimos el diseño experimental o analítico, los datos utilizados y los criterios de evaluación.\n\n## 3. Resultados y discusión\nReportamos los hallazgos principales con métricas cuantitativas y discutimos sus límites.\n\n## 4. Conclusiones\nResumimos las contribuciones y proponemos líneas futuras. Publicado en acceso abierto.",
+    "references": [
+      "Referencia representativa de acceso abierto (2024).",
+      "Autor, A. y Autor, B. (2025). Trabajo relacionado. Open Science Press.",
+      "Consorcio de Investigación Abierta (2026). Conjunto de datos y protocolo."
+    ]
+  },
+  {
+    "id": "transporte-optimo-computacional-a-gran-escala",
+    "discipline": "Matemáticas",
+    "title": "Transporte Óptimo Computacional a Gran Escala",
+    "authors": [
+      "Dr. Martin Kessler",
+      "Dra. Rafael Ortega",
+      "Dra. Omar Haddad"
+    ],
+    "publisher": "Open Reports in Matemáticas",
+    "doi": "10.48550/oa.2025.19508",
+    "publishedDate": "2025-08-20",
+    "priceUsdc": 0.5,
+    "abstract": "Este trabajo aborda transporte Óptimo Computacional a Gran Escala desde una perspectiva reproducible y de acceso abierto. Presentamos métodos, resultados cuantitativos y una discusión de sus implicaciones para la disciplina de matemáticas.",
+    "previewSnippet": "1. Introducción\nEl estudio de transporte Óptimo Computacional a Gran Escala ha cobrado relevancia por su impacto teórico y aplicado; aquí resumimos el estado del arte y la contribución principal de este artículo.",
+    "fullContentMarkdown": "## 1. Introducción\nMotivamos el problema de transporte Óptimo Computacional a Gran Escala y su relevancia en matemáticas.\n\n## 2. Métodos\nDescribimos el diseño experimental o analítico, los datos utilizados y los criterios de evaluación.\n\n## 3. Resultados y discusión\nReportamos los hallazgos principales con métricas cuantitativas y discutimos sus límites.\n\n## 4. Conclusiones\nResumimos las contribuciones y proponemos líneas futuras. Publicado en acceso abierto.",
+    "references": [
+      "Referencia representativa de acceso abierto (2024).",
+      "Autor, A. y Autor, B. (2025). Trabajo relacionado. Open Science Press.",
+      "Consorcio de Investigación Abierta (2026). Conjunto de datos y protocolo."
+    ]
+  },
+  {
+    "id": "ofuscacion-de-circuitos-y-sus-limites-de-eficien",
+    "discipline": "Criptografía",
+    "title": "Ofuscación de Circuitos y sus Límites de Eficiencia",
+    "authors": [
+      "Dra. Iván Delgado",
+      "Dr. Hiroshi Nakamura"
+    ],
+    "publisher": "Open Reports in Criptografía",
+    "doi": "10.48550/oa.2025.62350",
+    "publishedDate": "2025-07-28",
+    "priceUsdc": 0.5,
+    "abstract": "Este trabajo aborda ofuscación de Circuitos y sus Límites de Eficiencia desde una perspectiva reproducible y de acceso abierto. Presentamos métodos, resultados cuantitativos y una discusión de sus implicaciones para la disciplina de criptografía.",
+    "previewSnippet": "1. Introducción\nEl estudio de ofuscación de Circuitos y sus Límites de Eficiencia ha cobrado relevancia por su impacto teórico y aplicado; aquí resumimos el estado del arte y la contribución principal de este artículo.",
+    "fullContentMarkdown": "## 1. Introducción\nMotivamos el problema de ofuscación de Circuitos y sus Límites de Eficiencia y su relevancia en criptografía.\n\n## 2. Métodos\nDescribimos el diseño experimental o analítico, los datos utilizados y los criterios de evaluación.\n\n## 3. Resultados y discusión\nReportamos los hallazgos principales con métricas cuantitativas y discutimos sus límites.\n\n## 4. Conclusiones\nResumimos las contribuciones y proponemos líneas futuras. Publicado en acceso abierto.",
+    "references": [
+      "Referencia representativa de acceso abierto (2024).",
+      "Autor, A. y Autor, B. (2025). Trabajo relacionado. Open Science Press.",
+      "Consorcio de Investigación Abierta (2026). Conjunto de datos y protocolo."
+    ]
+  },
+  {
+    "id": "catalizadores-de-cobre-para-la-reduccion-electro",
+    "discipline": "Química",
+    "title": "Catalizadores de Cobre para la Reducción Electroquímica de CO2 a Etileno",
+    "authors": [
+      "Dr. Paula Aguirre",
+      "Dr. Liang Chen",
+      "Dra. Renata Vásquez"
+    ],
+    "publisher": "Proceedings of Open Química",
+    "doi": "10.48550/oa.2025.17100",
+    "publishedDate": "2025-07-24",
+    "priceUsdc": 0.5,
+    "abstract": "Este trabajo aborda catalizadores de Cobre para la Reducción Electroquímica de CO2 a Etileno desde una perspectiva reproducible y de acceso abierto. Presentamos métodos, resultados cuantitativos y una discusión de sus implicaciones para la disciplina de química.",
+    "previewSnippet": "1. Introducción\nEl estudio de catalizadores de Cobre para la Reducción Electroquímica de CO2 a Etileno ha cobrado relevancia por su impacto teórico y aplicado; aquí resumimos el estado del arte y la contribución principal de este artículo.",
+    "fullContentMarkdown": "## 1. Introducción\nMotivamos el problema de catalizadores de Cobre para la Reducción Electroquímica de CO2 a Etileno y su relevancia en química.\n\n## 2. Métodos\nDescribimos el diseño experimental o analítico, los datos utilizados y los criterios de evaluación.\n\n## 3. Resultados y discusión\nReportamos los hallazgos principales con métricas cuantitativas y discutimos sus límites.\n\n## 4. Conclusiones\nResumimos las contribuciones y proponemos líneas futuras. Publicado en acceso abierto.",
+    "references": [
+      "Referencia representativa de acceso abierto (2024).",
+      "Autor, A. y Autor, B. (2025). Trabajo relacionado. Open Science Press.",
+      "Consorcio de Investigación Abierta (2026). Conjunto de datos y protocolo."
+    ]
+  },
+  {
+    "id": "metamateriales-acusticos-para-el-control-de-onda",
+    "discipline": "Física",
+    "title": "Metamateriales Acústicos para el Control de Ondas Sísmicas",
+    "authors": [
+      "Dr. Rafael Ortega",
+      "Dr. Zara Khan"
+    ],
+    "publisher": "Proceedings of Open Física",
+    "doi": "10.48550/oa.2025.77839",
+    "publishedDate": "2025-06-24",
+    "priceUsdc": 0.5,
+    "abstract": "Este trabajo aborda metamateriales Acústicos para el Control de Ondas Sísmicas desde una perspectiva reproducible y de acceso abierto. Presentamos métodos, resultados cuantitativos y una discusión de sus implicaciones para la disciplina de física.",
+    "previewSnippet": "1. Introducción\nEl estudio de metamateriales Acústicos para el Control de Ondas Sísmicas ha cobrado relevancia por su impacto teórico y aplicado; aquí resumimos el estado del arte y la contribución principal de este artículo.",
+    "fullContentMarkdown": "## 1. Introducción\nMotivamos el problema de metamateriales Acústicos para el Control de Ondas Sísmicas y su relevancia en física.\n\n## 2. Métodos\nDescribimos el diseño experimental o analítico, los datos utilizados y los criterios de evaluación.\n\n## 3. Resultados y discusión\nReportamos los hallazgos principales con métricas cuantitativas y discutimos sus límites.\n\n## 4. Conclusiones\nResumimos las contribuciones y proponemos líneas futuras. Publicado en acceso abierto.",
+    "references": [
+      "Referencia representativa de acceso abierto (2024).",
+      "Autor, A. y Autor, B. (2025). Trabajo relacionado. Open Science Press.",
+      "Consorcio de Investigación Abierta (2026). Conjunto de datos y protocolo."
+    ]
+  },
+  {
+    "id": "teledeteccion-de-deforestacion-con-aprendizaje-p",
+    "discipline": "Ciencias Ambientales",
+    "title": "Teledetección de Deforestación con Aprendizaje Profundo",
+    "authors": [
+      "Dr. Rafael Ortega",
+      "Dr. Fatima Noor"
+    ],
+    "publisher": "Open Letters in Ciencias Ambientales",
+    "doi": "10.48550/oa.2025.67199",
+    "publishedDate": "2025-06-20",
+    "priceUsdc": 0.5,
+    "abstract": "Este trabajo aborda teledetección de Deforestación con Aprendizaje Profundo desde una perspectiva reproducible y de acceso abierto. Presentamos métodos, resultados cuantitativos y una discusión de sus implicaciones para la disciplina de ciencias ambientales.",
+    "previewSnippet": "1. Introducción\nEl estudio de teledetección de Deforestación con Aprendizaje Profundo ha cobrado relevancia por su impacto teórico y aplicado; aquí resumimos el estado del arte y la contribución principal de este artículo.",
+    "fullContentMarkdown": "## 1. Introducción\nMotivamos el problema de teledetección de Deforestación con Aprendizaje Profundo y su relevancia en ciencias ambientales.\n\n## 2. Métodos\nDescribimos el diseño experimental o analítico, los datos utilizados y los criterios de evaluación.\n\n## 3. Resultados y discusión\nReportamos los hallazgos principales con métricas cuantitativas y discutimos sus límites.\n\n## 4. Conclusiones\nResumimos las contribuciones y proponemos líneas futuras. Publicado en acceso abierto.",
+    "references": [
+      "Referencia representativa de acceso abierto (2024).",
+      "Autor, A. y Autor, B. (2025). Trabajo relacionado. Open Science Press.",
+      "Consorcio de Investigación Abierta (2026). Conjunto de datos y protocolo."
+    ]
+  },
+  {
+    "id": "inmunoterapia-car-t-de-segunda-generacion-en-tum",
+    "discipline": "Biomedicina",
+    "title": "Inmunoterapia CAR-T de Segunda Generación en Tumores Sólidos",
+    "authors": [
+      "Dr. Nadia Petrova",
+      "Dr. Hiroshi Nakamura"
+    ],
+    "publisher": "Open Letters in Biomedicina",
+    "doi": "10.48550/oa.2025.48469",
+    "publishedDate": "2025-06-13",
+    "priceUsdc": 0.5,
+    "abstract": "Este trabajo aborda inmunoterapia CAR-T de Segunda Generación en Tumores Sólidos desde una perspectiva reproducible y de acceso abierto. Presentamos métodos, resultados cuantitativos y una discusión de sus implicaciones para la disciplina de biomedicina.",
+    "previewSnippet": "1. Introducción\nEl estudio de inmunoterapia CAR-T de Segunda Generación en Tumores Sólidos ha cobrado relevancia por su impacto teórico y aplicado; aquí resumimos el estado del arte y la contribución principal de este artículo.",
+    "fullContentMarkdown": "## 1. Introducción\nMotivamos el problema de inmunoterapia CAR-T de Segunda Generación en Tumores Sólidos y su relevancia en biomedicina.\n\n## 2. Métodos\nDescribimos el diseño experimental o analítico, los datos utilizados y los criterios de evaluación.\n\n## 3. Resultados y discusión\nReportamos los hallazgos principales con métricas cuantitativas y discutimos sus límites.\n\n## 4. Conclusiones\nResumimos las contribuciones y proponemos líneas futuras. Publicado en acceso abierto.",
+    "references": [
+      "Referencia representativa de acceso abierto (2024).",
+      "Autor, A. y Autor, B. (2025). Trabajo relacionado. Open Science Press.",
+      "Consorcio de Investigación Abierta (2026). Conjunto de datos y protocolo."
+    ]
+  },
+  {
+    "id": "cifrado-homomorfico-practico-para-inferencia-sob",
+    "discipline": "Criptografía",
+    "title": "Cifrado Homomórfico Práctico para Inferencia sobre Datos Cifrados",
+    "authors": [
+      "Dr. Yuki Tanaka",
+      "Dr. Mariana Gutiérrez"
+    ],
+    "publisher": "Open Frontiers in Criptografía",
+    "doi": "10.48550/oa.2025.38785",
+    "publishedDate": "2025-05-27",
+    "priceUsdc": 0.5,
+    "abstract": "Este trabajo aborda cifrado Homomórfico Práctico para Inferencia sobre Datos Cifrados desde una perspectiva reproducible y de acceso abierto. Presentamos métodos, resultados cuantitativos y una discusión de sus implicaciones para la disciplina de criptografía.",
+    "previewSnippet": "1. Introducción\nEl estudio de cifrado Homomórfico Práctico para Inferencia sobre Datos Cifrados ha cobrado relevancia por su impacto teórico y aplicado; aquí resumimos el estado del arte y la contribución principal de este artículo.",
+    "fullContentMarkdown": "## 1. Introducción\nMotivamos el problema de cifrado Homomórfico Práctico para Inferencia sobre Datos Cifrados y su relevancia en criptografía.\n\n## 2. Métodos\nDescribimos el diseño experimental o analítico, los datos utilizados y los criterios de evaluación.\n\n## 3. Resultados y discusión\nReportamos los hallazgos principales con métricas cuantitativas y discutimos sus límites.\n\n## 4. Conclusiones\nResumimos las contribuciones y proponemos líneas futuras. Publicado en acceso abierto.",
+    "references": [
+      "Referencia representativa de acceso abierto (2024).",
+      "Autor, A. y Autor, B. (2025). Trabajo relacionado. Open Science Press.",
+      "Consorcio de Investigación Abierta (2026). Conjunto de datos y protocolo."
+    ]
+  },
+  {
+    "id": "formacion-de-discos-protoplanetarios-en-sistemas",
+    "discipline": "Astronomía",
+    "title": "Formación de Discos Protoplanetarios en Sistemas Binarios",
+    "authors": [
+      "Dr. Noa Berg",
+      "Dra. Kenji Watanabe",
+      "Dr. Yuki Tanaka"
+    ],
+    "publisher": "Proceedings of Open Astronomía",
+    "doi": "10.48550/oa.2025.22097",
+    "publishedDate": "2025-05-11",
+    "priceUsdc": 0.5,
+    "abstract": "Este trabajo aborda formación de Discos Protoplanetarios en Sistemas Binarios desde una perspectiva reproducible y de acceso abierto. Presentamos métodos, resultados cuantitativos y una discusión de sus implicaciones para la disciplina de astronomía.",
+    "previewSnippet": "1. Introducción\nEl estudio de formación de Discos Protoplanetarios en Sistemas Binarios ha cobrado relevancia por su impacto teórico y aplicado; aquí resumimos el estado del arte y la contribución principal de este artículo.",
+    "fullContentMarkdown": "## 1. Introducción\nMotivamos el problema de formación de Discos Protoplanetarios en Sistemas Binarios y su relevancia en astronomía.\n\n## 2. Métodos\nDescribimos el diseño experimental o analítico, los datos utilizados y los criterios de evaluación.\n\n## 3. Resultados y discusión\nReportamos los hallazgos principales con métricas cuantitativas y discutimos sus límites.\n\n## 4. Conclusiones\nResumimos las contribuciones y proponemos líneas futuras. Publicado en acceso abierto.",
+    "references": [
+      "Referencia representativa de acceso abierto (2024).",
+      "Autor, A. y Autor, B. (2025). Trabajo relacionado. Open Science Press.",
+      "Consorcio de Investigación Abierta (2026). Conjunto de datos y protocolo."
+    ]
+  },
+  {
+    "id": "bases-de-datos-vectoriales-para-recuperacion-sem",
+    "discipline": "Informática",
+    "title": "Bases de Datos Vectoriales para Recuperación Semántica a Gran Escala",
+    "authors": [
+      "Dr. Omar Haddad",
+      "Dra. Sofía Márquez"
+    ],
+    "publisher": "Open Reports in Informática",
+    "doi": "10.48550/oa.2025.30926",
+    "publishedDate": "2025-05-10",
+    "priceUsdc": 0.5,
+    "abstract": "Este trabajo aborda bases de Datos Vectoriales para Recuperación Semántica a Gran Escala desde una perspectiva reproducible y de acceso abierto. Presentamos métodos, resultados cuantitativos y una discusión de sus implicaciones para la disciplina de informática.",
+    "previewSnippet": "1. Introducción\nEl estudio de bases de Datos Vectoriales para Recuperación Semántica a Gran Escala ha cobrado relevancia por su impacto teórico y aplicado; aquí resumimos el estado del arte y la contribución principal de este artículo.",
+    "fullContentMarkdown": "## 1. Introducción\nMotivamos el problema de bases de Datos Vectoriales para Recuperación Semántica a Gran Escala y su relevancia en informática.\n\n## 2. Métodos\nDescribimos el diseño experimental o analítico, los datos utilizados y los criterios de evaluación.\n\n## 3. Resultados y discusión\nReportamos los hallazgos principales con métricas cuantitativas y discutimos sus límites.\n\n## 4. Conclusiones\nResumimos las contribuciones y proponemos líneas futuras. Publicado en acceso abierto.",
+    "references": [
+      "Referencia representativa de acceso abierto (2024).",
+      "Autor, A. y Autor, B. (2025). Trabajo relacionado. Open Science Press.",
+      "Consorcio de Investigación Abierta (2026). Conjunto de datos y protocolo."
+    ]
+  },
+  {
+    "id": "turbulencia-en-plasmas-de-fusion-por-confinamien",
+    "discipline": "Física",
+    "title": "Turbulencia en Plasmas de Fusión por Confinamiento Magnético",
+    "authors": [
+      "Dra. Sophie Dupont",
+      "Dr. Sofía Márquez",
+      "Dr. Mariana Gutiérrez"
+    ],
+    "publisher": "Proceedings of Open Física",
+    "doi": "10.48550/oa.2025.27342",
+    "publishedDate": "2025-04-27",
+    "priceUsdc": 0.5,
+    "abstract": "Este trabajo aborda turbulencia en Plasmas de Fusión por Confinamiento Magnético desde una perspectiva reproducible y de acceso abierto. Presentamos métodos, resultados cuantitativos y una discusión de sus implicaciones para la disciplina de física.",
+    "previewSnippet": "1. Introducción\nEl estudio de turbulencia en Plasmas de Fusión por Confinamiento Magnético ha cobrado relevancia por su impacto teórico y aplicado; aquí resumimos el estado del arte y la contribución principal de este artículo.",
+    "fullContentMarkdown": "## 1. Introducción\nMotivamos el problema de turbulencia en Plasmas de Fusión por Confinamiento Magnético y su relevancia en física.\n\n## 2. Métodos\nDescribimos el diseño experimental o analítico, los datos utilizados y los criterios de evaluación.\n\n## 3. Resultados y discusión\nReportamos los hallazgos principales con métricas cuantitativas y discutimos sus límites.\n\n## 4. Conclusiones\nResumimos las contribuciones y proponemos líneas futuras. Publicado en acceso abierto.",
+    "references": [
+      "Referencia representativa de acceso abierto (2024).",
+      "Autor, A. y Autor, B. (2025). Trabajo relacionado. Open Science Press.",
+      "Consorcio de Investigación Abierta (2026). Conjunto de datos y protocolo."
+    ]
+  },
+  {
+    "id": "interfaces-cerebro-computadora-no-invasivas-para",
+    "discipline": "Neurociencia",
+    "title": "Interfaces Cerebro-Computadora No Invasivas para Control Motor",
+    "authors": [
+      "Dra. Nadia Petrova",
+      "Dr. Fatima Noor"
+    ],
+    "publisher": "Proceedings of Open Neurociencia",
+    "doi": "10.48550/oa.2025.86019",
+    "publishedDate": "2025-04-23",
+    "priceUsdc": 0.5,
+    "abstract": "Este trabajo aborda interfaces Cerebro-Computadora No Invasivas para Control Motor desde una perspectiva reproducible y de acceso abierto. Presentamos métodos, resultados cuantitativos y una discusión de sus implicaciones para la disciplina de neurociencia.",
+    "previewSnippet": "1. Introducción\nEl estudio de interfaces Cerebro-Computadora No Invasivas para Control Motor ha cobrado relevancia por su impacto teórico y aplicado; aquí resumimos el estado del arte y la contribución principal de este artículo.",
+    "fullContentMarkdown": "## 1. Introducción\nMotivamos el problema de interfaces Cerebro-Computadora No Invasivas para Control Motor y su relevancia en neurociencia.\n\n## 2. Métodos\nDescribimos el diseño experimental o analítico, los datos utilizados y los criterios de evaluación.\n\n## 3. Resultados y discusión\nReportamos los hallazgos principales con métricas cuantitativas y discutimos sus límites.\n\n## 4. Conclusiones\nResumimos las contribuciones y proponemos líneas futuras. Publicado en acceso abierto.",
+    "references": [
+      "Referencia representativa de acceso abierto (2024).",
+      "Autor, A. y Autor, B. (2025). Trabajo relacionado. Open Science Press.",
+      "Consorcio de Investigación Abierta (2026). Conjunto de datos y protocolo."
+    ]
+  },
+  {
+    "id": "politica-monetaria-y-estabilidad-de-monedas-digi",
+    "discipline": "Economía",
+    "title": "Política Monetaria y Estabilidad de Monedas Digitales de Banca Central",
+    "authors": [
+      "Dra. Kenji Watanabe",
+      "Dr. Liang Chen",
+      "Dr. Diego Salinas"
+    ],
+    "publisher": "Proceedings of Open Economía",
+    "doi": "10.48550/oa.2025.30866",
+    "publishedDate": "2025-04-18",
+    "priceUsdc": 0.5,
+    "abstract": "Este trabajo aborda política Monetaria y Estabilidad de Monedas Digitales de Banca Central desde una perspectiva reproducible y de acceso abierto. Presentamos métodos, resultados cuantitativos y una discusión de sus implicaciones para la disciplina de economía.",
+    "previewSnippet": "1. Introducción\nEl estudio de política Monetaria y Estabilidad de Monedas Digitales de Banca Central ha cobrado relevancia por su impacto teórico y aplicado; aquí resumimos el estado del arte y la contribución principal de este artículo.",
+    "fullContentMarkdown": "## 1. Introducción\nMotivamos el problema de política Monetaria y Estabilidad de Monedas Digitales de Banca Central y su relevancia en economía.\n\n## 2. Métodos\nDescribimos el diseño experimental o analítico, los datos utilizados y los criterios de evaluación.\n\n## 3. Resultados y discusión\nReportamos los hallazgos principales con métricas cuantitativas y discutimos sus límites.\n\n## 4. Conclusiones\nResumimos las contribuciones y proponemos líneas futuras. Publicado en acceso abierto.",
+    "references": [
+      "Referencia representativa de acceso abierto (2024).",
+      "Autor, A. y Autor, B. (2025). Trabajo relacionado. Open Science Press.",
+      "Consorcio de Investigación Abierta (2026). Conjunto de datos y protocolo."
+    ]
+  },
+  {
+    "id": "mercados-de-prediccion-como-mecanismos-de-agrega",
+    "discipline": "Economía",
+    "title": "Mercados de Predicción como Mecanismos de Agregación de Información",
+    "authors": [
+      "Dr. Priya Raman",
+      "Dr. Nadia Petrova",
+      "Dra. Mateo Silva"
+    ],
+    "publisher": "Proceedings of Open Economía",
+    "doi": "10.48550/oa.2025.13101",
+    "publishedDate": "2025-04-17",
+    "priceUsdc": 0.5,
+    "abstract": "Este trabajo aborda mercados de Predicción como Mecanismos de Agregación de Información desde una perspectiva reproducible y de acceso abierto. Presentamos métodos, resultados cuantitativos y una discusión de sus implicaciones para la disciplina de economía.",
+    "previewSnippet": "1. Introducción\nEl estudio de mercados de Predicción como Mecanismos de Agregación de Información ha cobrado relevancia por su impacto teórico y aplicado; aquí resumimos el estado del arte y la contribución principal de este artículo.",
+    "fullContentMarkdown": "## 1. Introducción\nMotivamos el problema de mercados de Predicción como Mecanismos de Agregación de Información y su relevancia en economía.\n\n## 2. Métodos\nDescribimos el diseño experimental o analítico, los datos utilizados y los criterios de evaluación.\n\n## 3. Resultados y discusión\nReportamos los hallazgos principales con métricas cuantitativas y discutimos sus límites.\n\n## 4. Conclusiones\nResumimos las contribuciones y proponemos líneas futuras. Publicado en acceso abierto.",
+    "references": [
+      "Referencia representativa de acceso abierto (2024).",
+      "Autor, A. y Autor, B. (2025). Trabajo relacionado. Open Science Press.",
+      "Consorcio de Investigación Abierta (2026). Conjunto de datos y protocolo."
+    ]
+  },
+  {
+    "id": "sistemas-de-consenso-sin-lider-para-bases-de-dat",
+    "discipline": "Informática",
+    "title": "Sistemas de Consenso sin Líder para Bases de Datos Geodistribuidas",
+    "authors": [
+      "Dra. Rafael Ortega",
+      "Dr. Mateo Silva",
+      "Dra. Hiroshi Nakamura"
+    ],
+    "publisher": "Open Letters in Informática",
+    "doi": "10.48550/oa.2025.16006",
+    "publishedDate": "2025-04-12",
+    "priceUsdc": 0.5,
+    "abstract": "Este trabajo aborda sistemas de Consenso sin Líder para Bases de Datos Geodistribuidas desde una perspectiva reproducible y de acceso abierto. Presentamos métodos, resultados cuantitativos y una discusión de sus implicaciones para la disciplina de informática.",
+    "previewSnippet": "1. Introducción\nEl estudio de sistemas de Consenso sin Líder para Bases de Datos Geodistribuidas ha cobrado relevancia por su impacto teórico y aplicado; aquí resumimos el estado del arte y la contribución principal de este artículo.",
+    "fullContentMarkdown": "## 1. Introducción\nMotivamos el problema de sistemas de Consenso sin Líder para Bases de Datos Geodistribuidas y su relevancia en informática.\n\n## 2. Métodos\nDescribimos el diseño experimental o analítico, los datos utilizados y los criterios de evaluación.\n\n## 3. Resultados y discusión\nReportamos los hallazgos principales con métricas cuantitativas y discutimos sus límites.\n\n## 4. Conclusiones\nResumimos las contribuciones y proponemos líneas futuras. Publicado en acceso abierto.",
+    "references": [
+      "Referencia representativa de acceso abierto (2024).",
+      "Autor, A. y Autor, B. (2025). Trabajo relacionado. Open Science Press.",
+      "Consorcio de Investigación Abierta (2026). Conjunto de datos y protocolo."
+    ]
+  },
+  {
+    "id": "polimeros-autorreparables-basados-en-enlaces-din",
+    "discipline": "Química",
+    "title": "Polímeros Autorreparables Basados en Enlaces Dinámicos Covalentes",
+    "authors": [
+      "Dr. Priya Raman",
+      "Dr. Sophie Dupont",
+      "Dr. Iván Delgado"
+    ],
+    "publisher": "Open Reports in Química",
+    "doi": "10.48550/oa.2025.34050",
+    "publishedDate": "2025-03-23",
+    "priceUsdc": 0.5,
+    "abstract": "Este trabajo aborda polímeros Autorreparables Basados en Enlaces Dinámicos Covalentes desde una perspectiva reproducible y de acceso abierto. Presentamos métodos, resultados cuantitativos y una discusión de sus implicaciones para la disciplina de química.",
+    "previewSnippet": "1. Introducción\nEl estudio de polímeros Autorreparables Basados en Enlaces Dinámicos Covalentes ha cobrado relevancia por su impacto teórico y aplicado; aquí resumimos el estado del arte y la contribución principal de este artículo.",
+    "fullContentMarkdown": "## 1. Introducción\nMotivamos el problema de polímeros Autorreparables Basados en Enlaces Dinámicos Covalentes y su relevancia en química.\n\n## 2. Métodos\nDescribimos el diseño experimental o analítico, los datos utilizados y los criterios de evaluación.\n\n## 3. Resultados y discusión\nReportamos los hallazgos principales con métricas cuantitativas y discutimos sus límites.\n\n## 4. Conclusiones\nResumimos las contribuciones y proponemos líneas futuras. Publicado en acceso abierto.",
+    "references": [
+      "Referencia representativa de acceso abierto (2024).",
+      "Autor, A. y Autor, B. (2025). Trabajo relacionado. Open Science Press.",
+      "Consorcio de Investigación Abierta (2026). Conjunto de datos y protocolo."
+    ]
+  },
+  {
+    "id": "pruebas-de-conocimiento-cero-recursivas-para-esc",
+    "discipline": "Criptografía",
+    "title": "Pruebas de Conocimiento Cero Recursivas para Escalabilidad de Cadenas",
+    "authors": [
+      "Dr. Sofía Márquez",
+      "Dra. Valeria Campos",
+      "Dra. Arthur Pendelton"
+    ],
+    "publisher": "Open Frontiers in Criptografía",
+    "doi": "10.48550/oa.2025.56566",
+    "publishedDate": "2025-03-21",
+    "priceUsdc": 0.5,
+    "abstract": "Este trabajo aborda pruebas de Conocimiento Cero Recursivas para Escalabilidad de Cadenas desde una perspectiva reproducible y de acceso abierto. Presentamos métodos, resultados cuantitativos y una discusión de sus implicaciones para la disciplina de criptografía.",
+    "previewSnippet": "1. Introducción\nEl estudio de pruebas de Conocimiento Cero Recursivas para Escalabilidad de Cadenas ha cobrado relevancia por su impacto teórico y aplicado; aquí resumimos el estado del arte y la contribución principal de este artículo.",
+    "fullContentMarkdown": "## 1. Introducción\nMotivamos el problema de pruebas de Conocimiento Cero Recursivas para Escalabilidad de Cadenas y su relevancia en criptografía.\n\n## 2. Métodos\nDescribimos el diseño experimental o analítico, los datos utilizados y los criterios de evaluación.\n\n## 3. Resultados y discusión\nReportamos los hallazgos principales con métricas cuantitativas y discutimos sus límites.\n\n## 4. Conclusiones\nResumimos las contribuciones y proponemos líneas futuras. Publicado en acceso abierto.",
+    "references": [
+      "Referencia representativa de acceso abierto (2024).",
+      "Autor, A. y Autor, B. (2025). Trabajo relacionado. Open Science Press.",
+      "Consorcio de Investigación Abierta (2026). Conjunto de datos y protocolo."
+    ]
+  },
+  {
+    "id": "deteccion-de-anomalias-en-series-temporales-con",
+    "discipline": "Informática",
+    "title": "Detección de Anomalías en Series Temporales con Transformadores Dispersos",
+    "authors": [
+      "Dr. Oskar Lindqvist",
+      "Dra. Ingrid Sørensen",
+      "Dr. Yuki Tanaka"
+    ],
+    "publisher": "Open Journal of Informática",
+    "doi": "10.48550/oa.2025.55082",
+    "publishedDate": "2025-02-21",
+    "priceUsdc": 0.5,
+    "abstract": "Este trabajo aborda detección de Anomalías en Series Temporales con Transformadores Dispersos desde una perspectiva reproducible y de acceso abierto. Presentamos métodos, resultados cuantitativos y una discusión de sus implicaciones para la disciplina de informática.",
+    "previewSnippet": "1. Introducción\nEl estudio de detección de Anomalías en Series Temporales con Transformadores Dispersos ha cobrado relevancia por su impacto teórico y aplicado; aquí resumimos el estado del arte y la contribución principal de este artículo.",
+    "fullContentMarkdown": "## 1. Introducción\nMotivamos el problema de detección de Anomalías en Series Temporales con Transformadores Dispersos y su relevancia en informática.\n\n## 2. Métodos\nDescribimos el diseño experimental o analítico, los datos utilizados y los criterios de evaluación.\n\n## 3. Resultados y discusión\nReportamos los hallazgos principales con métricas cuantitativas y discutimos sus límites.\n\n## 4. Conclusiones\nResumimos las contribuciones y proponemos líneas futuras. Publicado en acceso abierto.",
+    "references": [
+      "Referencia representativa de acceso abierto (2024).",
+      "Autor, A. y Autor, B. (2025). Trabajo relacionado. Open Science Press.",
+      "Consorcio de Investigación Abierta (2026). Conjunto de datos y protocolo."
+    ]
+  },
+  {
+    "id": "caracterizacion-atmosferica-de-exoplanetas-con-e",
+    "discipline": "Astronomía",
+    "title": "Caracterización Atmosférica de Exoplanetas con Espectroscopía de Tránsito",
+    "authors": [
+      "Dr. Hiroshi Nakamura",
+      "Dra. Priya Raman"
+    ],
+    "publisher": "Open Reports in Astronomía",
+    "doi": "10.48550/oa.2025.58434",
+    "publishedDate": "2025-02-17",
+    "priceUsdc": 0.5,
+    "abstract": "Este trabajo aborda caracterización Atmosférica de Exoplanetas con Espectroscopía de Tránsito desde una perspectiva reproducible y de acceso abierto. Presentamos métodos, resultados cuantitativos y una discusión de sus implicaciones para la disciplina de astronomía.",
+    "previewSnippet": "1. Introducción\nEl estudio de caracterización Atmosférica de Exoplanetas con Espectroscopía de Tránsito ha cobrado relevancia por su impacto teórico y aplicado; aquí resumimos el estado del arte y la contribución principal de este artículo.",
+    "fullContentMarkdown": "## 1. Introducción\nMotivamos el problema de caracterización Atmosférica de Exoplanetas con Espectroscopía de Tránsito y su relevancia en astronomía.\n\n## 2. Métodos\nDescribimos el diseño experimental o analítico, los datos utilizados y los criterios de evaluación.\n\n## 3. Resultados y discusión\nReportamos los hallazgos principales con métricas cuantitativas y discutimos sus límites.\n\n## 4. Conclusiones\nResumimos las contribuciones y proponemos líneas futuras. Publicado en acceso abierto.",
+    "references": [
+      "Referencia representativa de acceso abierto (2024).",
+      "Autor, A. y Autor, B. (2025). Trabajo relacionado. Open Science Press.",
+      "Consorcio de Investigación Abierta (2026). Conjunto de datos y protocolo."
+    ]
+  },
+  {
+    "id": "fotocatalisis-para-la-degradacion-de-contaminant",
+    "discipline": "Química",
+    "title": "Fotocatálisis para la Degradación de Contaminantes Emergentes en Agua",
+    "authors": [
+      "Dra. Sun Park",
+      "Dr. Paula Aguirre"
+    ],
+    "publisher": "Open Reports in Química",
+    "doi": "10.48550/oa.2025.44760",
+    "publishedDate": "2025-01-22",
+    "priceUsdc": 0.5,
+    "abstract": "Este trabajo aborda fotocatálisis para la Degradación de Contaminantes Emergentes en Agua desde una perspectiva reproducible y de acceso abierto. Presentamos métodos, resultados cuantitativos y una discusión de sus implicaciones para la disciplina de química.",
+    "previewSnippet": "1. Introducción\nEl estudio de fotocatálisis para la Degradación de Contaminantes Emergentes en Agua ha cobrado relevancia por su impacto teórico y aplicado; aquí resumimos el estado del arte y la contribución principal de este artículo.",
+    "fullContentMarkdown": "## 1. Introducción\nMotivamos el problema de fotocatálisis para la Degradación de Contaminantes Emergentes en Agua y su relevancia en química.\n\n## 2. Métodos\nDescribimos el diseño experimental o analítico, los datos utilizados y los criterios de evaluación.\n\n## 3. Resultados y discusión\nReportamos los hallazgos principales con métricas cuantitativas y discutimos sus límites.\n\n## 4. Conclusiones\nResumimos las contribuciones y proponemos líneas futuras. Publicado en acceso abierto.",
     "references": [
       "Referencia representativa de acceso abierto (2024).",
       "Autor, A. y Autor, B. (2025). Trabajo relacionado. Open Science Press.",
