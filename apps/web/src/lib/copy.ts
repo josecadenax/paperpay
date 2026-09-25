@@ -47,6 +47,28 @@ export const COPY = {
     noResults: 'No se encontraron artículos para tu búsqueda.',
     loadError: 'No pudimos cargar el catálogo. Revisa tu conexión e intenta de nuevo.',
     retry: 'Reintentar',
+    sortLabel: 'Ordenar',
+    sortNewest: 'Más recientes',
+    sortTitle: 'Título A-Z',
+    sortDiscipline: 'Disciplina',
+    clearFilters: 'Quitar filtros',
+    emptyTitle: 'Sin resultados',
+    trust: [
+      { title: 'Sin cuenta', desc: 'Tu wallet es tu identidad: sin registro ni contraseñas.' },
+      { title: 'Verificable on-chain', desc: 'Cada pago queda registrado y auditable en Stellar.' },
+      { title: 'Liquidación en segundos', desc: 'Del pago a la lectura en unos 5 segundos.' },
+    ],
+    agents: {
+      badge: 'Nuevo',
+      title: 'Hecho también para agentes de IA',
+      description:
+        'Al construirse sobre HTTP 402, el mismo endpoint que usan las personas sirve a agentes autónomos: piden el artículo, reciben el 402, pagan y leen, sin intervención humana.',
+      points: [
+        'Mismo endpoint para humanos y para agentes',
+        'Pago y acceso mediante el estándar abierto x402',
+        'Ideal para pipelines de investigación automatizados',
+      ],
+    },
     footerLeft: '© 2026 PaperPay · Pagos en Stellar Testnet',
     footerRight: '98% a la editorial · 2% de comisión',
   },
