@@ -1,22 +1,13 @@
 'use client'
 
-import dynamic from 'next/dynamic'
-import { useEffect, useState } from 'react'
-import { isPollarConfigured, POLLAR_PUBLISHABLE_KEY } from '@/services/walletMode'
+import { PollarProvider } from '@pollar/react'
+import { POLLAR_PUBLISHABLE_KEY } from '@/services/walletMode'
 
-// El SDK de Pollar solo se carga en el navegador y solo cuando el modo pollar está activo.
-// Si no hay key o el modo no es 'pollar', se renderizan los hijos sin envolver: v1 intacto.
-const PollarProvider = dynamic(() => import('@pollar/react').then((m) => m.PollarProvider), { ssr: false })
-
+// Monta el provider de Pollar solo cuando hay publishable key (v2). Sin key (v1/main),
+// renderiza los hijos sin envolver: no carga el SDK ni cambia nada. La key es una
+// constante de build (misma en server y cliente), así que no hay desincronización ni
+// hidratación inconsistente, y usePollar siempre tiene su provider cuando aplica.
 export function PollarProviderGate({ children }: { children: React.ReactNode }) {
-  const [active, setActive] = useState(false)
-
-  // walletMode() lee la URL/sessionStorage, así que se evalúa tras montar en el cliente.
-  useEffect(() => {
-    setActive(isPollarConfigured())
-  }, [])
-
-  if (!active) return <>{children}</>
-
+  if (!POLLAR_PUBLISHABLE_KEY) return <>{children}</>
   return <PollarProvider client={{ apiKey: POLLAR_PUBLISHABLE_KEY }}>{children}</PollarProvider>
 }
