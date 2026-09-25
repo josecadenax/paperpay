@@ -1,6 +1,8 @@
 'use client'
 
 import { useEffect, useMemo, useState } from 'react'
+import { HeroPreview } from '@/components/HeroPreview'
+import { HeroStats } from '@/components/HeroStats'
 import { PaperCard } from '@/components/PaperCard'
 import { COPY } from '@/lib/copy'
 import type { PaperPreview } from '@/lib/types'
@@ -53,8 +55,8 @@ export function HomeView() {
           aria-hidden
         />
 
-        <div className="relative mx-auto max-w-7xl px-4 pt-16 pb-14 sm:px-6 lg:pt-28 lg:pb-20">
-          <div className="max-w-3xl">
+        <div className="relative mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 px-4 pt-16 pb-14 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:pt-24 lg:pb-20">
+          <div className="max-w-xl">
             <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-primary-soft px-3 py-1.5 text-xs font-semibold text-primary">
               <span className="h-1.5 w-1.5 rounded-full bg-primary" />
               {COPY.home.badge}
@@ -65,21 +67,28 @@ export function HomeView() {
               <span className="block">{COPY.home.heroSubtitle}</span>
             </h1>
 
-            <p className="mb-10 max-w-xl text-lg leading-relaxed text-muted-foreground">{COPY.home.heroDescription}</p>
+            <p className="mb-8 text-lg leading-relaxed text-muted-foreground">{COPY.home.heroDescription}</p>
 
-            <div className="inline-flex items-center gap-3 rounded-2xl border border-border bg-card px-5 py-3 shadow-[var(--shadow-card)]">
-              <div>
-                <p className="text-sm font-medium text-subtle line-through">{COPY.home.priceOriginal}</p>
-                <p className="text-xs text-muted-foreground">{COPY.home.priceOriginalNote}</p>
+            <div className="flex flex-wrap items-center gap-3">
+              <div className="inline-flex items-center gap-3 rounded-2xl border border-border bg-card px-5 py-3 shadow-[var(--shadow-card)]">
+                <div>
+                  <p className="text-sm font-medium text-subtle line-through">{COPY.home.priceOriginal}</p>
+                  <p className="text-xs text-muted-foreground">{COPY.home.priceOriginalNote}</p>
+                </div>
+                <svg className="flex-shrink-0" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden>
+                  <path d="M5 10h10M12 7l3 3-3 3" stroke="#2F5BFF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                <div>
+                  <p className="font-display text-lg font-semibold text-success">{COPY.home.pricePaper}</p>
+                  <p className="text-xs text-muted-foreground">{COPY.home.pricePaperNote}</p>
+                </div>
               </div>
-              <svg className="flex-shrink-0" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden>
-                <path d="M5 10h10M12 7l3 3-3 3" stroke="#2F5BFF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-              <div>
-                <p className="font-display text-lg font-semibold text-success">{COPY.home.pricePaper}</p>
-                <p className="text-xs text-muted-foreground">{COPY.home.pricePaperNote}</p>
-              </div>
+              <HeroStats />
             </div>
+          </div>
+
+          <div className="animate-fade-in lg:pl-6">
+            <HeroPreview />
           </div>
         </div>
       </section>
