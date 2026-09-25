@@ -1,51 +1,254 @@
 [
   {
     "id": "autonomous-ai-micropayments",
-    "title": "Autonomous Agentic Payments: Implementing HTTP 402 and x402 on Decentralized Settlement Rails",
-    "authors": ["Dra. Elena Ramos (FI-UNAM)", "Dr. Carlos V. Mendoza (CriptoUNAM Lab)"],
-    "abstract": "We analyze the latency, transaction fee economics, and security guarantees of autonomous artificial intelligence agents conducting microtransactions over decentralized networks. Traditional credit card rails impose fixed processing fees ($0.30 + 2.9%) that make sub-dollar programmatic resource procurement prohibitive. By leveraging the standardized HTTP 402 Payment Required response combined with the open x402 protocol on Stellar Soroban, agents can acquire pay-per-read academic literature and compute APIs with sub-5-second finality and sub-cent fees ($0.0005 USD).",
-    "publishedDate": "2026-08-14",
+    "discipline": "Informática",
+    "title": "Pagos Autónomos entre Agentes: HTTP 402 y x402 sobre Redes de Liquidación Descentralizadas",
+    "authors": [
+      "Dra. Elena Ramos",
+      "Dr. Carlos V. Mendoza"
+    ],
     "publisher": "Journal of Distributed Intelligence & Web3 Systems",
-    "doi": "10.1016/j.diw3s.2026.04.012",
-    "priceUsdc": 0.50,
-    "previewSnippet": "1. Introduction\nThe proliferation of autonomous Large Language Model (LLM) agents has exposed a critical infrastructural deficit in the modern web: the absence of a native, machine-readable payment rail for fine-grained resource acquisition. While human users navigate subscriptions and checkout flows with graphical interfaces, agents require programmatic, stateless settlement protocols.",
-    "fullContentMarkdown": "# Autonomous Agentic Payments: Implementing HTTP 402 and x402 on Decentralized Settlement Rails\n\n**Authors:** Dra. Elena Ramos (FI-UNAM), Dr. Carlos V. Mendoza (CriptoUNAM Lab)\n**DOI:** 10.1016/j.diw3s.2026.04.012\n\n---\n\n## 1. Introduction\nThe proliferation of autonomous Large Language Model (LLM) agents has exposed a critical infrastructural deficit in the modern web: the absence of a native, machine-readable payment rail for fine-grained resource acquisition. While human users navigate subscriptions and checkout flows with graphical interfaces, agents require programmatic, stateless settlement protocols.\n\nSince its formalization in RFC 7231, the HTTP status code `402 Payment Required` remained largely unimplemented as a dead-letter standard due to the lack of decentralized digital cash rails. The emergence of Stellar's Soroban smart contract framework and the x402 specification revitalizes this paradigm.\n\n## 2. Protocol Architecture & Transaction Flow\nWhen an autonomous agent or web client dispatches a standard `GET /resource` request without valid credentials, the server intercepts the request and issues a `402 Payment Required` response. Crucially, the response payload contains the `PAYMENT-REQUIRED` header:\n\n```json\n{\n  \"scheme\": \"exact\",\n  \"network\": \"stellar:testnet\",\n  \"asset\": \"CBIELTK6YBZJU5UP2WWQEUCYKLPU6AUNZ2BQ4WWFEIE3USCIHMXQDAMA\",\n  \"amount\": \"5000000\",\n  \"payTo\": \"GB6X402TREASURYDEMOUNAM2026GOYAHACKPAPERPAYTESTNET\",\n  \"maxTimeoutSeconds\": 300\n}\n```\n\nThe client produces an authenticated Soroban authorization entry (`SorobanAuthorizationEntry`) authorizing a transfer of 0.50 USDC directly from the caller to the merchant treasury.\n\n## 3. Economic Analysis\nEmpirical benchmarks executed on Stellar Mainnet in September 2026 demonstrate the following unit economics for a $0.50 transaction:\n- Network Fee: ~24,300 stroops (0.0024 XLM ≈ $0.00048 USD).\n- Facilitator Overhead: $0.00100 USD.\n- Total Protocol Cost: ~$0.00148 USD (0.29% of gross payment).\n- Publisher Net Revenue (98% split): $0.49000 USD.\n- Platform Fee (2% split): $0.01000 USD.\n- Net Platform Margin: 85.2%.\n\n## 4. Empirical Evaluation\nDuring our 10,000-transaction benchmark across 5 global node clusters, the 99th percentile end-to-end latency from initial 402 challenge to 200 OK content delivery was 4.12 seconds, dominated primarily by Stellar ledger closing time (~3.8s).\n\n## 5. Conclusion\nStateless HTTP 402 microtransactions over Stellar Soroban offer a viable, cost-effective paradigm for machine-to-machine economies and academic paywall democratization.",
+    "doi": "10.48550/oa.2026.04012",
+    "publishedDate": "2026-08-14",
+    "priceUsdc": 0.5,
+    "abstract": "Los agentes autónomos basados en modelos de lenguaje requieren una capa de micropagos sin fricción. Formalizamos el uso de HTTP 402 como primitiva de cobro legible por máquinas y presentamos x402 sobre Stellar, con liquidación sub-segundo y comisiones ínfimas.",
+    "previewSnippet": "1. Introducción\nLa proliferación de agentes autónomos ha expuesto un vacío en la infraestructura de la web: la ausencia de un mecanismo de pago nativo, legible por máquinas y de grano fino.",
+    "fullContentMarkdown": "## 1. Introducción\nLa web carece de una primitiva de pago nativa para agentes. HTTP 402 estuvo reservado desde 1991 pero sin implementar por falta de rieles de liquidación viables.\n\n## 2. Métodos\nImplementamos un middleware de servidor y un cliente que negocian el pago vía cabeceras x402 y liquidan USDC en Stellar. Medimos latencia y costo sobre 10,000 transacciones.\n\n## 3. Resultados y discusión\nLa latencia mediana extremo a extremo fue de ~4 s y el costo por transacción se mantuvo en fracciones de centavo, confirmando la viabilidad para micropagos.\n\n## 4. Conclusiones\nLos resultados presentados abren líneas de trabajo futuras y se publican bajo acceso abierto para su libre consulta y reproducción.",
     "references": [
-      "Van Clief, L., & McDermott, R. (2026). Interpretable Context Methodology. arXiv:2603.16021.",
-      "Stellar Development Foundation. (2025). Soroban Smart Contracts Specification and Fee Metering.",
-      "Fielding, R., & Reschke, J. (2014). Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content. RFC 7231."
+      "Referencia representativa de acceso abierto (2024).",
+      "Autor, A. y Autor, B. (2025). Trabajo relacionado. Open Science Press.",
+      "Consorcio de Investigación Abierta (2026). Conjunto de datos y protocolo."
     ]
   },
   {
     "id": "quantum-cryptography-post-quantum",
-    "title": "Lattice-Based Post-Quantum Cryptography in Decentralized Ledger State Verification",
-    "authors": ["Dr. Mateo Silva (Instituto de Matemáticas Aplicadas, UNAM)", "Dra. Sophie L. Dupont (Laboratoire d'Informatique de Paris)"],
-    "abstract": "We evaluate the practical throughput and computational overhead of transitioning blockchain signature schemes from ECDSA (secp256k1) and Ed25519 to CRYSTALS-Dilithium and Falcon lattice-based post-quantum signature primitives. Our experimental implementation on zero-knowledge execution rollups reveals a 3.4x increase in proof generation time, but demonstrates that stateless leaf verification remains within the 5ms budget required for high-throughput smart contract engines.",
+    "discipline": "Criptografía",
+    "title": "Criptografía Post-Cuántica Basada en Retículas para la Verificación de Estado en Libros Distribuidos",
+    "authors": [
+      "Dr. Mateo Silva",
+      "Dra. Sophie L. Dupont"
+    ],
+    "publisher": "Open Series on Applied Cryptography",
+    "doi": "10.48550/oa.2026.00982",
     "publishedDate": "2026-07-22",
-    "publisher": "UNAM Academic Series on Applied Cryptography",
-    "doi": "10.1007/s10623-026-00982-x",
-    "priceUsdc": 0.50,
-    "previewSnippet": "1. Motivation\nThe anticipated advent of cryptanalytically relevant quantum computers poses an existential threat to asymmetric cryptographic algorithms based on the discrete logarithm problem and elliptic curves. Decentralized ledgers holding trillions of dollars in value are particularly vulnerable.",
-    "fullContentMarkdown": "# Lattice-Based Post-Quantum Cryptography in Decentralized Ledger State Verification\n\n**Authors:** Dr. Mateo Silva (UNAM), Dra. Sophie L. Dupont (LIP6)\n**DOI:** 10.1007/s10623-026-00982-x\n\n---\n\n## 1. Motivation\nThe anticipated advent of cryptanalytically relevant quantum computers poses an existential threat to asymmetric cryptographic algorithms based on the discrete logarithm problem and elliptic curves. Decentralized ledgers holding trillions of dollars in value are particularly vulnerable to Shor's algorithm, which solves discrete logarithms in polynomial time.\n\n## 2. Candidate Primitives\nWe bench-tested two primary NIST post-quantum standardization finalists:\n1. **CRYSTALS-Dilithium (Mode 3):** Public key size: 1,952 bytes; Signature size: 3,293 bytes.\n2. **Falcon-512:** Public key size: 897 bytes; Signature size: 666 bytes.\n\n## 3. Storage and Bandwidth Impact on Blockchain Ledgers\nWhile Falcon offers significantly smaller signatures, its verification requires high-precision floating-point arithmetic (FPU), introducing non-deterministic execution risks in consensus engines. Conversely, Dilithium utilizes simple integer arithmetic over polynomial rings, making it an ideal candidate for Soroban smart contract virtual machines.\n\n## 4. Conclusion and Roadmap\nTransitioning blockchain transaction envelopes to Dilithium2 preserves high throughput with an acceptable 14% increase in bandwidth overhead.",
+    "priceUsdc": 0.5,
+    "abstract": "El avance de la computación cuántica amenaza los esquemas de firma de curva elíptica. Analizamos firmas post-cuánticas basadas en retículas (CRYSTALS-Dilithium, FALCON) adaptadas a la verificación de estado en libros distribuidos y proponemos un esquema híbrido compatible.",
+    "previewSnippet": "1. Motivación\nLa seguridad de las redes actuales descansa en la dificultad del logaritmo discreto sobre curvas elípticas, que un computador cuántico suficientemente potente rompería.",
+    "fullContentMarkdown": "## 1. Introducción\nLa mayoría de las cadenas usan ECDSA o Schnorr, vulnerables ante el algoritmo de Shor. La migración debe comenzar ahora para claves de larga vida.\n\n## 2. Métodos\nConstruimos un esquema híbrido que mantiene una firma ECDSA externa y embebe una firma Dilithium, validada por una capa de contrato para una migración por etapas.\n\n## 3. Resultados y discusión\nEl sobrecosto por transacción es modesto (~740 bytes) y la tasa de aceptación en red fue del 99.9%, mostrando una ruta práctica y no disruptiva.\n\n## 4. Conclusiones\nLos resultados presentados abren líneas de trabajo futuras y se publican bajo acceso abierto para su libre consulta y reproducción.",
     "references": [
-      "NIST Computer Security Division. (2024). Post-Quantum Cryptography Standardization Report.",
-      "Ducas, L., et al. (2018). CRYSTALS-Dilithium: A lattice-based digital signature scheme."
+      "Referencia representativa de acceso abierto (2024).",
+      "Autor, A. y Autor, B. (2025). Trabajo relacionado. Open Science Press.",
+      "Consorcio de Investigación Abierta (2026). Conjunto de datos y protocolo."
     ]
   },
   {
     "id": "crispr-nanomedicine-biotech",
-    "title": "Targeted Lipid Nanoparticle Delivery of CRISPR-Cas9 Ribonucleoproteins for Precision Oncology",
-    "authors": ["Dra. Mariana Gutierrez-Paz (Facultad de Medicina, UNAM)", "Dr. Arthur Pendelton (Cambridge Nanotech Institute)"],
-    "abstract": "We present an ionizable lipid nanoparticle (LNP) formulation engineered for organ-selective tropism targeting metastatic melanoma cells. In vivo murine models demonstrate a 78.4% target gene knockout efficiency with zero detectable off-target cleavage across 48 identified homologous genomic loci, establishing a new therapeutic threshold for non-viral in vivo gene editing.",
+    "discipline": "Biomedicina",
+    "title": "Entrega Dirigida de Ribonucleoproteínas CRISPR-Cas9 con Nanopartículas Lipídicas para Oncología de Precisión",
+    "authors": [
+      "Dra. Mariana Gutiérrez-Paz",
+      "Dr. Arthur Pendelton"
+    ],
+    "publisher": "Open Letters in Bio-Nanotechnology",
+    "doi": "10.48550/oa.2026.01452",
     "publishedDate": "2026-06-11",
-    "publisher": "BioNanotechnology & Gene Delivery Letters",
-    "doi": "10.1038/s41565-026-01452-9",
-    "priceUsdc": 0.50,
-    "previewSnippet": "1. Introduction\nThe clinical translation of CRISPR-Cas9 genome editing for somatic gene therapies has long been constrained by the bioavailability, immunogenicity, and organ-specific targeting limitations of viral vector delivery systems such as adeno-associated viruses (AAV).",
-    "fullContentMarkdown": "# Targeted Lipid Nanoparticle Delivery of CRISPR-Cas9 Ribonucleoproteins for Precision Oncology\n\n**Authors:** Dra. Mariana Gutierrez-Paz (UNAM), Dr. Arthur Pendelton (Cambridge)\n**DOI:** 10.1038/s41565-026-01452-9\n\n---\n\n## 1. Introduction\nThe clinical translation of CRISPR-Cas9 genome editing for somatic gene therapies has long been constrained by the bioavailability, immunogenicity, and organ-specific targeting limitations of viral vector delivery systems such as adeno-associated viruses (AAV). Non-viral synthetic LNPs offer a safer, scalable alternative.\n\n## 2. Nanoparticle Synthesis & Optimization\nLipid nanoparticles were prepared by microfluidic mixing of an ethanol phase containing novel ionizable lipid LP-UNAM-42, cholesterol, DSPC, and DMG-PEG2000 with an aqueous phase containing Cas9 ribonucleoprotein (RNP) complexes.\n\n## 3. Results & In Vivo Efficacy\n- Hydrodynamic size: 84.3 ± 4.1 nm with a polydispersity index (PDI) of 0.082.\n- Encapsulation efficiency: 94.6%.\n- Tumor regression: 62% reduction in tumor volume compared to sham control groups after 21 days post-single intravenous injection.\n\n## 4. Discussion\nThis synthetic delivery vehicle circumvents pre-existing anti-Cas9 neutralizing antibodies while enabling high-efficiency therapeutic editing in deep-seated solid tumors.",
+    "priceUsdc": 0.5,
+    "abstract": "La entrega in vivo de CRISPR-Cas9 sigue siendo la barrera principal para su traslación clínica. Describimos una formulación de nanopartículas lipídicas que coencapsula complejos Cas9 y ligandos peptídicos dirigidos, con 87% de edición dirigida en un modelo murino y edición fuera de blanco mínima.",
+    "previewSnippet": "1. Introducción\nLa promesa clínica de la edición génica ha estado limitada por un problema de entrega: cómo llevar complejos proteicos grandes a través de las membranas celulares con eficiencia y especificidad.",
+    "fullContentMarkdown": "## 1. Introducción\nLos vectores virales tienen riesgos inmunológicos y de manufactura. Las nanopartículas lipídicas ofrecen una alternativa no viral con precedente regulatorio.\n\n## 2. Métodos\nFormulamos partículas de ~94 nm con 4 componentes lipídicos y conjugamos un péptido RGD cíclico para dirigirlas a integrinas sobreexpresadas en el tumor.\n\n## 3. Resultados y discusión\nObtuvimos 87% de knockout dirigido, 64% de reducción de volumen tumoral y edición fuera de blanco por debajo del 0.01%.\n\n## 4. Conclusiones\nLos resultados presentados abren líneas de trabajo futuras y se publican bajo acceso abierto para su libre consulta y reproducción.",
     "references": [
-      "Doudna, J. A., & Charpentier, E. (2014). The new frontier of genome engineering with CRISPR-Cas9. Science.",
-      "Kulkarni, J. A., et al. (2021). The current landscape of nucleic acid therapeutics. Nature Nanotechnology."
+      "Referencia representativa de acceso abierto (2024).",
+      "Autor, A. y Autor, B. (2025). Trabajo relacionado. Open Science Press.",
+      "Consorcio de Investigación Abierta (2026). Conjunto de datos y protocolo."
+    ]
+  },
+  {
+    "id": "gravitational-lensing-dark-matter",
+    "discipline": "Astronomía",
+    "title": "Cartografía de Materia Oscura mediante Lentes Gravitacionales Débiles en Cúmulos Masivos",
+    "authors": [
+      "Dra. Priya Raman",
+      "Dr. Tomás Herrera"
+    ],
+    "publisher": "Open Journal of Astrophysics",
+    "doi": "10.48550/oa.2026.03310",
+    "publishedDate": "2026-05-30",
+    "priceUsdc": 0.5,
+    "abstract": "Aplicamos análisis de lentes gravitacionales débiles a una muestra de 42 cúmulos masivos para reconstruir la distribución de materia oscura y contrastarla con simulaciones cosmológicas de N-cuerpos.",
+    "previewSnippet": "1. Introducción\nLa distribución de materia oscura en cúmulos ofrece una prueba directa del modelo cosmológico estándar y de la naturaleza de la materia oscura.",
+    "fullContentMarkdown": "## 1. Introducción\nLas lentes débiles distorsionan la forma aparente de galaxias de fondo, permitiendo mapear la masa total sin suponer equilibrio dinámico.\n\n## 2. Métodos\nMedimos la elipticidad de ~1.2 millones de galaxias de fondo y reconstruimos mapas de convergencia por máxima verosimilitud.\n\n## 3. Resultados y discusión\nLos perfiles reconstruidos concuerdan con simulaciones dentro de las barras de error, con una leve tensión en los núcleos internos.\n\n## 4. Conclusiones\nLos resultados presentados abren líneas de trabajo futuras y se publican bajo acceso abierto para su libre consulta y reproducción.",
+    "references": [
+      "Referencia representativa de acceso abierto (2024).",
+      "Autor, A. y Autor, B. (2025). Trabajo relacionado. Open Science Press.",
+      "Consorcio de Investigación Abierta (2026). Conjunto de datos y protocolo."
+    ]
+  },
+  {
+    "id": "battery-solid-state-electrolyte",
+    "discipline": "Química",
+    "title": "Electrolitos Sólidos de Sulfuro para Baterías de Estado Sólido de Alta Densidad Energética",
+    "authors": [
+      "Dra. Ana Belén Cruz",
+      "Dr. Kenji Watanabe"
+    ],
+    "publisher": "Open Reports in Materials Science",
+    "doi": "10.48550/oa.2026.02870",
+    "publishedDate": "2026-05-12",
+    "priceUsdc": 0.5,
+    "abstract": "Los electrolitos sólidos prometen baterías más seguras y densas. Reportamos un electrolito de sulfuro con conductividad iónica cercana a la de los electrolitos líquidos y estabilidad frente a ánodos de litio metálico.",
+    "previewSnippet": "1. Introducción\nLas baterías de estado sólido eliminan el electrolito líquido inflamable y habilitan ánodos de litio metálico de alta capacidad.",
+    "fullContentMarkdown": "## 1. Introducción\nEl reto es una conductividad iónica alta a temperatura ambiente junto con estabilidad electroquímica frente al litio.\n\n## 2. Métodos\nSintetizamos el electrolito por molienda mecánica y sinterización, y lo caracterizamos por espectroscopía de impedancia y ciclado galvanostático.\n\n## 3. Resultados y discusión\nLa conductividad alcanzó valores comparables a los líquidos y la celda retuvo 92% de capacidad tras 500 ciclos.\n\n## 4. Conclusiones\nLos resultados presentados abren líneas de trabajo futuras y se publican bajo acceso abierto para su libre consulta y reproducción.",
+    "references": [
+      "Referencia representativa de acceso abierto (2024).",
+      "Autor, A. y Autor, B. (2025). Trabajo relacionado. Open Science Press.",
+      "Consorcio de Investigación Abierta (2026). Conjunto de datos y protocolo."
+    ]
+  },
+  {
+    "id": "urban-mobility-reinforcement-learning",
+    "discipline": "Informática",
+    "title": "Control de Semáforos con Aprendizaje por Refuerzo Multiagente en Redes Urbanas",
+    "authors": [
+      "Dr. Diego Salinas",
+      "Dra. Fatima Noor"
+    ],
+    "publisher": "Open Journal of Intelligent Transportation",
+    "doi": "10.48550/oa.2026.04490",
+    "publishedDate": "2026-04-18",
+    "priceUsdc": 0.5,
+    "abstract": "Proponemos un esquema de control de semáforos con aprendizaje por refuerzo multiagente que reduce los tiempos de espera en simulaciones de tráfico urbano frente a controladores de tiempo fijo y adaptativos.",
+    "previewSnippet": "1. Introducción\nLa congestión urbana impone costos económicos y ambientales; el control adaptativo de semáforos es una palanca de alto impacto.",
+    "fullContentMarkdown": "## 1. Introducción\nLos controladores de tiempo fijo no responden a la demanda; los adaptativos clásicos son locales. El aprendizaje por refuerzo puede coordinar intersecciones.\n\n## 2. Métodos\nModelamos cada intersección como un agente que comparte una política y entrenamos en un simulador de tráfico calibrado con datos reales.\n\n## 3. Resultados y discusión\nEl esquema redujo el tiempo de espera medio en 23% frente al mejor baseline, manteniendo estabilidad en horas pico.\n\n## 4. Conclusiones\nLos resultados presentados abren líneas de trabajo futuras y se publican bajo acceso abierto para su libre consulta y reproducción.",
+    "references": [
+      "Referencia representativa de acceso abierto (2024).",
+      "Autor, A. y Autor, B. (2025). Trabajo relacionado. Open Science Press.",
+      "Consorcio de Investigación Abierta (2026). Conjunto de datos y protocolo."
+    ]
+  },
+  {
+    "id": "microbiome-gut-brain-axis",
+    "discipline": "Biomedicina",
+    "title": "El Eje Intestino-Cerebro: Metabolitos Microbianos y Modulación de la Neuroinflamación",
+    "authors": [
+      "Dra. Lucía Fernández",
+      "Dr. Omar Haddad"
+    ],
+    "publisher": "Open Frontiers in Neuroscience",
+    "doi": "10.48550/oa.2026.05120",
+    "publishedDate": "2026-04-02",
+    "priceUsdc": 0.5,
+    "abstract": "Revisamos y ampliamos la evidencia sobre cómo los metabolitos producidos por la microbiota intestinal modulan la neuroinflamación, con implicaciones para trastornos neurodegenerativos.",
+    "previewSnippet": "1. Introducción\nLa comunicación bidireccional entre el intestino y el cerebro ha emergido como un eje central en la salud neurológica.",
+    "fullContentMarkdown": "## 1. Introducción\nLos ácidos grasos de cadena corta y otros metabolitos microbianos cruzan barreras y modulan la microglía.\n\n## 2. Métodos\nCombinamos metagenómica con modelos murinos gnotobióticos para aislar el efecto de metabolitos específicos.\n\n## 3. Resultados y discusión\nLa suplementación con butirato redujo marcadores de neuroinflamación, sugiriendo una vía terapéutica.\n\n## 4. Conclusiones\nLos resultados presentados abren líneas de trabajo futuras y se publican bajo acceso abierto para su libre consulta y reproducción.",
+    "references": [
+      "Referencia representativa de acceso abierto (2024).",
+      "Autor, A. y Autor, B. (2025). Trabajo relacionado. Open Science Press.",
+      "Consorcio de Investigación Abierta (2026). Conjunto de datos y protocolo."
+    ]
+  },
+  {
+    "id": "carbon-capture-mof",
+    "discipline": "Ciencias Ambientales",
+    "title": "Marcos Metal-Orgánicos para la Captura Directa de CO2 del Aire a Bajo Costo Energético",
+    "authors": [
+      "Dra. Sofía Márquez",
+      "Dr. Liang Chen"
+    ],
+    "publisher": "Open Journal of Sustainable Chemistry",
+    "doi": "10.48550/oa.2026.03980",
+    "publishedDate": "2026-03-15",
+    "priceUsdc": 0.5,
+    "abstract": "La captura directa de CO2 del aire requiere sorbentes de bajo costo energético. Presentamos un marco metal-orgánico con alta selectividad por CO2 y regeneración a baja temperatura.",
+    "previewSnippet": "1. Introducción\nLimitar el calentamiento global exige, además de reducir emisiones, remover CO2 ya presente en la atmósfera.",
+    "fullContentMarkdown": "## 1. Introducción\nLos sorbentes actuales requieren mucha energía para regenerarse. Buscamos materiales con captura alta y regeneración a baja temperatura.\n\n## 2. Métodos\nSintetizamos y funcionalizamos el marco con grupos amina y evaluamos ciclos de adsorción-desorción.\n\n## 3. Resultados y discusión\nEl material capturó CO2 a concentraciones atmosféricas y se regeneró a 60 °C, reduciendo el costo energético estimado.\n\n## 4. Conclusiones\nLos resultados presentados abren líneas de trabajo futuras y se publican bajo acceso abierto para su libre consulta y reproducción.",
+    "references": [
+      "Referencia representativa de acceso abierto (2024).",
+      "Autor, A. y Autor, B. (2025). Trabajo relacionado. Open Science Press.",
+      "Consorcio de Investigación Abierta (2026). Conjunto de datos y protocolo."
+    ]
+  },
+  {
+    "id": "prime-gaps-analytic-number-theory",
+    "discipline": "Matemáticas",
+    "title": "Cotas Superiores para Brechas entre Primos Consecutivos mediante Métodos de Criba",
+    "authors": [
+      "Dr. Rafael Ortega",
+      "Dra. Yuki Tanaka"
+    ],
+    "publisher": "Open Journal of Number Theory",
+    "doi": "10.48550/oa.2026.01190",
+    "publishedDate": "2026-02-27",
+    "priceUsdc": 0.5,
+    "abstract": "Mejoramos cotas conocidas para las brechas entre primos consecutivos combinando métodos de criba con estimaciones de sumas exponenciales, aportando evidencia adicional hacia conjeturas clásicas.",
+    "previewSnippet": "1. Introducción\nLa distribución de las brechas entre primos consecutivos es una de las preguntas más antiguas de la teoría de números.",
+    "fullContentMarkdown": "## 1. Introducción\nPartimos de avances recientes en cribas y buscamos refinar las constantes involucradas.\n\n## 2. Métodos\nCombinamos una criba ponderada con estimaciones de sumas de tipo Kloosterman para acotar la brecha.\n\n## 3. Resultados y discusión\nObtenemos una mejora en la constante frente al mejor resultado previo, con una demostración autocontenida.\n\n## 4. Conclusiones\nLos resultados presentados abren líneas de trabajo futuras y se publican bajo acceso abierto para su libre consulta y reproducción.",
+    "references": [
+      "Referencia representativa de acceso abierto (2024).",
+      "Autor, A. y Autor, B. (2025). Trabajo relacionado. Open Science Press.",
+      "Consorcio de Investigación Abierta (2026). Conjunto de datos y protocolo."
+    ]
+  },
+  {
+    "id": "stablecoins-emerging-markets",
+    "discipline": "Economía",
+    "title": "Adopción de Stablecoins y Remesas en Economías Emergentes: Evidencia Empírica",
+    "authors": [
+      "Dra. Valeria Campos",
+      "Dr. Nnamdi Okoye"
+    ],
+    "publisher": "Open Journal of Digital Economics",
+    "doi": "10.48550/oa.2026.02240",
+    "publishedDate": "2026-02-10",
+    "priceUsdc": 0.5,
+    "abstract": "Analizamos datos de adopción de stablecoins en corredores de remesas de economías emergentes y estimamos el ahorro en comisiones frente a canales tradicionales.",
+    "previewSnippet": "1. Introducción\nLas remesas son una fuente crítica de ingresos en muchas economías emergentes, con comisiones históricamente altas.",
+    "fullContentMarkdown": "## 1. Introducción\nLas stablecoins prometen transferencias más baratas y rápidas, pero la evidencia empírica de adopción es escasa.\n\n## 2. Métodos\nConstruimos un panel con datos on-chain y encuestas de usuarios en cinco corredores de remesas.\n\n## 3. Resultados y discusión\nEstimamos un ahorro medio del 4-6% en comisiones y una reducción sustancial en tiempos de liquidación.\n\n## 4. Conclusiones\nLos resultados presentados abren líneas de trabajo futuras y se publican bajo acceso abierto para su libre consulta y reproducción.",
+    "references": [
+      "Referencia representativa de acceso abierto (2024).",
+      "Autor, A. y Autor, B. (2025). Trabajo relacionado. Open Science Press.",
+      "Consorcio de Investigación Abierta (2026). Conjunto de datos y protocolo."
+    ]
+  },
+  {
+    "id": "topological-superconductivity",
+    "discipline": "Física",
+    "title": "Firmas de Superconductividad Topológica en Heteroestructuras de Nanocables",
+    "authors": [
+      "Dr. Martin Kessler",
+      "Dra. Ingrid Sørensen"
+    ],
+    "publisher": "Open Journal of Condensed Matter",
+    "doi": "10.48550/oa.2026.03550",
+    "publishedDate": "2026-01-24",
+    "priceUsdc": 0.5,
+    "abstract": "Reportamos mediciones de transporte en heteroestructuras de nanocables que exhiben firmas compatibles con estados de borde asociados a superconductividad topológica, relevantes para la computación cuántica tolerante a fallos.",
+    "previewSnippet": "1. Introducción\nLos estados topológicos protegidos ofrecen una ruta hacia qubits robustos frente al ruido.",
+    "fullContentMarkdown": "## 1. Introducción\nLas firmas experimentales de modos de Majorana han sido debatidas; se requieren controles rigurosos.\n\n## 2. Métodos\nFabricamos heteroestructuras de nanocables con acoplamiento superconductor y medimos conductancia a temperaturas de milikelvin.\n\n## 3. Resultados y discusión\nObservamos picos de conductancia de valor cuantizado consistentes con estados de borde, con controles que descartan artefactos triviales.\n\n## 4. Conclusiones\nLos resultados presentados abren líneas de trabajo futuras y se publican bajo acceso abierto para su libre consulta y reproducción.",
+    "references": [
+      "Referencia representativa de acceso abierto (2024).",
+      "Autor, A. y Autor, B. (2025). Trabajo relacionado. Open Science Press.",
+      "Consorcio de Investigación Abierta (2026). Conjunto de datos y protocolo."
+    ]
+  },
+  {
+    "id": "federated-learning-privacy-health",
+    "discipline": "Informática",
+    "title": "Aprendizaje Federado con Privacidad Diferencial para Modelos Clínicos Multi-Hospital",
+    "authors": [
+      "Dra. Camila Rojas",
+      "Dr. Hassan Ali"
+    ],
+    "publisher": "Open Journal of Medical AI",
+    "doi": "10.48550/oa.2026.04770",
+    "publishedDate": "2026-01-09",
+    "priceUsdc": 0.5,
+    "abstract": "Entrenamos modelos clínicos sobre datos de múltiples hospitales sin centralizar información sensible, combinando aprendizaje federado con privacidad diferencial, y evaluamos el compromiso entre privacidad y desempeño.",
+    "previewSnippet": "1. Introducción\nLos datos clínicos están fragmentados entre instituciones y protegidos por regulación, lo que dificulta entrenar modelos robustos.",
+    "fullContentMarkdown": "## 1. Introducción\nCentralizar datos clínicos es inviable por privacidad y regulación. El aprendizaje federado entrena sin mover los datos.\n\n## 2. Métodos\nImplementamos agregación segura con ruido de privacidad diferencial y evaluamos en tres tareas clínicas.\n\n## 3. Resultados y discusión\nCon un presupuesto de privacidad razonable, el desempeño se mantuvo cercano al modelo centralizado, habilitando colaboración entre hospitales.\n\n## 4. Conclusiones\nLos resultados presentados abren líneas de trabajo futuras y se publican bajo acceso abierto para su libre consulta y reproducción.",
+    "references": [
+      "Referencia representativa de acceso abierto (2024).",
+      "Autor, A. y Autor, B. (2025). Trabajo relacionado. Open Science Press.",
+      "Consorcio de Investigación Abierta (2026). Conjunto de datos y protocolo."
     ]
   }
 ]

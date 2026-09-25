@@ -10,6 +10,7 @@ export interface PaperPreview {
   doi?: string;
   priceUsdc: number;
   previewSnippet: string;
+  discipline?: string;
 }
 
 export interface PaperFull extends PaperPreview {

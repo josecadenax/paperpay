@@ -7,9 +7,31 @@ const fraunces = Fraunces({ subsets: ['latin'], variable: '--font-fraunces', dis
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'swap' })
 const jetbrains = JetBrains_Mono({ subsets: ['latin'], variable: '--font-jetbrains', display: 'swap' })
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://paperpay-pi.vercel.app'
+const TITLE = 'PaperPay · Micropagos para la ciencia'
+const DESCRIPTION =
+  'Lee artículos científicos pagando por artículo con tu wallet, sin cuenta ni suscripción. Micropagos sobre Stellar con el estándar abierto HTTP 402.'
+
 export const metadata: Metadata = {
-  title: 'PaperPay · Lee ciencia por $0.50',
-  description: 'Artículos científicos por $0.50 USDC en un clic, sin cuenta ni suscripción. Pagos en Stellar.',
+  metadataBase: new URL(SITE_URL),
+  title: { default: TITLE, template: '%s · PaperPay' },
+  description: DESCRIPTION,
+  applicationName: 'PaperPay',
+  openGraph: {
+    type: 'website',
+    siteName: 'PaperPay',
+    title: TITLE,
+    description: DESCRIPTION,
+    url: SITE_URL,
+    locale: 'es_MX',
+    images: [{ url: '/brand/og-banner.jpg', width: 1376, height: 768, alt: 'PaperPay — Micropayments for Academic Research' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: TITLE,
+    description: DESCRIPTION,
+    images: ['/brand/og-banner.jpg'],
+  },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
