@@ -4,12 +4,14 @@ import {
   STELLAR_NETWORK,
   X402_HEADERS,
   X402PaymentResponseHeader,
+  X402PaymentVerificationHeader,
 } from '@paperpay/shared';
 import { config } from '../config';
 import { jwtService } from '../services/jwt.service';
 import { papersService } from '../services/papers.service';
 import { x402Service } from '../services/x402.service';
-import { encodeBase64Json } from '../utils/base64';
+import { paymentVerificationService, PaymentVerificationError } from '../services/payment-verification.service';
+import { decodeBase64Json, encodeBase64Json } from '../utils/base64';
 
 export class PapersController {
   public getHealth(_req: Request, res: Response): void {
@@ -112,6 +114,76 @@ export class PapersController {
     res.status(402).json({
       preview,
     });
+  }
+
+  public async verifyPaperByHash(req: Request, res: Response): Promise<void> {
+    const { id } = req.params;
+    const paper = papersService.getPaperById(id);
+    if (!paper) {
+      res.status(404).json({
+        error: 'PAPER_NOT_FOUND',
+        message: `El artículo con ID '${id}' no existe en el catálogo.`,
+      });
+      return;
+    }
+
+    try {
+      const body = req.body as Partial<X402PaymentVerificationHeader>;
+      if (typeof body.txHash !== 'string' || typeof body.signerPublicKey !== 'string') {
+        throw new PaymentVerificationError(400, 'El cuerpo debe incluir txHash y signerPublicKey.');
+      }
+
+      const header = this.parseVerificationHeader(req.headers[X402_HEADERS.PAYMENT_SIGNATURE] as string | undefined);
+      if (
+        header.txHash !== body.txHash ||
+        header.signerPublicKey !== body.signerPublicKey ||
+        header.scheme !== 'exact' ||
+        header.network !== STELLAR_NETWORK
+      ) {
+        throw new PaymentVerificationError(400, 'La cabecera PAYMENT-SIGNATURE no coincide con el pago a verificar.');
+      }
+
+      const payment = await paymentVerificationService.verifyByHash({
+        txHash: body.txHash,
+        signerPublicKey: body.signerPublicKey,
+        paperId: id,
+      });
+      const accessToken = jwtService.issueAccessToken({
+        sub: payment.signerPublicKey,
+        paperId: id,
+        txHash: payment.txHash,
+      });
+      const paymentResponse: X402PaymentResponseHeader = {
+        success: true,
+        txHash: payment.txHash,
+        settledAt: new Date().toISOString(),
+      };
+      res.setHeader(X402_HEADERS.PAYMENT_RESPONSE, encodeBase64Json(paymentResponse));
+      res.status(200).json({ paper, accessToken, txHash: payment.txHash });
+    } catch (err: unknown) {
+      const error = err instanceof PaymentVerificationError
+        ? err
+        : new PaymentVerificationError(400, 'Solicitud de verificación de pago inválida.');
+      res.status(error.status).json({
+        error: error.status === 409 ? 'PAYMENT_ALREADY_USED' : 'PAYMENT_VERIFICATION_FAILED',
+        message: error.message,
+      });
+    }
+  }
+
+  private parseVerificationHeader(rawHeader: string | undefined): X402PaymentVerificationHeader {
+    if (!rawHeader) {
+      throw new PaymentVerificationError(400, 'Falta la cabecera PAYMENT-SIGNATURE con el hash de la transacción.');
+    }
+    try {
+      return decodeBase64Json<X402PaymentVerificationHeader>(rawHeader);
+    } catch {
+      try {
+        return JSON.parse(rawHeader) as X402PaymentVerificationHeader;
+      } catch {
+        throw new PaymentVerificationError(400, 'Formato de cabecera PAYMENT-SIGNATURE inválido.');
+      }
+    }
   }
 }
 

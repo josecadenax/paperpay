@@ -12,6 +12,8 @@ export interface AppConfig {
   demoPayments: boolean;
   openZeppelinChannelsUrl: string;
   openZeppelinApiKey: string;
+  horizonUrl: string;
+  paymentVerificationMaxAgeSeconds: number;
   jwtSecret: string;
   corsOrigins: string[];
 }
@@ -26,6 +28,8 @@ export const config: AppConfig = {
   demoPayments: process.env.DEMO_PAYMENTS === 'true' && process.env.NODE_ENV !== 'production',
   openZeppelinChannelsUrl: process.env.OPENZEPPELIN_CHANNELS_URL || 'https://channels.openzeppelin.com/x402/testnet',
   openZeppelinApiKey: process.env.OPENZEPPELIN_API_KEY || 'demo_key',
+  horizonUrl: process.env.STELLAR_HORIZON_URL || 'https://horizon-testnet.stellar.org',
+  paymentVerificationMaxAgeSeconds: parseInt(process.env.PAYMENT_VERIFICATION_MAX_AGE_SECONDS || '300', 10),
   jwtSecret: process.env.JWT_SECRET || 'paperpay_hackathon_goya_2026_default_secret_key',
   corsOrigins: process.env.CORS_ORIGINS
     ? process.env.CORS_ORIGINS.split(',').map((s) => s.trim())

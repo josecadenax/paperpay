@@ -23,9 +23,27 @@ La ruta `/api/health` indica que el proceso responde; no comprueba Horizon ni el
 | `GET /api/papers/:id` sin credenciales | `402`: `{ preview }` y `payment-required` en Base64 JSON |
 | `GET /api/papers/:id` con pago aceptado | `200`: `{ paper, accessToken, txHash }` y `payment-response` |
 | `GET /api/papers/:id` con `Authorization: Bearer <jwt>` válido para ese artículo | `200`: `{ paper }` |
+| `POST /api/papers/:id/verify` | Verifica un pago Pollar enviado previamente y devuelve `{ paper, accessToken, txHash }` |
 | ID inexistente | `404`: `PAPER_NOT_FOUND` |
 
 El requisito de pago declara `exact`, `stellar:testnet`, USDC SAC, `5000000` unidades de 7 decimales y la tesorería. `payment-signature` se decodifica como Base64 JSON (también acepta JSON directo). Una respuesta fallida devuelve `402 PAYMENT_FAILED`.
+
+### Verificación Pollar por hash (v2)
+
+Pollar firma y envía la transacción desde su propia wallet. Después, el frontend llama `POST /api/papers/:id/verify` con `{ txHash, signerPublicKey }` y la misma información en la cabecera `payment-signature` codificada como Base64 JSON:
+
+```json
+{
+  "scheme": "exact",
+  "network": "stellar:testnet",
+  "txHash": "<hash Stellar de 64 caracteres>",
+  "signerPublicKey": "G..."
+}
+```
+
+La API consulta Horizon y exige que la transacción haya tenido éxito, sea reciente (300 segundos por defecto), pertenezca al firmante y contenga un pago exacto de 0.50 USDC Testnet a la tesorería configurada. Un mismo hash puede reintentarse para el mismo artículo y firmante, de modo que una respuesta de red perdida no obliga a pagar de nuevo; no puede desbloquear otro artículo.
+
+La protección contra repetición se conserva solo en memoria porque la API aún no tiene una base de datos. Un reinicio o varias instancias pierden ese registro. Antes de producción debe sustituirse por un almacén persistente con una restricción única sobre el hash.
 
 ## Modos de liquidación
 
@@ -41,4 +59,4 @@ En producción son obligatorios un `JWT_SECRET` de al menos 32 caracteres, una `
 
 ## Pruebas
 
-`pnpm test` ejecuta 28 pruebas locales. El caso de desbloqueo simula la respuesta de liquidación para comprobar el contrato HTTP; no prueba un pago. `pnpm --filter @paperpay/api test:testnet` verifica Friendbot, Horizon y el paywall de una API local, sin comprar artículos. `pnpm --filter @paperpay/api test:settle` usa una firma de prueba y solo puede desbloquear con `DEMO_PAYMENTS=true`.
+`pnpm test` ejecuta 33 pruebas locales. Incluye validación simulada de respuestas de Horizon para el flujo Pollar, monto exacto e intento de reutilizar un hash; no prueba un pago externo. `pnpm --filter @paperpay/api test:testnet` verifica Friendbot, Horizon y el paywall de una API local, sin comprar artículos. `pnpm --filter @paperpay/api test:settle` usa una firma de prueba y solo puede desbloquear con `DEMO_PAYMENTS=true`.

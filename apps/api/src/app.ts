@@ -12,6 +12,7 @@ app.use((req, _res, next) => {
 
 app.get('/api/health', (req, res) => papersController.getHealth(req, res));
 app.get('/api/papers', (req, res) => papersController.getPaperList(req, res));
+app.post('/api/papers/:id/verify', (req, res) => papersController.verifyPaperByHash(req, res));
 app.get('/api/papers/:id', (req, res) => papersController.getPaperById(req, res));
 app.use((_req, res) => {
   res.status(404).json({ error: 'NOT_FOUND', message: 'Ruta no encontrada.' });

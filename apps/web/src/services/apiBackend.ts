@@ -152,3 +152,27 @@ export const apiBackend: Backend = {
     return { paper: body.paper, accessToken: body.accessToken, receipt }
   },
 }
+
+// Condiciones de pago (payTo, monto, red) del 402 del backend. Lo usa el checkout de Pollar (v2)
+// para construir la transacción con runTx.
+export async function getPaymentTerms(id: string): Promise<X402PaymentRequiredHeader['accepts'][number]> {
+  return (await paymentRequirement(id)).accepts[0]
+}
+
+// Tras verificar un pago por hash (Pollar v2), guarda el acceso y arma el recibo, igual que
+// hace payForPaper con Freighter. Así el estado de la app queda idéntico entre v1 y v2.
+export function persistVerifiedAccess(
+  id: string,
+  result: { accessToken: string; txHash: string },
+  amountStroops: string,
+): TxReceipt {
+  const receipt: TxReceipt = {
+    txHash: result.txHash,
+    amount: Number(amountStroops) / STROOPS_PER_UNIT,
+    date: new Date().toISOString(),
+    validUntil: tokenExpiry(result.accessToken),
+  }
+  writeAccess(id, { accessToken: result.accessToken, receipt })
+  requirements.delete(id)
+  return receipt
+}
