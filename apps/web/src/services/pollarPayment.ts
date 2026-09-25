@@ -31,6 +31,54 @@ export interface PollarSettleResult {
   txHash: string
 }
 
+// Error de verificación con marca terminal: terminal=true (409/400) no tiene sentido reintentar
+// ni recuperar; terminal=false (402/5xx/red) es transitorio y el pago sigue siendo recuperable.
+export class SettleError extends Error {
+  constructor(
+    message: string,
+    public readonly terminal: boolean,
+  ) {
+    super(message)
+    this.name = 'SettleError'
+  }
+}
+
+// Pago de Pollar pendiente de verificar, por artículo. Se guarda ANTES de llamar al verify,
+// de modo que si el verify falla (Horizon indexando, 5xx, cierre de pestaña) el mismo hash
+// se pueda re-verificar después SIN volver a pagar. Se borra al verificar con éxito.
+interface PendingTx {
+  txHash: string
+  signerPublicKey: string
+}
+const pendingKey = (paperId: string) => `paperpay:pendingTx:${paperId}`
+
+export function savePendingTx(paperId: string, tx: PendingTx): void {
+  try {
+    localStorage.setItem(pendingKey(paperId), JSON.stringify(tx))
+  } catch {
+    // Sin almacenamiento: la recuperación entre recargas no estará disponible, pero el pago sigue.
+  }
+}
+
+export function readPendingTx(paperId: string): PendingTx | null {
+  try {
+    const raw = localStorage.getItem(pendingKey(paperId))
+    if (!raw) return null
+    const tx = JSON.parse(raw) as PendingTx
+    return tx.txHash && tx.signerPublicKey ? tx : null
+  } catch {
+    return null
+  }
+}
+
+export function clearPendingTx(paperId: string): void {
+  try {
+    localStorage.removeItem(pendingKey(paperId))
+  } catch {
+    // sin almacenamiento: nada que limpiar
+  }
+}
+
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 
 /*
@@ -48,7 +96,7 @@ export async function settleByHash(paperId: string, txHash: string, signerPublic
   const paymentSignature = encodeBase64Json({ scheme: 'exact', network: 'stellar:testnet', signerPublicKey, txHash })
   // Reintentos ante lag de indexación de Horizon (402) o errores transitorios (5xx / red).
   const delaysMs = [0, 1500, 2500, 4000, 6000, 8000]
-  let lastError: Error = new Error('No fue posible verificar el pago.')
+  let lastError: SettleError = new SettleError('No fue posible verificar el pago.', false)
 
   for (const delay of delaysMs) {
     if (delay) await sleep(delay)
@@ -62,17 +110,18 @@ export async function settleByHash(paperId: string, txHash: string, signerPublic
         signal: AbortSignal.timeout(30_000),
       })
     } catch {
-      lastError = new Error('No se pudo contactar al servidor de verificación.')
+      lastError = new SettleError('No se pudo contactar al servidor de verificación.', false)
       continue // error de red: reintentar
     }
 
     if (res.ok) return (await res.json()) as PollarSettleResult
 
     const body = (await res.json().catch(() => ({}))) as { message?: string }
-    lastError = new Error(body.message ?? `verify → ${res.status}`)
+    const message = body.message ?? `verify → ${res.status}`
+    lastError = new SettleError(message, res.status === 409 || res.status === 400)
 
     // 409 (ya usado) y 400 (petición inválida) son terminales: no tiene sentido reintentar.
-    if (res.status === 409 || res.status === 400) throw lastError
+    if (lastError instanceof SettleError && lastError.terminal) throw lastError
     // 402 (aún no indexada / fuera de ventana) y 5xx (transitorio): reintentar.
   }
 
