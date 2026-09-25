@@ -1,9 +1,9 @@
-import { DEFAULT_PAPER_PRICE_USDC, STELLAR_HORIZON_URL } from '@paperpay/shared'
+import { DEFAULT_PAPER_PRICE_USDC, STELLAR_HORIZON_URL, USDC_TESTNET_ISSUER } from '@paperpay/shared'
 
 /*
- * Estadísticas reales del panel editorial: se leen del historial de la cuenta de
- * tesorería en Stellar (Horizon, público). Todos los pagos van ahí, así que no
- * hace falta backend: cada lectura pagada es un pago de USDC entrante a la tesorería.
+ * Resumen de transferencias USDC entrantes a la tesorería (Horizon, público).
+ * El ledger no indica qué artículo se leyó ni si la transferencia vino de PaperPay.
+ * La división 98/2 es una estimación visual; no se liquida por separado.
  */
 
 const PUBLISHER_SHARE = 0.98
@@ -30,6 +30,7 @@ export interface EditorialStats {
 interface HorizonPayment {
   type: string
   asset_code?: string
+  asset_issuer?: string
   to?: string
   from: string
   amount: string
@@ -57,7 +58,8 @@ export async function getEditorialStats(): Promise<EditorialStats> {
   const data = (await res.json()) as { _embedded: { records: HorizonPayment[] } }
 
   const payments = data._embedded.records.filter(
-    (p) => p.type === 'payment' && p.asset_code === 'USDC' && p.to === treasury,
+    (p) => p.type === 'payment' && p.asset_code === 'USDC' &&
+      p.asset_issuer === USDC_TESTNET_ISSUER && p.to === treasury,
   )
 
   const totalUsdc = payments.reduce((sum, p) => sum + Number(p.amount), 0)

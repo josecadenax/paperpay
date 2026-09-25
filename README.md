@@ -12,8 +12,10 @@ Prototipo de paywall para artículos científicos con Next.js, Express y Stellar
 | Acceso con JWT de 24 horas tras una respuesta de liquidación | Implementado |
 | Demo de pago en el navegador (`mock`) | Implementado; no mueve fondos |
 | Demo de pago en API (`DEMO_PAYMENTS=true`) | Implementado solo fuera de producción; devuelve `mock_tx_*` |
-| Firma de pago con Freighter | Pendiente: el frontend envía una firma de relleno |
-| Liquidación real extremo a extremo | **No verificada**. La integración con OpenZeppelin y la ruta `SELF_SETTLE` requieren pruebas con pagos reales |
+| Firma de pago con Freighter | Implementada en modo `api` + `freighter`: construye y firma una transacción clásica de USDC |
+| Liquidación en Stellar Testnet | El backend desplegado usa `SELF_SETTLE`; Horizon confirma transferencias de 0.50 USDC a la tesorería |
+| Compra completa desde navegador hasta JWT | La ruta existe en el código y hay pagos en el ledger; falta una prueba automatizada que vincule pago, artículo y desbloqueo |
+| Facilitador OpenZeppelin | Integración presente, sin pago real verificado por esa ruta |
 
 El esquema de cabeceras se inspira en x402. Esta implementación usa un payload propio y no incorpora los paquetes oficiales de x402; no debe presentarse como interoperabilidad certificada. Los documentos de `docs/` son planes y especificaciones históricas, no evidencia de funcionalidades terminadas.
 
@@ -39,7 +41,7 @@ curl http://localhost:4000/api/papers
 curl -i http://localhost:4000/api/papers/autonomous-ai-micropayments
 ```
 
-`GET /api/papers/:id` devuelve `402` con solo el preview y la cabecera `payment-required`. Para conectar el frontend a la API, configura `NEXT_PUBLIC_DATA_SOURCE=api` y `API_PROXY_TARGET=http://localhost:4000` en `apps/web/.env.local`, y reinicia Next. El frontend todavía envía `unsigned-demo-signature`: para recorrer ese flujo local habilita explícitamente `DEMO_PAYMENTS=true` en `apps/api/.env`. Nunca habilites ese modo en un servidor expuesto; el código lo desactiva automáticamente con `NODE_ENV=production`.
+`GET /api/papers/:id` devuelve `402` con solo el preview y la cabecera `payment-required`. Para conectar el frontend a la API, configura `NEXT_PUBLIC_DATA_SOURCE=api` y `API_PROXY_TARGET=http://localhost:4000` en `apps/web/.env.local`, y reinicia Next. Con `NEXT_PUBLIC_WALLET=freighter`, el lector firma una transacción real; el backend debe estar en `SELF_SETTLE=true`. Con wallet `mock`, el frontend envía `unsigned-demo-signature`: para recorrer ese flujo local habilita explícitamente `DEMO_PAYMENTS=true` en `apps/api/.env`. Nunca habilites ese modo en un servidor expuesto; el código lo desactiva automáticamente con `NODE_ENV=production`.
 
 ## Verificación
 
@@ -59,6 +61,6 @@ pnpm build
 - [Frontend](apps/web/README.md): modos `mock` y `api`, wallet y proxy.
 - [Revisión de QA](docs/QA.md): pruebas realizadas y pendientes para poder afirmar pagos reales.
 
-En producción, la API exige un `JWT_SECRET` de al menos 32 caracteres, una `STELLAR_TREASURY_PUBLIC_KEY` válida y `OPENZEPPELIN_API_KEY` si usa el facilitador. Usa un secreto aleatorio. La clave de tesorería de ejemplo no es una cuenta real. `SELF_SETTLE=true` espera un sobre de transacción Stellar ya firmado por el lector; no construye ni firma una transferencia Soroban. El frontend actual tampoco crea ese sobre.
+En producción, la API exige un `JWT_SECRET` de al menos 32 caracteres, una `STELLAR_TREASURY_PUBLIC_KEY` válida y `OPENZEPPELIN_API_KEY` si usa el facilitador. Usa un secreto aleatorio. La clave de tesorería de ejemplo no es una cuenta real. `SELF_SETTLE=true` espera un sobre de transacción Stellar ya firmado por el lector; no construye ni firma una transferencia Soroban. El frontend sí construye ese sobre cuando se usa Freighter.
 
 No hay licencia definida para este repositorio.

@@ -4,7 +4,7 @@ import { mockBackend } from './mockBackend'
 
 /*
  * Punto único de datos del frontend. NEXT_PUBLIC_DATA_SOURCE elige el backend:
- *   api  → apps/api (catálogo, 402, token y pago; el pago aún es simulado en el API, ver #32)
+ *   api  → apps/api (catálogo, 402, token y pago; real con Freighter y SELF_SETTLE)
  *   mock → todo en el navegador, sin API (respaldo para la demo)
  */
 export const dataSource: 'api' | 'mock' = process.env.NEXT_PUBLIC_DATA_SOURCE === 'api' ? 'api' : 'mock'

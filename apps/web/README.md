@@ -6,41 +6,24 @@ pnpm install
 pnpm dev:web
 ```
 
-Abre `http://localhost:3000`. El ejemplo inicia en modo `mock`: catálogo y compra simulada en el navegador, sin fondos ni API. Los artículos, autores y DOI son datos ficticios. El recibo indica que el pago es simulado.
+Abre `http://localhost:3000`. La configuración de ejemplo usa catálogo y pagos simulados en el navegador. Los artículos, autores y DOI son datos ficticios.
 
-`NEXT_PUBLIC_DATA_SOURCE=api` usa el backend. Next reenvía `/api/*` a `API_PROXY_TARGET` (por defecto la URL de Railway definida en `next.config.ts`). Para backend local configura `API_PROXY_TARGET=http://localhost:4000`. Reinicia Next después de cambiar estas variables. `NEXT_PUBLIC_API_URL` permite llamar directamente desde el navegador si CORS está configurado.
+## Modos de datos y wallet
 
-El frontend **todavía no firma pagos**: `apiBackend.ts` envía `unsigned-demo-signature`. En la API solo se acepta al configurar `DEMO_PAYMENTS=true` fuera de producción. Con pagos simulados desactivados, el intento devuelve un error y no desbloquea el artículo. `NEXT_PUBLIC_WALLET=freighter` conecta y comprueba Testnet, pero no firma la transferencia; `mock` usa una dirección ficticia.
+`NEXT_PUBLIC_DATA_SOURCE=mock` (por defecto) funciona sin API y nunca transfiere fondos. `NEXT_PUBLIC_DATA_SOURCE=api` usa el backend: Next reenvía `/api/*` a `API_PROXY_TARGET`. Para un backend local, usa `API_PROXY_TARGET=http://localhost:4000` y reinicia Next. `NEXT_PUBLIC_API_URL` permite llamar directamente desde el navegador si CORS está configurado.
 
-El JWT y el recibo se guardan en `localStorage` por artículo. El servidor valida el JWT en cada lectura y caduca a las 24 horas. El panel `?debug=1` solo aparece en compilaciones de desarrollo y permite forzar estados de la interfaz para QA.
+`NEXT_PUBLIC_WALLET=mock` usa una dirección ficticia. En modo `api`, envía `unsigned-demo-signature`; la API solo la acepta si `DEMO_PAYMENTS=true` fuera de producción. `NEXT_PUBLIC_WALLET=freighter` conecta la extensión, comprueba Testnet, construye un pago clásico de USDC, pide la firma con Freighter y envía el XDR firmado al backend. Esta ruta requiere `SELF_SETTLE=true` en la API y saldo XLM y USDC de Testnet, además de la trustline de USDC. El lector paga la comisión de red de esa transacción.
 
-## Estado del pago real
+El modo de wallet también se puede elegir con `?wallet=freighter` o `?wallet=mock`; la selección persiste durante la sesión. Un pago real solo es posible con **ambos** modos `api` y `freighter`. El recibo enlaza al explorador si el backend devuelve un hash de transacción real.
 
-En modo `api` el flujo HTTP ya es el definitivo: 402 → `payment-signature` → 200 + `payment-response`
-+ JWT. Lo único pendiente es la firma: hoy se manda una firma de relleno (`PLACEHOLDER_SIGNATURE` en
-`apiBackend.ts`) y el backend en desarrollo responde con un hash simulado (`mock_tx_...`). Cuando exista
-la firma real con Freighter (#32), solo cambia ese punto de `payForPaper`.
+El JWT y el recibo se guardan en `localStorage` por artículo. El servidor valida el JWT en cada lectura y caduca a las 24 horas. Si falla la respuesta después de enviar una transacción, revisa el historial de la wallet antes de reintentar: el pago podría haberse liquidado igualmente.
 
-El recibo detecta los hashes simulados y muestra "Pago simulado" en lugar del link al explorador.
+## Estado verificado y límites
 
-## Wallet (`NEXT_PUBLIC_WALLET`)
+El 25 de septiembre de 2026 Horizon mostraba transferencias de 0.50 USDC a la tesorería y el backend desplegado respondía `SELF_SETTLE` en `/api/health`; consulta [QA](../../docs/QA.md). El historial público confirma las transferencias, pero no identifica qué artículo desbloqueó cada una. Falta una prueba automatizada que abarque firma, liquidación, respuesta `200` y reingreso con JWT.
 
-`mock` (default) usa una dirección de prueba sin extensión. `freighter` conecta la extensión real y
-valida que esté en Testnet.
+El panel editorial lee pagos entrantes desde Horizon. Su cifra de 98% para la editorial y 2% para PaperPay es **un cálculo visual**, no una distribución ejecutada en la red. Cuenta transferencias USDC recibidas, que no necesariamente equivalen a lecturas confirmadas.
 
-## Wallet: pago real con Freighter
+Para revisar estados de la interfaz durante desarrollo, agrega `?debug=1` a un artículo. El panel de depuración no aparece en builds de producción.
 
-`NEXT_PUBLIC_WALLET` fija el modo por defecto (`mock` = simulado, `freighter` = real). Además se
-puede forzar por URL sin re-desplegar:
-
-- `?wallet=freighter` → conecta Freighter, construye el pago de USDC y lo firma; el backend lo envía
-  a Stellar y devuelve un hash real (verificable en stellar.expert).
-- `?wallet=mock` → pago simulado (respaldo para la demo).
-
-La wallet del lector necesita, en testnet: XLM para la comisión, la trustline de USDC y saldo de USDC.
-
-## Revisar todos los estados
-
-Agrega `?debug=1` a la URL de un artículo para forzar cualquier estado del pago o error.
-
-Comprobación estática: `pnpm --filter @paperpay/web typecheck`. Compilación: `pnpm --filter @paperpay/web build`.
+Verificación estática: `pnpm --filter @paperpay/web typecheck`. Compilación: `pnpm --filter @paperpay/web build`.

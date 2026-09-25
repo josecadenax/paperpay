@@ -33,6 +33,8 @@ Por defecto la API intenta enviar la firma al URL configurado en `OPENZEPPELIN_C
 
 `SELF_SETTLE=true` intenta enviar a Horizon un sobre de transacción clásica Stellar ya firmado. Comprueba que el origen coincida con `signerPublicKey` y que incluya un pago de al menos 0.50 USDC a la tesorería. No firma por el lector, no realiza una llamada Soroban y no asocia el pago criptográficamente con un artículo concreto.
 
+El backend desplegado respondió `mode: SELF_SETTLE` el 25 de septiembre de 2026. La tesorería anunciada tenía 12 pagos confirmados de 0.50 USDC en Horizon; consulta [QA](../../docs/QA.md). Esto verifica transferencias reales en Testnet por la ruta compatible con el frontend Freighter, pero el ledger no demuestra por sí solo el desbloqueo de un artículo ni el reingreso con JWT. El lector paga la comisión de red en este modo.
+
 `DEMO_PAYMENTS=true` acepta las firmas de prueba `unsigned-demo-signature`, `mock_*` y `demo_*`, y emite un hash `mock_tx_*` y JWT sin transferir fondos. Funciona solo con `NODE_ENV` distinto de `production`. Déjalo en `false` salvo para una demo local. Sin este modo, una firma de prueba recibe `402`.
 
 En producción son obligatorios un `JWT_SECRET` de al menos 32 caracteres, una `STELLAR_TREASURY_PUBLIC_KEY` válida y `OPENZEPPELIN_API_KEY` si se usa el facilitador. El ejemplo de `.env` usa una clave de tesorería ficticia. `generate:treasury` crea y fondea una cuenta de Testnet con Friendbot, pero no obtiene USDC ni verifica pagos.
