@@ -5,14 +5,21 @@ import type { WalletInfo } from '@/lib/types'
 const MOCK_ADDRESS = 'GAPAPERPAYDEMOLECTORUNAMTESTNETWALLET2026GOYAHACKX7QZ4MN'
 
 // Modo de wallet: por defecto lo fija NEXT_PUBLIC_WALLET, pero se puede forzar por URL
-// (?wallet=freighter o ?wallet=mock) para probar el pago real sin re-desplegar.
+// (?wallet=freighter o ?wallet=mock). La elección se recuerda durante la sesión para que
+// sobreviva a la navegación entre páginas (los links internos no arrastran la query).
+const WALLET_KEY = 'paperpay:wallet'
+
 export function isFreighter(): boolean {
   try {
     const param = new URLSearchParams(window.location.search).get('wallet')
-    if (param === 'freighter') return true
-    if (param === 'mock') return false
+    if (param === 'freighter' || param === 'mock') {
+      sessionStorage.setItem(WALLET_KEY, param)
+    }
+    const mode = sessionStorage.getItem(WALLET_KEY)
+    if (mode === 'freighter') return true
+    if (mode === 'mock') return false
   } catch {
-    // Sin window (SSR): usa la variable de entorno.
+    // Sin window/almacenamiento (SSR o modo privado): usa la variable de entorno.
   }
   return process.env.NEXT_PUBLIC_WALLET === 'freighter'
 }
