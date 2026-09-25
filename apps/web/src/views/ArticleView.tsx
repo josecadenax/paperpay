@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { useCallback, useEffect, useState } from 'react'
 import { ConnectWalletModal } from '@/components/ConnectWalletModal'
-import { PollarPaymentModal } from '@/components/PollarPaymentModal'
+import { WalletChoiceModal } from '@/components/WalletChoiceModal'
 import { DebugPanel } from '@/components/DebugPanel'
 import { DisciplineChip } from '@/components/DisciplineChip'
 import { MarkdownContent } from '@/components/MarkdownContent'
@@ -15,7 +15,7 @@ import { COPY } from '@/lib/copy'
 import { formatLongDate } from '@/lib/format'
 import type { PaperPreview } from '@/lib/types'
 import { getPaper, isSimulatedTx } from '@/services/paperpay'
-import { isPollarConfigured } from '@/services/walletMode'
+import { isPollarAvailable } from '@/services/walletMode'
 
 // El snippet del backend empieza con el título de la sección ("1. Introduction") en su propia línea.
 function PreviewSnippet({ text }: { text: string }) {
@@ -48,9 +48,9 @@ export function ArticleView({ paperId }: { paperId: string }) {
 
   useEffect(() => {
     setDebug(process.env.NODE_ENV === 'development' && new URLSearchParams(window.location.search).get('debug') === '1')
-    // Pollar (v2) solo se activa en cliente y cuando está configurado; en cualquier otro caso
-    // se usa el modal clásico (Freighter/simulado), sin tocar v1.
-    setPollar(isPollarConfigured())
+    // Si Pollar está disponible (hay publishable key), el modal ofrece ambas wallets
+    // (Pollar y Freighter). Sin key, se usa el modal clásico (Freighter/simulado). v1 intacto.
+    setPollar(isPollarAvailable())
   }, [])
 
   useEffect(() => {
@@ -248,7 +248,7 @@ export function ArticleView({ paperId }: { paperId: string }) {
 
       {showModal &&
         (pollar ? (
-          <PollarPaymentModal
+          <WalletChoiceModal
             paperId={paperId}
             onClose={() => setShowModal(false)}
             onState={forceState}
@@ -257,6 +257,7 @@ export function ArticleView({ paperId }: { paperId: string }) {
               setShowToast(true)
             }}
             onError={fail}
+            onFreighter={handleConnect}
           />
         ) : (
           <ConnectWalletModal onConnect={handleConnect} onClose={() => setShowModal(false)} />

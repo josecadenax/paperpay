@@ -5,6 +5,7 @@ import { usePollarCheckout } from '@/hooks/usePollarCheckout'
 import { COPY } from '@/lib/copy'
 import type { PaperFull, PaywallErrorCode, PaywallState, TxReceipt } from '@/lib/types'
 import { getPaymentTerms, persistVerifiedAccess } from '@/services/apiBackend'
+import { setWalletMode } from '@/services/walletMode'
 import { CheckIcon } from './PaywallCard'
 import { PollarConnect } from './PollarConnect'
 
@@ -14,6 +15,7 @@ interface Props {
   onState: (state: PaywallState) => void
   onUnlocked: (paper: PaperFull, receipt: TxReceipt) => void
   onError: (code: PaywallErrorCode) => void
+  onFreighter: () => void
 }
 
 function errorCodeFor(message: string): PaywallErrorCode {
@@ -26,12 +28,13 @@ function errorCodeFor(message: string): PaywallErrorCode {
   return 'PAYMENT_FAILED'
 }
 
-// Modal de pago con Pollar (v2). Solo se monta en modo pollar (provider activo).
-// Login social → runTx paga 0.50 USDC a la tesorería → el backend verifica por hash.
-export function PollarPaymentModal({ paperId, onClose, onState, onUnlocked, onError }: Props) {
+// Selector de wallet (v2): ofrece Pollar (login social, wallet embebida) y Freighter
+// (wallet propia, self-custody) en el mismo modal. Solo se monta cuando Pollar está
+// disponible (hay publishable key → provider activo), así usePollar tiene su contexto.
+export function WalletChoiceModal({ paperId, onClose, onState, onUnlocked, onError, onFreighter }: Props) {
   const { isAuthenticated, address, pay } = usePollarCheckout(paperId)
   const [busy, setBusy] = useState(false)
-  const payRef = useRef<HTMLButtonElement>(null)
+  const closeRef = useRef<HTMLButtonElement>(null)
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -41,11 +44,7 @@ export function PollarPaymentModal({ paperId, onClose, onState, onUnlocked, onEr
     return () => window.removeEventListener('keydown', onKey)
   }, [onClose, busy])
 
-  useEffect(() => {
-    if (isAuthenticated) payRef.current?.focus()
-  }, [isAuthenticated])
-
-  const handlePay = async () => {
+  const handlePollarPay = async () => {
     setBusy(true)
     onState('settling')
     try {
@@ -67,18 +66,25 @@ export function PollarPaymentModal({ paperId, onClose, onState, onUnlocked, onEr
     }
   }
 
+  const handleFreighter = () => {
+    // Fija el modo para que la firma real de Freighter se active en el backend.
+    setWalletMode('freighter')
+    onFreighter()
+  }
+
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center bg-overlay p-4"
       role="dialog"
       aria-modal="true"
-      aria-labelledby="pollar-modal-title"
+      aria-labelledby="wallet-choice-title"
       onClick={(e) => {
         if (e.target === e.currentTarget && !busy) onClose()
       }}
     >
       <div className="relative w-full max-w-md animate-slide-up rounded-2xl bg-card p-8 shadow-[var(--shadow-elevated)]">
         <button
+          ref={closeRef}
           type="button"
           onClick={onClose}
           disabled={busy}
@@ -98,35 +104,61 @@ export function PollarPaymentModal({ paperId, onClose, onState, onUnlocked, onEr
           </svg>
         </div>
 
-        <h2 id="pollar-modal-title" className="mb-2 font-display text-xl font-semibold text-foreground">
+        <h2 id="wallet-choice-title" className="mb-2 font-display text-xl font-semibold text-foreground">
           Paga 0.50 USDC para leer
         </h2>
         <p className="mb-6 text-sm leading-relaxed text-muted-foreground">
-          Entra con tu cuenta y paga con USDC. Pollar crea tu wallet y cubre la comisión de red. Sin extensiones ni frases
-          semilla.
+          Elige cómo pagar. Con Pollar entras con tu cuenta y listo; con Freighter usas tu propia wallet de Stellar.
         </p>
 
-        {!isAuthenticated ? (
-          <PollarConnect />
-        ) : (
-          <div className="space-y-4">
-            <div className="flex items-center gap-2.5 rounded-xl border border-border bg-muted px-4 py-3 text-sm text-muted-foreground">
-              <CheckIcon />
-              <span className="min-w-0">
-                Wallet lista{address ? <span className="font-mono"> · {address.slice(0, 4)}…{address.slice(-4)}</span> : null}
-              </span>
-            </div>
-            <button
-              ref={payRef}
-              type="button"
-              onClick={handlePay}
-              disabled={busy}
-              className="min-h-[44px] w-full rounded-xl bg-primary py-3.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary-hover disabled:opacity-60"
-            >
-              {busy ? 'Procesando pago…' : 'Pagar 0.50 USDC'}
-            </button>
+        {/* Opción principal: Pollar */}
+        <div className="rounded-xl border border-primary/30 bg-primary/5 p-4">
+          <div className="mb-3 flex items-center gap-2">
+            <span className="rounded-full bg-primary px-2 py-0.5 text-[11px] font-semibold text-primary-foreground">
+              Recomendado
+            </span>
+            <span className="text-sm font-semibold text-foreground">Entrar con cuenta (Pollar)</span>
           </div>
-        )}
+          {!isAuthenticated ? (
+            <PollarConnect />
+          ) : (
+            <div className="space-y-3">
+              <div className="flex items-center gap-2.5 rounded-lg border border-border bg-card px-3 py-2 text-sm text-muted-foreground">
+                <CheckIcon />
+                <span className="min-w-0">
+                  Wallet lista{address ? <span className="font-mono"> · {address.slice(0, 4)}…{address.slice(-4)}</span> : null}
+                </span>
+              </div>
+              <button
+                type="button"
+                onClick={handlePollarPay}
+                disabled={busy}
+                className="min-h-[44px] w-full rounded-xl bg-primary py-3 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary-hover disabled:opacity-60"
+              >
+                {busy ? 'Procesando pago…' : 'Pagar 0.50 USDC'}
+              </button>
+            </div>
+          )}
+          <p className="mt-2 text-center text-xs text-muted-foreground">Sin extensiones ni frases semilla.</p>
+        </div>
+
+        {/* Separador */}
+        <div className="my-5 flex items-center gap-3 text-xs text-muted-foreground">
+          <span className="h-px flex-1 bg-border" />
+          o
+          <span className="h-px flex-1 bg-border" />
+        </div>
+
+        {/* Opción alterna: Freighter */}
+        <button
+          type="button"
+          onClick={handleFreighter}
+          disabled={busy}
+          className="min-h-[44px] w-full rounded-xl border border-border bg-card py-3 text-sm font-semibold text-foreground transition-colors hover:border-border-strong disabled:opacity-60"
+        >
+          Conectar con Freighter
+        </button>
+        <p className="mt-2 text-center text-xs text-muted-foreground">Usa tu propia wallet de Stellar (self-custody).</p>
       </div>
     </div>
   )
