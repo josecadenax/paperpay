@@ -60,6 +60,7 @@ pnpm build
 - [API](apps/api/README.md): variables, endpoints y contrato de pago.
 - [Frontend](apps/web/README.md): modos `mock` y `api`, wallet y proxy.
 - [Revisión de QA](docs/QA.md): pruebas realizadas y pendientes para poder afirmar pagos reales.
+- [Plan de Agentic Payments](docs/AGENTIC_PAYMENTS.md): diseño propuesto de compras por agentes, x402 interoperable, SDK/CLI, skill, seguridad y fases de implementación.
 
 En producción, la API exige un `JWT_SECRET` de al menos 32 caracteres, una `STELLAR_TREASURY_PUBLIC_KEY` válida y `OPENZEPPELIN_API_KEY` si usa el facilitador. Usa un secreto aleatorio. La clave de tesorería de ejemplo no es una cuenta real. `SELF_SETTLE=true` espera un sobre de transacción Stellar ya firmado por el lector; no construye ni firma una transferencia Soroban. El frontend sí construye ese sobre cuando se usa Freighter.
 
