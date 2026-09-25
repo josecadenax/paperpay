@@ -3,17 +3,24 @@ import { COPY } from '@/lib/copy'
 import { formatLongDate } from '@/lib/format'
 import type { PaperPreview } from '@/lib/types'
 import { DisciplineChip } from './DisciplineChip'
+import { DisciplineCover } from './DisciplineCover'
 import { UsdcChip } from './UsdcChip'
 
 export function PaperCard({ paper }: { paper: PaperPreview }) {
   const extraAuthors = paper.authors.length - 2
 
   return (
-    <article className="group flex flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-[var(--shadow-card)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[var(--shadow-elevated)]">
-      <div className="px-5 pt-5 pb-4">
-        <div className="mb-4 flex items-start justify-between gap-3">
-          {paper.discipline ? <DisciplineChip discipline={paper.discipline} /> : <span />}
+    <article className="group flex flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-[var(--shadow-card)] transition-all duration-200 hover:-translate-y-1 hover:shadow-[var(--shadow-elevated)]">
+      <Link href={`/papers/${paper.id}`} className="relative block h-28 overflow-hidden">
+        <DisciplineCover discipline={paper.discipline} className="h-full w-full transition-transform duration-300 group-hover:scale-105" />
+        <span className="absolute top-3 right-3">
           <UsdcChip size="sm" />
+        </span>
+      </Link>
+
+      <div className="px-5 pt-4 pb-4">
+        <div className="mb-3">
+          {paper.discipline ? <DisciplineChip discipline={paper.discipline} /> : <span />}
         </div>
 
         <h3 className="mb-3 line-clamp-2 font-display text-base font-semibold leading-snug text-foreground">

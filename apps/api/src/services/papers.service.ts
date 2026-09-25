@@ -52,6 +52,7 @@ export class PapersService {
       doi: paper.doi,
       priceUsdc: paper.priceUsdc,
       previewSnippet: paper.previewSnippet,
+      discipline: paper.discipline,
     };
   }
 }

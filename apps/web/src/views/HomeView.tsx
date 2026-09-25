@@ -155,8 +155,10 @@ export function HomeView() {
           <p className="py-24 text-center font-display text-lg text-muted-foreground">{COPY.home.noResults}</p>
         ) : (
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {filtered.map((paper) => (
-              <PaperCard key={paper.id} paper={paper} />
+            {filtered.map((paper, i) => (
+              <div key={paper.id} className="animate-fade-in" style={{ animationDelay: `${Math.min(i, 8) * 60}ms` }}>
+                <PaperCard paper={paper} />
+              </div>
             ))}
           </div>
         )}
