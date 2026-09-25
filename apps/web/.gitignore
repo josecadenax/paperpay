@@ -3,3 +3,7 @@ node_modules
 next-env.d.ts
 .env*.local
 *.tsbuildinfo
+
+# Generados por next dev
+AGENTS.md
+CLAUDE.md
