@@ -11,3 +11,9 @@ export function formatDateTime(iso: string): string {
 export function shortHash(hash: string, size = 8): string {
   return hash.length <= size * 2 ? hash : `${hash.slice(0, size)}...${hash.slice(-size)}`
 }
+
+export function formatShortDateTime(iso: string): string {
+  return new Intl.DateTimeFormat('es-MX', { day: 'numeric', month: 'short', hour: 'numeric', minute: '2-digit' }).format(
+    new Date(iso),
+  )
+}
