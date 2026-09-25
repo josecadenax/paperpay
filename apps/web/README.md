@@ -37,6 +37,17 @@ El recibo detecta los hashes simulados y muestra "Pago simulado" en lugar del li
 `mock` (default) usa una dirección de prueba sin extensión. `freighter` conecta la extensión real y
 valida que esté en Testnet.
 
+## Wallet: pago real con Freighter
+
+`NEXT_PUBLIC_WALLET` fija el modo por defecto (`mock` = simulado, `freighter` = real). Además se
+puede forzar por URL sin re-desplegar:
+
+- `?wallet=freighter` → conecta Freighter, construye el pago de USDC y lo firma; el backend lo envía
+  a Stellar y devuelve un hash real (verificable en stellar.expert).
+- `?wallet=mock` → pago simulado (respaldo para la demo).
+
+La wallet del lector necesita, en testnet: XLM para la comisión, la trustline de USDC y saldo de USDC.
+
 ## Revisar todos los estados
 
 Agrega `?debug=1` a la URL de un artículo para forzar cualquier estado del pago o error.
