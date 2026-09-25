@@ -36,3 +36,21 @@ export function clearAccess(paperId: string): void {
 export function isAccessValid(access: StoredAccess): boolean {
   return new Date(access.receipt.validUntil) > new Date()
 }
+
+// Artículos con acceso vigente en este navegador, para marcarlos en el listado.
+// Devuelve paperId → fecha de expiración (ISO).
+export function listActiveAccess(): Map<string, string> {
+  const active = new Map<string, string>()
+  try {
+    const storage = window.localStorage
+    for (let i = 0; i < storage.length; i++) {
+      const key = storage.key(i)
+      if (!key?.startsWith(KEY_PREFIX)) continue
+      const access = readAccess(key.slice(KEY_PREFIX.length))
+      if (access && isAccessValid(access)) active.set(key.slice(KEY_PREFIX.length), access.receipt.validUntil)
+    }
+  } catch {
+    // Sin almacenamiento: nada comprado que mostrar.
+  }
+  return active
+}

@@ -1,20 +1,41 @@
 import Link from 'next/link'
 import { COPY } from '@/lib/copy'
-import { formatLongDate } from '@/lib/format'
+import { formatLongDate, formatShortDateTime } from '@/lib/format'
 import type { PaperPreview } from '@/lib/types'
 import { DisciplineChip } from './DisciplineChip'
 import { DisciplineCover } from './DisciplineCover'
 import { UsdcChip } from './UsdcChip'
 
-export function PaperCard({ paper }: { paper: PaperPreview }) {
+interface Props {
+  paper: PaperPreview
+  // Expiración (ISO) del acceso comprado en este navegador; ausente si no se ha comprado.
+  accessUntil?: string
+}
+
+export function PaperCard({ paper, accessUntil }: Props) {
   const extraAuthors = paper.authors.length - 2
+  const purchased = accessUntil !== undefined
 
   return (
-    <article className="group flex flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-[var(--shadow-card)] transition-all duration-200 hover:-translate-y-1 hover:shadow-[var(--shadow-elevated)]">
+    <article
+      className={`group flex flex-col overflow-hidden rounded-2xl border bg-card shadow-[var(--shadow-card)] transition-all duration-200 hover:-translate-y-1 hover:shadow-[var(--shadow-elevated)] ${
+        purchased ? 'border-success/40 ring-1 ring-success/20' : 'border-border'
+      }`}
+    >
       <Link href={`/papers/${paper.id}`} className="relative block h-28 overflow-hidden">
         <DisciplineCover discipline={paper.discipline} className="h-full w-full transition-transform duration-300 group-hover:scale-105" />
         <span className="absolute top-3 right-3">
-          <UsdcChip size="sm" />
+          {purchased ? (
+            <span className="inline-flex items-center gap-1 rounded-full bg-success-bg px-2 py-0.5 text-xs font-semibold text-success-strong">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden>
+                <circle cx="6" cy="6" r="5" stroke="#10B981" strokeWidth="1.2" />
+                <path d="M3.5 6l2 2 3-3" stroke="#10B981" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+              {COPY.home.purchased}
+            </span>
+          ) : (
+            <UsdcChip size="sm" />
+          )}
         </span>
       </Link>
 
@@ -41,14 +62,24 @@ export function PaperCard({ paper }: { paper: PaperPreview }) {
       </div>
 
       <div className="mt-auto flex items-center justify-between gap-3 border-t border-border px-5 py-4">
-        <span className="truncate font-mono text-xs text-muted-foreground">
-          {paper.doi ? `DOI: ${paper.doi}` : paper.publisher}
-        </span>
+        {purchased ? (
+          <span className="truncate text-xs font-medium text-success-strong">
+            {COPY.home.accessUntil} {formatShortDateTime(accessUntil)}
+          </span>
+        ) : (
+          <span className="truncate font-mono text-xs text-muted-foreground">
+            {paper.doi ? `DOI: ${paper.doi}` : paper.publisher}
+          </span>
+        )}
         <Link
           href={`/papers/${paper.id}`}
-          className="inline-flex min-h-[44px] flex-shrink-0 items-center gap-1.5 rounded-xl bg-primary px-4 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary-hover"
+          className={`inline-flex min-h-[44px] flex-shrink-0 items-center gap-1.5 rounded-xl px-4 text-sm font-semibold transition-colors ${
+            purchased
+              ? 'bg-success-bg text-success-strong hover:bg-success/20'
+              : 'bg-primary text-primary-foreground hover:bg-primary-hover'
+          }`}
         >
-          {COPY.home.readFor} $0.50
+          {purchased ? COPY.home.readNow : `${COPY.home.readFor} $0.50`}
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
             <path d="M3 7h8M7 3l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
           </svg>

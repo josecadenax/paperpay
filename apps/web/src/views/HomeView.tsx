@@ -8,6 +8,7 @@ import { PaperCard } from '@/components/PaperCard'
 import { TrustStrip } from '@/components/TrustStrip'
 import { COPY } from '@/lib/copy'
 import type { PaperPreview } from '@/lib/types'
+import { listActiveAccess } from '@/services/accessStore'
 import { getPapers } from '@/services/paperpay'
 
 type Sort = 'newest' | 'title' | 'discipline'
@@ -20,6 +21,23 @@ export function HomeView() {
   const [query, setQuery] = useState('')
   const [discipline, setDiscipline] = useState(COPY.home.allDisciplines)
   const [sort, setSort] = useState<Sort>('newest')
+  const [access, setAccess] = useState<Map<string, string>>(() => new Map())
+  const [onlyPurchased, setOnlyPurchased] = useState(false)
+
+  // Accesos comprados en este navegador; se refrescan al volver a la pestaña o si otra pestaña compra.
+  useEffect(() => {
+    const refresh = () => setAccess(listActiveAccess())
+    refresh()
+    window.addEventListener('focus', refresh)
+    window.addEventListener('storage', refresh)
+    return () => {
+      window.removeEventListener('focus', refresh)
+      window.removeEventListener('storage', refresh)
+    }
+  }, [])
+
+  const purchasedCount = useMemo(() => papers.filter((p) => access.has(p.id)).length, [papers, access])
+  const showOnlyPurchased = onlyPurchased && purchasedCount > 0
 
   useEffect(() => {
     setLoading(true)
@@ -49,19 +67,20 @@ export function HomeView() {
         p.title.toLowerCase().includes(q) ||
         p.abstract.toLowerCase().includes(q) ||
         p.authors.some((a) => a.toLowerCase().includes(q))
-      return matchesDiscipline && matchesQuery
+      return matchesDiscipline && matchesQuery && (!showOnlyPurchased || access.has(p.id))
     })
     const sorted = [...list]
     if (sort === 'title') sorted.sort((a, b) => a.title.localeCompare(b.title, 'es'))
     else if (sort === 'discipline') sorted.sort((a, b) => (a.discipline ?? '').localeCompare(b.discipline ?? '', 'es'))
     else sorted.sort((a, b) => b.publishedDate.localeCompare(a.publishedDate))
     return sorted
-  }, [papers, query, discipline, sort])
+  }, [papers, query, discipline, sort, showOnlyPurchased, access])
 
-  const hasFilters = query.trim() !== '' || discipline !== COPY.home.allDisciplines
+  const hasFilters = query.trim() !== '' || discipline !== COPY.home.allDisciplines || showOnlyPurchased
   const clearFilters = () => {
     setQuery('')
     setDiscipline(COPY.home.allDisciplines)
+    setOnlyPurchased(false)
   }
 
   return (
@@ -151,6 +170,24 @@ export function HomeView() {
           </div>
 
           <div className="flex flex-wrap gap-2">
+            {purchasedCount > 0 && (
+              <button
+                type="button"
+                onClick={() => setOnlyPurchased((v) => !v)}
+                aria-pressed={showOnlyPurchased}
+                className={`inline-flex min-h-[36px] items-center gap-1.5 rounded-full border px-3.5 py-1.5 text-sm font-medium transition-colors ${
+                  showOnlyPurchased
+                    ? 'border-success bg-success text-white'
+                    : 'border-success/40 bg-success-bg text-success-strong hover:border-success'
+                }`}
+              >
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden>
+                  <path d="M3 6l2 2 4-4" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                {COPY.home.purchasedFilter}
+                <span className={showOnlyPurchased ? 'text-white/70' : 'text-success-strong/60'}>{purchasedCount}</span>
+              </button>
+            )}
             {disciplines.map((d) => (
               <button
                 key={d.name}
@@ -225,7 +262,7 @@ export function HomeView() {
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
             {filtered.map((paper, i) => (
               <div key={paper.id} className="animate-fade-in" style={{ animationDelay: `${Math.min(i, 8) * 60}ms` }}>
-                <PaperCard paper={paper} />
+                <PaperCard paper={paper} accessUntil={access.get(paper.id)} />
               </div>
             ))}
           </div>
