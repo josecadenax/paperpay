@@ -182,7 +182,7 @@ export function ArticleView({ paperId }: { paperId: string }) {
             </section>
 
             {isUnlocked ? (
-              <div className="prose-paper animate-unblur">
+              <div className="prose-paper animate-unblur animate-reveal">
                 <MarkdownContent markdown={paper.fullContentMarkdown} />
 
                 {paper.references.length > 0 && (
