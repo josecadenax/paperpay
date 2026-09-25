@@ -11,6 +11,7 @@ const THEMES: Record<string, { from: string; to: string; ink: string }> = {
   Astronomía: { from: '#1E293B', to: '#4338CA', ink: '#E4E7FF' },
   Economía: { from: '#047857', to: '#0D9488', ink: '#E6FBF6' },
   'Ciencias Ambientales': { from: '#15803D', to: '#65A30D', ink: '#EDFBE0' },
+  Neurociencia: { from: '#7C3AED', to: '#DB2777', ink: '#F6E9FF' },
 }
 
 const FALLBACK = { from: '#475569', to: '#1E293B', ink: '#E2E8F0' }
