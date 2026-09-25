@@ -1,3 +1,5 @@
+<p align="center"><img src="apps/web/public/brand/paperpay-logo.svg" alt="PaperPay" height="56"></p>
+
 # PaperPay
 
 > Paga $0.50 USDC por leer un artículo científico. Un clic, sin cuenta, liquidado en Stellar en menos de 5 segundos.
