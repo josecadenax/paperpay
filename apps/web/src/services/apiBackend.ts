@@ -12,12 +12,14 @@ import { PaywallError } from '@/lib/errors'
 import type { PaperFull, PaperPreview, PaywallErrorCode, TxReceipt } from '@/lib/types'
 import { clearAccess, isAccessValid, readAccess, writeAccess } from './accessStore'
 import type { Backend, PaperResult } from './backend'
+import { buildPaymentXdr } from './stellarPayment'
+import { isFreighter, signTxXdr } from './wallet'
 
 // Vacío = mismo dominio: next.config.ts reenvía /api/* al backend (API_PROXY_TARGET).
 const API_URL = (process.env.NEXT_PUBLIC_API_URL ?? '').replace(/\/$/, '')
 
-// TODO(#32): reemplazar por la auth entry de Soroban firmada con Freighter (signAuthEntry).
-// Hoy el backend en modo desarrollo acepta cualquier firma y devuelve un hash simulado.
+// Wallet simulada (NEXT_PUBLIC_WALLET != freighter): firma de relleno; el backend responde
+// con un hash simulado. Con Freighter se construye y firma una transacción real.
 const PLACEHOLDER_SIGNATURE = 'unsigned-demo-signature'
 
 const STROOPS_PER_UNIT = 10_000_000
@@ -104,14 +106,25 @@ export const apiBackend: Backend = {
   async payForPaper(id, address, onSigned) {
     const terms = (await paymentRequirement(id)).accepts[0]
 
+    let signaturePayload: string
+    if (isFreighter()) {
+      // Real: construir el pago de USDC, firmarlo con Freighter (el backend lo envía).
+      const unsignedXdr = await buildPaymentXdr(address, { payTo: terms.payTo, amountStroops: terms.amount })
+      signaturePayload = await signTxXdr(unsignedXdr, address) // abre la ventana de Freighter
+      onSigned()
+    } else {
+      // Simulado: firma de relleno; el backend responde con un hash simulado.
+      signaturePayload = PLACEHOLDER_SIGNATURE
+      await delay(800)
+      onSigned()
+    }
+
     const signature: X402PaymentSignatureHeader = {
       scheme: 'exact',
       network: terms.network,
       signerPublicKey: address,
-      signature: PLACEHOLDER_SIGNATURE,
+      signature: signaturePayload,
     }
-    await delay(800) // aquí irá la ventana de firma de Freighter
-    onSigned()
 
     const res = await request(
       `/api/papers/${encodeURIComponent(id)}`,

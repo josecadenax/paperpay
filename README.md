@@ -1,3 +1,5 @@
+<p align="center"><img src="apps/web/public/brand/paperpay-logo.svg" alt="PaperPay" height="56"></p>
+
 # PaperPay
 
 Prototipo de paywall para artículos científicos con Next.js, Express y Stellar Testnet. El catálogo contiene **artículos ficticios de demostración**; sus autores, DOI, resultados y cifras no son publicaciones verificadas.

@@ -158,7 +158,10 @@ export const COPY = {
   dashboard: {
     title: 'Panel editorial',
     subtitle: 'Ingresos y estadísticas de tu publicación',
-    demoBadge: 'Datos de ejemplo',
+    liveBadge: 'En vivo · testnet',
+    loadError: 'No pudimos leer los pagos en la red. Intenta de nuevo.',
+    retry: 'Reintentar',
+    txEmpty: 'Aún no hay lecturas pagadas. Compra un artículo para verlo aquí.',
     kpis: {
       reads: 'Lecturas totales',
       readsSub: 'últimos 30 días',
@@ -175,9 +178,9 @@ export const COPY = {
     txTitle: 'Transacciones recientes',
     txHeaders: {
       date: 'Fecha',
-      paper: 'Artículo',
       amount: 'Monto',
-      hash: 'Hash',
+      reader: 'Lector',
+      tx: 'Transacción',
     },
   },
   debug: {

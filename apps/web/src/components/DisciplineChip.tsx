@@ -5,6 +5,10 @@ const DISCIPLINE_COLORS: Record<string, string> = {
   Física: 'bg-[#FFF7ED] text-[#9A3412]',
   Economía: 'bg-[#FFFBEB] text-[#92400E]',
   Química: 'bg-[#FDF4FF] text-[#7E22CE]',
+  Matemáticas: 'bg-[#FEF3E2] text-[#B45309]',
+  Astronomía: 'bg-[#E4E7FF] text-[#3730A3]',
+  'Ciencias Ambientales': 'bg-[#EDFBE0] text-[#3F6212]',
+  Neurociencia: 'bg-[#F6E9FF] text-[#6D28D9]',
 }
 
 export function DisciplineChip({ discipline }: { discipline: string }) {

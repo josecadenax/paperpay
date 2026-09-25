@@ -6,6 +6,9 @@ export const STELLAR_RPC_URL = 'https://soroban-testnet.stellar.org';
 // USDC SAC Contract ID en Stellar Testnet (SEP-41)
 export const USDC_TESTNET_CONTRACT = 'CBIELTK6YBZJU5UP2WWQEUCYKLPU6AUNZ2BQ4WWFEIE3USCIHMXQDAMA';
 
+// Issuer clásico de USDC en Stellar Testnet (Circle) — el que valida el backend en el pago clásico
+export const USDC_TESTNET_ISSUER = 'GBBD47IF6LWK7P7MDEVSCWR7DPUWV3NY3DTQEVFL4NAT4AQH3ZLLFLA5';
+
 // Monto por lectura: $0.50 USDC = 5,000,000 stroops (7 decimales)
 export const DEFAULT_PAPER_PRICE_USDC = 0.50;
 export const DEFAULT_PAPER_PRICE_STROOPS = '5000000';
