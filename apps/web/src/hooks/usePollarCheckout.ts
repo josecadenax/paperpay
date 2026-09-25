@@ -13,7 +13,7 @@ import { pollarPaymentParams, settleByHash, type PollarSettleResult } from '@/se
  * Pollar liquida; con el txHash, el backend verifica y devuelve el artículo + JWT.
  */
 export function usePollarCheckout(paperId: string) {
-  const { isAuthenticated, wallet, login, runTx } = usePollar()
+  const { isAuthenticated, wallet, login, sendPayment } = usePollar()
 
   const address = wallet?.address ?? null
 
@@ -23,14 +23,18 @@ export function usePollarCheckout(paperId: string) {
         login({ provider: 'google' })
         throw new Error('POLLAR_LOGIN_REQUIRED')
       }
-      const { operation, params } = pollarPaymentParams(terms)
-      const outcome = await runTx(operation, params)
+      const params = pollarPaymentParams(terms)
+      const outcome = await sendPayment(params)
       if (outcome.status !== 'success' || !outcome.hash) {
-        throw new Error(outcome.status === 'error' ? (outcome.details ?? 'PAYMENT_FAILED') : 'PAYMENT_PENDING')
+        const detail =
+          outcome.status === 'error'
+            ? (outcome.details ?? outcome.message ?? outcome.resultCode ?? 'PAYMENT_FAILED')
+            : 'PAYMENT_PENDING'
+        throw new Error(detail)
       }
       return settleByHash(paperId, outcome.hash, address)
     },
-    [paperId, isAuthenticated, address, login, runTx],
+    [paperId, isAuthenticated, address, login, sendPayment],
   )
 
   return { isAuthenticated, address, login, pay }

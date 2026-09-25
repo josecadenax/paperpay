@@ -14,15 +14,14 @@ import { encodeBase64Json } from '@/lib/base64'
 const STROOPS_PER_UNIT = 10_000_000
 const API_URL = (process.env.NEXT_PUBLIC_API_URL ?? '').replace(/\/$/, '')
 
-// Parámetros del pago de USDC para runTx de Pollar, a partir del 402 del backend.
+// Parámetros del pago de USDC para sendPayment de Pollar, a partir del 402 del backend.
+// Forma de SendPaymentParams (Stellar): destino, monto decimal y activo con issuer.
 export function pollarPaymentParams(terms: X402PaymentRequiredHeader['accepts'][number]) {
   return {
-    operation: 'payment' as const,
-    params: {
-      destination: terms.payTo,
-      amount: (Number(terms.amount) / STROOPS_PER_UNIT).toFixed(7),
-      asset: { type: 'credit_alphanum4' as const, code: 'USDC', issuer: USDC_TESTNET_ISSUER },
-    },
+    chain: 'STELLAR' as const,
+    destination: terms.payTo,
+    amount: (Number(terms.amount) / STROOPS_PER_UNIT).toFixed(7),
+    asset: { type: 'credit_alphanum4' as const, code: 'USDC', issuer: USDC_TESTNET_ISSUER },
   }
 }
 

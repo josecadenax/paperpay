@@ -17,8 +17,11 @@ interface Props {
 }
 
 function errorCodeFor(message: string): PaywallErrorCode {
-  if (/insufficient|saldo|fondos|balance/i.test(message)) return 'INSUFFICIENT_FUNDS'
+  // Falta de XLM para la comisión de red (no de USDC). En producción Pollar debería
+  // patrocinar el fee; si no está activo, esto sale con una wallet nueva sin XLM.
+  if (/network fee|insufficient xlm|\bxlm\b|comisi[óo]n de red|TX_INSUFFICIENT_FEE/i.test(message)) return 'PAYMENT_FAILED'
   if (/trustline|l[ií]nea de confianza/i.test(message)) return 'NO_TRUSTLINE'
+  if (/insufficient|saldo|fondos|balance/i.test(message)) return 'INSUFFICIENT_FUNDS'
   if (/reject|cancel|denied|deneg/i.test(message)) return 'USER_REJECTED'
   return 'PAYMENT_FAILED'
 }
