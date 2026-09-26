@@ -1,0 +1,74 @@
+name: Deploy Web to Vercel
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'apps/web/**'
+      - 'packages/shared/**'
+      - 'package.json'
+      - 'pnpm-lock.yaml'
+      - 'pnpm-workspace.yaml'
+      - '.github/workflows/deploy-web-vercel.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: vercel-web-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      # IDs públicos del proyecto (no son secretos), igual que el workflow de Railway.
+      VERCEL_ORG_ID: team_V0Tv5ApfJTYGzCf8kQotWzOu
+      VERCEL_PROJECT_ID: prj_FUo2pioYZGpS7RFxyX2Wdru9UbHL
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.34.1
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # Verificaciones (deja el repo en verde antes de desplegar).
+      - name: Typecheck and build web
+        run: |
+          pnpm build:shared
+          pnpm --filter @paperpay/web typecheck
+          pnpm --filter @paperpay/web build
+
+      - name: Install Vercel CLI
+        run: npm install --global vercel@59.26.0
+
+      - name: Deploy to Vercel (production)
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if [[ -z "${VERCEL_TOKEN:-}" ]]; then
+            echo 'Falta el secret VERCEL_TOKEN del repositorio' >&2
+            exit 1
+          fi
+
+          vercel pull --yes --environment=production --token="$VERCEL_TOKEN"
+          vercel build --prod --token="$VERCEL_TOKEN"
+          url="$(vercel deploy --prebuilt --prod --token="$VERCEL_TOKEN")"
+          echo "Deploy de producción: $url"
+
+          # Verifica que el dominio de producción responda.
+          curl --fail --silent --show-error --max-time 15 -o /dev/null https://paperpay.press/
+          echo 'paperpay.press respondió 2xx'
