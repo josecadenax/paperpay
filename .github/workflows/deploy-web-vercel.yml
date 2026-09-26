@@ -64,9 +64,10 @@ jobs:
             exit 1
           fi
 
-          vercel pull --yes --environment=production --token="$VERCEL_TOKEN"
-          vercel build --prod --token="$VERCEL_TOKEN"
-          url="$(vercel deploy --prebuilt --prod --token="$VERCEL_TOKEN")"
+          # Se despliega SIN --prebuilt para que Vercel construya del lado servidor, donde
+          # las env vars de tipo Secret (p. ej. API_PROXY_TARGET) sí están disponibles.
+          # Un build local en el runner recibe placeholders y rompe el rewrite del proxy.
+          url="$(vercel deploy --prod --yes --token="$VERCEL_TOKEN")"
           echo "Deploy de producción: $url"
 
           # Verifica que el dominio de producción responda.
