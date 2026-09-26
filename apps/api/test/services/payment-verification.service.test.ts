@@ -88,4 +88,24 @@ describe('PaymentVerificationService', () => {
       config.stellarTreasuryPublicKey = previousTreasury;
     }
   });
+
+  it('returns a retryable 502 when Horizon times out', async () => {
+    const service = new PaymentVerificationService();
+    const timeout = vi.spyOn(AbortSignal, 'timeout');
+    const fetchMock = vi.spyOn(globalThis, 'fetch').mockRejectedValueOnce(new DOMException('Timed out', 'TimeoutError'));
+
+    await expect(service.verifyByHash({ txHash, signerPublicKey: signer, paperId }))
+      .rejects.toMatchObject<Partial<PaymentVerificationError>>({ status: 502 });
+    expect(timeout).toHaveBeenCalledWith(8000);
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+    expect(fetchMock.mock.calls[0][1]?.signal).toBeInstanceOf(AbortSignal);
+  });
+
+  it('returns a retryable 502 when Horizon sends invalid JSON', async () => {
+    const service = new PaymentVerificationService();
+    vi.spyOn(globalThis, 'fetch').mockResolvedValueOnce(new Response('not JSON', { status: 200 }));
+
+    await expect(service.verifyByHash({ txHash, signerPublicKey: signer, paperId }))
+      .rejects.toMatchObject<Partial<PaymentVerificationError>>({ status: 502 });
+  });
 });

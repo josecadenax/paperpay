@@ -117,19 +117,19 @@ export class PapersController {
   }
 
   public async verifyPaperByHash(req: Request, res: Response): Promise<void> {
-    const { id } = req.params;
-    const paper = papersService.getPaperById(id);
-    if (!paper) {
-      res.status(404).json({
-        error: 'PAPER_NOT_FOUND',
-        message: `El artículo con ID '${id}' no existe en el catálogo.`,
-      });
-      return;
-    }
-
     try {
-      const body = req.body as Partial<X402PaymentVerificationHeader>;
-      if (typeof body.txHash !== 'string' || typeof body.signerPublicKey !== 'string') {
+      const { id } = req.params;
+      const paper = papersService.getPaperById(id);
+      if (!paper) {
+        res.status(404).json({
+          error: 'PAPER_NOT_FOUND',
+          message: `El artículo con ID '${id}' no existe en el catálogo.`,
+        });
+        return;
+      }
+
+      const body = req.body as Partial<X402PaymentVerificationHeader> | undefined;
+      if (typeof body?.txHash !== 'string' || typeof body?.signerPublicKey !== 'string') {
         throw new PaymentVerificationError(400, 'El cuerpo debe incluir txHash y signerPublicKey.');
       }
 
@@ -161,9 +161,12 @@ export class PapersController {
       res.setHeader(X402_HEADERS.PAYMENT_RESPONSE, encodeBase64Json(paymentResponse));
       res.status(200).json({ paper, accessToken, txHash: payment.txHash });
     } catch (err: unknown) {
+      if (!(err instanceof PaymentVerificationError)) {
+        console.error('[PapersController] Error inesperado al verificar el pago:', err);
+      }
       const error = err instanceof PaymentVerificationError
         ? err
-        : new PaymentVerificationError(400, 'Solicitud de verificación de pago inválida.');
+        : new PaymentVerificationError(502, 'No fue posible completar la verificación del pago.');
       res.status(error.status).json({
         error: error.status === 409 ? 'PAYMENT_ALREADY_USED' : 'PAYMENT_VERIFICATION_FAILED',
         message: error.message,

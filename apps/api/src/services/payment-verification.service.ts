@@ -140,9 +140,9 @@ export class PaymentVerificationService {
   private async fetchJson<T>(path: string): Promise<T> {
     let response: Response;
     try {
-      response = await fetch(`${config.horizonUrl}${path}`);
+      response = await fetch(`${config.horizonUrl}${path}`, { signal: AbortSignal.timeout(8000) });
     } catch {
-      throw new PaymentVerificationError(502, 'No fue posible consultar Horizon para verificar el pago.');
+      throw new PaymentVerificationError(502, 'No fue posible consultar Horizon (timeout o red).');
     }
     if (response.status === 404) {
       throw new PaymentVerificationError(402, 'No se encontró la transacción en Horizon.');
@@ -150,7 +150,11 @@ export class PaymentVerificationService {
     if (!response.ok) {
       throw new PaymentVerificationError(502, 'Horizon rechazó la consulta de verificación.');
     }
-    return response.json() as Promise<T>;
+    try {
+      return await response.json() as T;
+    } catch {
+      throw new PaymentVerificationError(502, 'Horizon devolvió una respuesta inválida.');
+    }
   }
 }
 

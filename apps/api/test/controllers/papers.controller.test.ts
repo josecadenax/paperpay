@@ -201,5 +201,34 @@ describe('Papers Controller & x402 Endpoints', () => {
       expect(res.status).toBe(400);
       expect(res.body.error).toBe('PAYMENT_VERIFICATION_FAILED');
     });
+
+    it('returns JSON 400 for a missing body', async () => {
+      const res = await request(app)
+        .post(`/api/papers/${targetPaperId}/verify`)
+        .set('payment-signature', encodeBase64Json(verificationHeader));
+
+      expect(res.status).toBe(400);
+      expect(res.body.error).toBe('PAYMENT_VERIFICATION_FAILED');
+    });
+
+    it('returns JSON 502 when verification unexpectedly rejects', async () => {
+      const verification = vi.spyOn(paymentVerificationService, 'verifyByHash')
+        .mockRejectedValueOnce(new Error('Unexpected Horizon response'));
+      const errorLog = vi.spyOn(console, 'error').mockImplementation(() => {});
+
+      try {
+        const res = await request(app)
+          .post(`/api/papers/${targetPaperId}/verify`)
+          .set('payment-signature', encodeBase64Json(verificationHeader))
+          .send({ txHash, signerPublicKey });
+
+        expect(res.status).toBe(502);
+        expect(res.headers['content-type']).toContain('application/json');
+        expect(res.body.error).toBe('PAYMENT_VERIFICATION_FAILED');
+      } finally {
+        verification.mockRestore();
+        errorLog.mockRestore();
+      }
+    });
   });
 });
