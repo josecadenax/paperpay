@@ -1,0 +1,23 @@
+{
+  "status": 402,
+  "paymentRequiredHeader": "eyJ4NDAyVmVyc2lvbiI6MiwiZXJyb3IiOiJQYXltZW50IHJlcXVpcmVkIiwicmVzb3VyY2UiOnsidXJsIjoiaHR0cDovLzEyNy4wLjAuMTo0MzAyL3BhaWQtcGFwZXIiLCJkZXNjcmlwdGlvbiI6IiIsIm1pbWVUeXBlIjoiIn0sImFjY2VwdHMiOlt7InNjaGVtZSI6ImV4YWN0IiwibmV0d29yayI6InN0ZWxsYXI6dGVzdG5ldCIsImFtb3VudCI6IjEwMDAwMCIsImFzc2V0IjoiQ0JJRUxUSzZZQlpKVTVVUDJXV1FFVUNZS0xQVTZBVU5aMkJRNFdXRkVJRTNVU0NJSE1YUURBTUEiLCJwYXlUbyI6IkdBQjJOWEJQWk1KRVBaUFhNQUFFWkRKQTdTQjZaUVJIVFQyS0Y0WjdMTU9FQUpLU1A0SkJDV1JWIiwibWF4VGltZW91dFNlY29uZHMiOjMwMCwiZXh0cmEiOnsiYXJlRmVlc1Nwb25zb3JlZCI6dHJ1ZX19XX0=",
+  "x402Version": 2,
+  "resource": {
+    "url": "http://127.0.0.1:4302/paid-paper",
+    "description": "",
+    "mimeType": ""
+  },
+  "accepts": [
+    {
+      "scheme": "exact",
+      "network": "stellar:testnet",
+      "amount": "100000",
+      "asset": "CBIELTK6YBZJU5UP2WWQEUCYKLPU6AUNZ2BQ4WWFEIE3USCIHMXQDAMA",
+      "payTo": "GAB2NXBPZMJEPZPXMAAEZDJA7SB6ZQRHTT2KF4Z7LMOEAJKSP4JBCWRV",
+      "maxTimeoutSeconds": 300,
+      "extra": {
+        "areFeesSponsored": true
+      }
+    }
+  ]
+}
