@@ -1,0 +1,109 @@
+name: Deploy API to Railway
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'apps/api/**'
+      - 'packages/shared/**'
+      - 'package.json'
+      - 'pnpm-lock.yaml'
+      - 'pnpm-workspace.yaml'
+      - 'railway.json'
+      - '.github/workflows/deploy-api-railway.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: railway-api-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      RAILWAY_API_TOKEN: ${{ secrets.RAILWAY_API_TOKEN }}
+      RAILWAY_PROJECT_ID: 05044f85-33f4-4ff2-8b24-043bee637f5b
+      RAILWAY_SERVICE: paperpay-backend
+      RAILWAY_ENVIRONMENT: production
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.34.1
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Test and build API
+        run: |
+          pnpm build:shared
+          pnpm test
+          pnpm build:api
+
+      - name: Install Railway CLI
+        run: npm install --global @railway/cli@5.23.3
+
+      - name: Deploy and wait for Railway
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if [[ -z "$RAILWAY_API_TOKEN" ]]; then
+            echo 'Missing RAILWAY_API_TOKEN repository secret' >&2
+            exit 1
+          fi
+
+          deployment_id="$(railway up \
+            --project "$RAILWAY_PROJECT_ID" \
+            --environment "$RAILWAY_ENVIRONMENT" \
+            --service "$RAILWAY_SERVICE" \
+            --message "GitHub Actions ${GITHUB_SHA}" \
+            --detach --yes --json | jq -r '.deploymentId')"
+          if [[ -z "$deployment_id" || "$deployment_id" == null ]]; then
+            echo 'Railway did not return a deployment ID' >&2
+            exit 1
+          fi
+          echo "Railway deployment: $deployment_id"
+
+          for attempt in {1..60}; do
+            status="$(railway deployment list \
+              --project "$RAILWAY_PROJECT_ID" \
+              --environment "$RAILWAY_ENVIRONMENT" \
+              --service "$RAILWAY_SERVICE" \
+              --limit 5 --json | jq -r --arg id "$deployment_id" \
+              '.[] | select(.id == $id) | .status')"
+
+            case "$status" in
+              SUCCESS)
+                echo 'Railway deployment succeeded'
+                curl --fail --silent --show-error --max-time 10 \
+                  https://paperpay-backend-production.up.railway.app/api/health \
+                  | jq -e '.status == "ok"' > /dev/null
+                exit 0
+                ;;
+              FAILED|CRASHED|REMOVED)
+                echo "Railway deployment ended with status: $status" >&2
+                railway logs "$deployment_id" --build \
+                  --project "$RAILWAY_PROJECT_ID" \
+                  --environment "$RAILWAY_ENVIRONMENT" \
+                  --service "$RAILWAY_SERVICE" --lines 80 || true
+                exit 1
+                ;;
+            esac
+
+            sleep 10
+          done
+
+          echo 'Timed out waiting for Railway deployment' >&2
+          exit 1
