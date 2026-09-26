@@ -1,0 +1,23 @@
+{
+  "name": "paperpay-agentic-x402-spike",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "server": "node server.mjs",
+    "inspect": "node inspect.mjs",
+    "pay": "node client.mjs",
+    "reconcile": "node reconcile.mjs"
+  },
+  "dependencies": {
+    "@stellar/stellar-sdk": "16.3.0",
+    "@x402/core": "2.27.0",
+    "@x402/express": "2.27.0",
+    "@x402/fetch": "2.27.0",
+    "@x402/stellar": "2.27.0",
+    "dotenv": "16.4.5",
+    "express": "4.21.2"
+  }
+}
