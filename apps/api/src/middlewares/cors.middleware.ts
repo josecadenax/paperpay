@@ -11,7 +11,7 @@ export const corsMiddleware = cors({
     if (config.corsOrigins.includes(origin)) {
       return callback(null, true);
     }
-    return callback(new Error(`Origen CORS no permitido: ${origin}`));
+    return callback(null, false);
   },
   methods: ['GET', 'POST', 'OPTIONS'],
   allowedHeaders: [
