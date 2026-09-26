@@ -1,6 +1,7 @@
 import 'dotenv/config';
 import assert from 'node:assert/strict';
-import { Transaction, TransactionBuilder } from '@stellar/stellar-sdk';
+import { open } from 'node:fs/promises';
+import { Transaction, TransactionBuilder, rpc } from '@stellar/stellar-sdk';
 import { x402Client, x402HTTPClient } from '@x402/fetch';
 import { createEd25519Signer, getNetworkPassphrase } from '@x402/stellar';
 import { ExactStellarScheme } from '@x402/stellar/exact/client';
@@ -13,6 +14,7 @@ if (!secret || !payTo) {
 
 const network = 'stellar:testnet';
 const url = process.env.SPIKE_URL ?? 'http://127.0.0.1:4302/paid-paper';
+const journalPath = new URL('./.payment-attempt.json', import.meta.url);
 const signer = createEd25519Signer(secret, network);
 const client = new x402Client().register(
   'stellar:*',
@@ -53,6 +55,23 @@ if (sorobanData) {
     },
   };
 }
+
+const ledger = await new rpc.Server('https://soroban-testnet.stellar.org').getLatestLedger();
+const journal = await open(journalPath, 'wx', 0o600);
+try {
+  await journal.writeFile(JSON.stringify({
+    createdAt: new Date().toISOString(),
+    startLedger: ledger.sequence,
+    resourceUrl: url,
+    payer: signer.address,
+    accepted: payment.accepted,
+    transaction: payment.payload.transaction,
+  }));
+  await journal.sync();
+} finally {
+  await journal.close();
+}
+console.log('Signed attempt saved locally; do not rerun pay after an uncertain response.');
 
 const paid = await fetch(url, {
   headers: http.encodePaymentSignatureHeader(payment),
