@@ -94,8 +94,11 @@ const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
  */
 export async function settleByHash(paperId: string, txHash: string, signerPublicKey: string): Promise<PollarSettleResult> {
   const paymentSignature = encodeBase64Json({ scheme: 'exact', network: 'stellar:testnet', signerPublicKey, txHash })
-  // Reintentos ante lag de indexación de Horizon (402) o errores transitorios (5xx / red).
-  const delaysMs = [0, 1500, 2500, 4000, 6000, 8000]
+  // Reintentos ante lag de indexación de Horizon (402/5xx). Una tx recién enviada puede tardar
+  // ~1-2 min en ser consultable en Horizon, así que la ventana total cubre ~2 min (por debajo de
+  // la ventana de recencia del backend, 300s). Como el pago ya ocurrió y el backend es idempotente,
+  // reintentar el MISMO hash nunca cobra de más.
+  const delaysMs = [0, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 8000, 10000, 10000, 12000, 12000, 15000, 15000]
   let lastError: SettleError = new SettleError('No fue posible verificar el pago.', false)
 
   for (const delay of delaysMs) {

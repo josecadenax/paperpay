@@ -135,11 +135,16 @@ export function WalletChoiceModal({ paperId, onClose, onState, onUnlocked, onErr
                 disabled={busy}
                 className="min-h-[44px] w-full rounded-xl bg-primary py-3 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary-hover disabled:opacity-60"
               >
-                {busy ? 'Procesando pago…' : 'Pagar 0.50 USDC'}
+                {busy ? 'Verificando tu pago…' : 'Pagar 0.50 USDC'}
               </button>
+              {busy && (
+                <p className="text-center text-xs text-muted-foreground">
+                  El pago ya se envió. Confirmar en la red puede tardar hasta ~1 min; no cierres esta ventana.
+                </p>
+              )}
             </div>
           )}
-          <p className="mt-2 text-center text-xs text-muted-foreground">Sin extensiones ni frases semilla.</p>
+          {!busy && <p className="mt-2 text-center text-xs text-muted-foreground">Sin extensiones ni frases semilla.</p>}
         </div>
 
         {/* Separador */}
