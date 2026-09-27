@@ -70,7 +70,7 @@ Las pruebas cubren el catálogo, el 402, JWT, el modo demo y la verificación po
 
 ## Seguridad y configuración de producción
 
-La API se niega a arrancar en `NODE_ENV=production` sin un `JWT_SECRET` de al menos 32 caracteres, una `STELLAR_TREASURY_PUBLIC_KEY` válida y, si no usa `SELF_SETTLE`, una `OPENZEPPELIN_API_KEY`. Genera el `JWT_SECRET` de forma aleatoria; los valores de los archivos de ejemplo y de la historia del repositorio son públicos y no deben usarse. La clave de tesorería de ejemplo no es una cuenta real. `DEMO_PAYMENTS` se desactiva siempre en producción.
+La API se niega a arrancar en `NODE_ENV=production` sin un `JWT_SECRET` propio de al menos 32 caracteres (rechaza el valor por defecto y los de ejemplo que han aparecido en el repositorio), una `STELLAR_TREASURY_PUBLIC_KEY` válida y, si no usa `SELF_SETTLE`, una `OPENZEPPELIN_API_KEY`. Genera el `JWT_SECRET` de forma aleatoria; los valores de los archivos de ejemplo y de la historia del repositorio son públicos y no deben usarse. La clave de tesorería de ejemplo no es una cuenta real. `DEMO_PAYMENTS` se desactiva siempre en producción.
 
 La protección contra reutilizar un hash de Pollar vive en memoria: un reinicio o varias instancias la pierden. Antes de mainnet debe pasar a un almacén persistente.
 
