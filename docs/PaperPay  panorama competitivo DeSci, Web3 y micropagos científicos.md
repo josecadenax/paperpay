@@ -1,5 +1,7 @@
 # PaperPay: panorama competitivo DeSci, Web3 y micropagos científicos
 
+> **Investigación histórica (corte al 24 sep 2026).** Los precios y datos de terceros pueden haber cambiado; verifícalos antes de citarlos. Algunas recomendaciones (resolver acceso abierto antes de cobrar, contrato de reparto) siguen pendientes; el estado del producto está en el [README](../README.md).
+
 **Fecha de corte:** 24 de septiembre de 2026  
 **Alcance:** mercado global, con utilidad para un pitch de hackathon y una eventual entrada desde LATAM.
 

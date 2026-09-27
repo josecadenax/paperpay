@@ -1,6 +1,6 @@
 # PaperPay: Arquitectura y plan de trabajo
 
-> Documento de planificación histórica. Para el estado comprobado consulta [QA.md](QA.md) y el [README](../README.md). Las tareas y fechas aquí no certifican funcionalidades terminadas.
+> **Documento histórico (23–24 sep 2026).** Plan de trabajo del hackathon; las tareas y fechas no certifican funcionalidades terminadas. La arquitectura del ADR-01 (auth entry de Soroban + facilitador x402) no es la que se implementó. La versión 2.0.0 usa **transacciones clásicas de USDC**: con Freighter el navegador firma y la API envía a Horizon (`SELF_SETTLE`); con Pollar, Pollar envía el pago y la API lo verifica por hash. No se usan los paquetes oficiales de x402 ni contratos Soroban. Pollar, previsto como stretch, sí se integró, y el catálogo tiene 52 artículos ficticios. Estado actual: [README](../README.md) y [QA](QA.md).
 
 Documento vivo. Si una decisión cambia, se edita aquí en el mismo PR que la implementa.
 

@@ -1,6 +1,6 @@
 # PaperPay · TDD (Technical Design Document) - Backend API
 
-> Diseño propuesto. La firma con Freighter y la liquidación real no están verificadas; consulta [QA.md](QA.md) y [apps/api/README.md](../apps/api/README.md).
+> **Documento histórico (23 sep 2026).** Diseño técnico propuesto para el MVP. Lo implementado (v2.0.0) usa **transacciones clásicas de USDC**: con Freighter el navegador firma y la API envía a Horizon (`SELF_SETTLE`); con Pollar, Pollar envía el pago y la API lo verifica por hash. No usa los paquetes oficiales de x402, auth entries de Soroban ni un contrato Soroban. El catálogo tiene 52 artículos ficticios. La implementación vigente está en [apps/api/README.md](../apps/api/README.md) y su estado en [QA](QA.md).
 
 * **Proyecto:** PaperPay
 * **Componente:** Backend API (`apps/api`) & Shared Contract (`packages/shared`)

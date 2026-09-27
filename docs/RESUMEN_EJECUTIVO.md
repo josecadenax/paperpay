@@ -1,8 +1,6 @@
 # PaperPay · Resumen ejecutivo
 
-> Propuesta histórica para el hackathon. La afirmación de pago real describe el objetivo, no un resultado verificado. Estado actual: [QA.md](QA.md).
-
-_Actualizado: 23 sep 2026 · Versión editable para comentarios: [Claude Docs](https://claude.ai/code/artifact/764894f4-f397-4a1f-b9ad-1a4472fb7118)_
+> **Documento histórico (23 sep 2026).** Propuesta presentada a mentores antes de construir el MVP. Lo implementado (v2.0.0) usa **transacciones clásicas de USDC**: con Freighter el navegador firma y la API envía a Horizon (`SELF_SETTLE`); con Pollar, Pollar envía el pago y la API lo verifica por hash. No usa los paquetes oficiales de x402, auth entries de Soroban ni un contrato Soroban. El catálogo tiene 52 artículos ficticios. El precio de 0.50 USDC y el reparto 98/2 son propuestas iniciales. Estado actual: [README](../README.md) y [QA](QA.md).
 
 PaperPay permite leer un artículo científico pagando $0.50 USDC en un clic, sin crear cuenta, usando el estándar HTTP 402 y el protocolo x402 sobre Stellar. Es una propuesta de dos exalumnos de la Facultad de Ingeniería de la UNAM para el track Stellar de Goya Hack 2026.
 

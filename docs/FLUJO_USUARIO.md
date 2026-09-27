@@ -1,6 +1,6 @@
 # PaperPay · Flujo del Usuario y Experiencia de Compra (x402)
 
-> Flujo objetivo. La demo actual simula el pago; consulta [QA.md](QA.md) para el estado comprobado.
+> **Documento histórico (23 sep 2026).** Describe el flujo objetivo con x402 estándar. Lo implementado (v2.0.0) usa **transacciones clásicas de USDC**: con Freighter el navegador firma y la API envía a Horizon (`SELF_SETTLE`); con Pollar, Pollar envía el pago y la API lo verifica por hash. No usa los paquetes oficiales de x402, auth entries de Soroban ni un contrato Soroban. El catálogo tiene 52 artículos ficticios. El acceso dura 24 horas por artículo. Estado actual: [README](../README.md) y [QA](QA.md).
 
 Este documento detalla la experiencia de usuario y arquitectura de compra en PaperPay, abordando tanto la **visión ideal del producto terminado en producción** como el **flujo técnico de control y manejo de excepciones** implementado para el MVP.
 

@@ -2,26 +2,41 @@
 
 # PaperPay
 
-Prototipo de paywall para artículos científicos con Next.js, Express y Stellar Testnet. El catálogo contiene **artículos ficticios de demostración**; sus autores, DOI, resultados y cifras no son publicaciones verificadas.
+Paywall para artículos científicos: el lector paga un micropago en USDC sobre Stellar y desbloquea el artículo, sin crear cuenta ni usar tarjeta. Proyecto del track Stellar de Goya Hack 2026, construido con Next.js, Express y Stellar **Testnet**.
+
+- **Sitio:** [paperpay.press](https://paperpay.press/)
+- **Versión:** 2.0.0 (v1: Freighter · v2: Pollar con login social)
+
+El catálogo contiene **52 artículos ficticios de demostración** en 10 disciplinas; sus autores, DOI, resultados y cifras no son publicaciones reales. El precio de 0.50 USDC y el reparto 98% editorial / 2% PaperPay son propuestas iniciales.
 
 ## Estado actual
 
 | Componente | Estado |
 | --- | --- |
-| Catálogo, preview y HTTP 402 | Implementado |
-| Acceso con JWT de 24 horas tras una respuesta de liquidación | Implementado |
-| Demo de pago en el navegador (`mock`) | Implementado; no mueve fondos |
-| Demo de pago en API (`DEMO_PAYMENTS=true`) | Implementado solo fuera de producción; devuelve `mock_tx_*` |
-| Firma de pago con Freighter | Implementada en modo `api` + `freighter`: construye y firma una transacción clásica de USDC |
-| Liquidación en Stellar Testnet | El backend desplegado usa `SELF_SETTLE`; Horizon confirma transferencias de 0.50 USDC a la tesorería |
-| Compra completa desde navegador hasta JWT | La ruta existe en el código y hay pagos en el ledger; falta una prueba automatizada que vincule pago, artículo y desbloqueo |
-| Facilitador OpenZeppelin | Integración presente, sin pago real verificado por esa ruta |
+| Catálogo, vista previa y respuesta HTTP 402 | Implementado. El texto completo solo sale del servidor tras el pago. |
+| Pago con **Freighter** (v1) | Implementado. El navegador construye y firma una transacción clásica de 0.50 USDC y la API la envía a Horizon (`SELF_SETTLE`). |
+| Pago con **Pollar** (v2) | Implementado. Login con Google o email; Pollar firma y envía el pago y la API lo verifica por hash en Horizon (`POST /api/papers/:id/verify`). Requiere la publishable key de Pollar. |
+| Selector de wallet | Implementado. Con la key de Pollar configurada, el paywall ofrece Pollar y Freighter. |
+| Acceso tras el pago | JWT de 24 horas por artículo, guardado en el navegador. El catálogo marca los artículos con acceso vigente. |
+| Panel editorial (`/editorial`) | Lee de Horizon los pagos entrantes a la tesorería. El reparto 98/2 es un cálculo visual, no se ejecuta en la red. |
+| Pagos simulados (`mock`) | Disponibles para demos locales; no mueven fondos. |
+| Facilitador OpenZeppelin | Integración presente, sin liquidación real verificada. |
+| Contrato Soroban de reparto | No existe; está en el roadmap. |
 
-El esquema de cabeceras se inspira en x402. Esta implementación usa un payload propio y no incorpora los paquetes oficiales de x402; no debe presentarse como interoperabilidad certificada. Los documentos de `docs/` son planes y especificaciones históricas, no evidencia de funcionalidades terminadas.
+Las cabeceras `payment-required`, `payment-signature` y `payment-response` siguen el esquema de x402, pero el payload es propio y el proyecto no usa los paquetes oficiales de x402: no debe presentarse como interoperabilidad certificada con x402. El estado comprobado y sus límites están en [docs/QA.md](docs/QA.md).
 
-## Requisitos y arranque
+## Despliegue
 
-Node.js 20 o superior y pnpm 9 o superior (versiones probadas: Node 26, pnpm 12).
+| Parte | Dónde | Cómo |
+| --- | --- | --- |
+| Frontend | Vercel ([paperpay.press](https://paperpay.press/)) | Workflow `deploy-web-vercel.yml` en cada push a `main` que toque `apps/web`, `packages/shared` o dependencias. Los PR generan preview. |
+| API | Railway | Workflow `deploy-api-railway.yml` en cada push a `main` que toque `apps/api`, `packages/shared` o dependencias. Corre las pruebas antes de desplegar. |
+
+Ambos usan secretos del repositorio (`VERCEL_TOKEN`, `RAILWAY_API_TOKEN`); los IDs de proyecto que aparecen en los workflows no son secretos.
+
+## Requisitos y arranque local
+
+Node.js 20 o superior y pnpm 9 o superior (CI usa Node 22 y pnpm 10).
 
 ```bash
 pnpm install
@@ -29,38 +44,41 @@ cp apps/web/.env.example apps/web/.env.local
 pnpm dev:web
 ```
 
-La configuración de ejemplo usa `NEXT_PUBLIC_DATA_SOURCE=mock` y `NEXT_PUBLIC_WALLET=mock`. Abre `http://localhost:3000`. Puedes recorrer el catálogo y desbloquear artículos sin extensiones ni fondos. La API no es necesaria en este modo.
+Abre `http://localhost:3000`. El `.env.example` del frontend apunta a la API desplegada con Freighter. Para una demo local sin backend ni wallet, usa `NEXT_PUBLIC_DATA_SOURCE=mock` y `NEXT_PUBLIC_WALLET=mock`: el catálogo y el desbloqueo funcionan en el navegador sin mover fondos.
 
-Para probar la API local y el contrato HTTP:
+Para levantar la API local:
 
 ```bash
 cp apps/api/.env.example apps/api/.env
 pnpm dev:api
 curl http://localhost:4000/api/health
-curl http://localhost:4000/api/papers
 curl -i http://localhost:4000/api/papers/autonomous-ai-micropayments
 ```
 
-`GET /api/papers/:id` devuelve `402` con solo el preview y la cabecera `payment-required`. Para conectar el frontend a la API, configura `NEXT_PUBLIC_DATA_SOURCE=api` y `API_PROXY_TARGET=http://localhost:4000` en `apps/web/.env.local`, y reinicia Next. Con `NEXT_PUBLIC_WALLET=freighter`, el lector firma una transacción real; el backend debe estar en `SELF_SETTLE=true`. Con wallet `mock`, el frontend envía `unsigned-demo-signature`: para recorrer ese flujo local habilita explícitamente `DEMO_PAYMENTS=true` en `apps/api/.env`. Nunca habilites ese modo en un servidor expuesto; el código lo desactiva automáticamente con `NODE_ENV=production`.
+`GET /api/papers/:id` responde `402` con la vista previa y la cabecera `payment-required`. Para conectar el frontend a esta API, usa `API_PROXY_TARGET=http://localhost:4000` en `apps/web/.env.local` y reinicia Next. Los detalles de cada modo están en los README de [la API](apps/api/README.md) y [el frontend](apps/web/README.md).
 
 ## Verificación
 
 ```bash
-pnpm test
-pnpm build:shared
-pnpm build:api
+pnpm test                               # 37 pruebas de la API
+pnpm build:shared && pnpm build:api
 pnpm --filter @paperpay/web typecheck
 pnpm build
 ```
 
-`pnpm test` cubre el API, el paywall, JWT y el control explícito del modo demo. `pnpm --filter @paperpay/api test:testnet` comprueba Friendbot, Horizon y el 402; **no ejecuta un pago**. Requiere red y puede fallar por servicios externos. La compilación de Next puede necesitar permiso para crear procesos y abrir puertos internos en entornos aislados.
+Las pruebas cubren el catálogo, el 402, JWT, el modo demo y la verificación por hash con respuestas de Horizon simuladas. No ejecutan un pago real. `pnpm --filter @paperpay/api test:testnet` comprueba Friendbot, Horizon y el 402 contra una API local, también sin pagar.
 
-## Configuración y límites
+## Seguridad y configuración de producción
 
-- [API](apps/api/README.md): variables, endpoints y contrato de pago.
-- [Frontend](apps/web/README.md): modos `mock` y `api`, wallet y proxy.
-- [Revisión de QA](docs/QA.md): pruebas realizadas y pendientes para poder afirmar pagos reales.
+La API se niega a arrancar en `NODE_ENV=production` sin un `JWT_SECRET` de al menos 32 caracteres, una `STELLAR_TREASURY_PUBLIC_KEY` válida y, si no usa `SELF_SETTLE`, una `OPENZEPPELIN_API_KEY`. Genera el `JWT_SECRET` de forma aleatoria; los valores de los archivos de ejemplo y de la historia del repositorio son públicos y no deben usarse. La clave de tesorería de ejemplo no es una cuenta real. `DEMO_PAYMENTS` se desactiva siempre en producción.
 
-En producción, la API exige un `JWT_SECRET` de al menos 32 caracteres, una `STELLAR_TREASURY_PUBLIC_KEY` válida y `OPENZEPPELIN_API_KEY` si usa el facilitador. Usa un secreto aleatorio. La clave de tesorería de ejemplo no es una cuenta real. `SELF_SETTLE=true` espera un sobre de transacción Stellar ya firmado por el lector; no construye ni firma una transferencia Soroban. El frontend sí construye ese sobre cuando se usa Freighter.
+La protección contra reutilizar un hash de Pollar vive en memoria: un reinicio o varias instancias la pierden. Antes de mainnet debe pasar a un almacén persistente.
 
-No hay licencia definida para este repositorio.
+## Documentación
+
+- [API](apps/api/README.md): variables, endpoints y modos de liquidación.
+- [Frontend](apps/web/README.md): modos de datos y de wallet, Pollar y panel editorial.
+- [QA](docs/QA.md): qué está comprobado y qué falta.
+- [Resumen ejecutivo](docs/RESUMEN_EJECUTIVO.md), [plan](docs/PLAN.md), [flujo de usuario](docs/FLUJO_USUARIO.md), [PRD](docs/PRD_BACKEND.md), [TDD](docs/TDD_BACKEND.md) y [panorama competitivo](<docs/PaperPay  panorama competitivo DeSci, Web3 y micropagos científicos.md>): documentos de planeación del 23 y 24 de septiembre. Describen la intención original; cada uno indica al inicio en qué difiere de lo implementado.
+
+No hay licencia definida para este repositorio: el código es público, pero sin una licencia no se concede permiso de reutilización.
