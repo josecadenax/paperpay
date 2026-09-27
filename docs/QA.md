@@ -1,8 +1,27 @@
 # Estado de QA
 
-Revisión del 25 de septiembre de 2026. El repositorio cambió después de la revisión inicial del 24 de septiembre: ahora incluye firma de transacciones con Freighter y una ruta de liquidación clásica en Stellar Testnet.
+## Revisión del 27 de septiembre de 2026 (v2.0.0)
 
-## Comprobado
+Desde la revisión del 25 de septiembre se agregó el pago con Pollar (v2) y el despliegue automático de web y API desde `main`.
+
+**Comprobado en esta revisión:**
+
+- `pnpm test`: 37 pruebas de la API pasan. Incluyen la verificación por hash de Pollar con respuestas de Horizon simuladas: pago válido con reintento idempotente, monto distinto de 0.50 USDC, intento de reutilizar un hash en otro artículo y fallas o timeouts de Horizon.
+- `pnpm --filter @paperpay/web typecheck` pasa.
+- El workflow de despliegue del frontend terminó con éxito para el commit `8cc686f` (27 sep).
+
+**No comprobado en esta revisión:** no se ejecutó una compra nueva con Freighter ni con Pollar, y no se consultaron el sitio ni la API en producción, porque el entorno de revisión no tenía acceso a esos dominios. El historial del repositorio declara pruebas manuales del flujo de Pollar en Testnet (commit `6970129`) que aquí no se repitieron.
+
+**Límites conocidos de v2:**
+
+- La protección contra reutilizar un hash de Pollar se guarda en memoria: un reinicio de la API o varias instancias la pierden.
+- El pago de Pollar se verifica contra la tesorería y el monto, pero el ledger no registra a qué artículo corresponde.
+
+## Revisión del 25 de septiembre de 2026
+
+El repositorio cambió después de la revisión inicial del 24 de septiembre: ahora incluye firma de transacciones con Freighter y una ruta de liquidación clásica en Stellar Testnet.
+
+### Comprobado
 
 - API: 28 pruebas locales de catálogo, 402, JWT, parsing y control del modo demo. El caso de desbloqueo simula la respuesta de liquidación.
 - Compilación del monorepo con webpack y arranque local de la API en `NODE_ENV=production` durante la revisión anterior.
@@ -11,7 +30,7 @@ Revisión del 25 de septiembre de 2026. El repositorio cambió después de la re
 - La [transacción más reciente consultada](https://horizon-testnet.stellar.org/transactions/37618096068d6f9f4b5785e9681a917b85ad1b0483c9a15eddafc1b9c5bdf80a) tiene `successful: true`, una operación y está en el ledger `4858193`.
 - El frontend contiene la ruta `api` + `freighter` que construye un sobre de pago USDC, lo firma y lo envía a la API. El backend `SELF_SETTLE` valida el destino, activo y monto antes de enviarlo a Horizon.
 
-## Alcance de esta evidencia
+### Alcance de esta evidencia
 
 Horizon confirma transferencias reales en **Testnet**. Su historial no demuestra por sí solo que cada una pasó por el navegador ni qué artículo se desbloqueó. No se ejecutó una compra nueva durante esta revisión. El commit `6904eba` declara una verificación manual del pago con el backend desplegado; aquí se verificó de forma independiente la existencia de los pagos y la configuración pública del backend.
 
@@ -19,12 +38,13 @@ Horizon confirma transferencias reales en **Testnet**. Su historial no demuestra
 
 El build del frontend pasa con webpack, pero emite advertencias al empaquetar `sodium-native` desde el SDK de Stellar. No se ejecutó una compra nueva en navegador durante esta revisión.
 
-## Pendiente
+## Pendiente (actualizado al 27 de septiembre)
 
-1. Automatizar o registrar una prueba que vincule firma de Freighter, hash confirmado, respuesta `200`, artículo desbloqueado y reingreso con JWT.
-2. Vincular el pago al artículo en un comprobante verificable y evitar que el panel editorial equipare cualquier transferencia USDC con una lectura.
-3. Verificar el facilitador OpenZeppelin por separado si se quiere ofrecer ese modo. La ruta actual confirmada usa `SELF_SETTLE`, que espera una transacción clásica completa.
-4. Reemplazar los artículos ficticios por material con licencia de distribución.
-5. Probar errores de red después del envío: el pago puede quedar confirmado aunque el cliente no reciba la respuesta. El usuario debe consultar su wallet antes de reintentar.
+1. Automatizar o registrar una prueba que vincule la firma (Freighter o Pollar), el hash confirmado, la respuesta `200`, el artículo desbloqueado y el reingreso con JWT.
+2. Guardar los hashes verificados en un almacén persistente, con restricción única, antes de pasar a mainnet.
+3. Vincular el pago al artículo en un comprobante verificable y evitar que el panel editorial equipare cualquier transferencia USDC con una lectura.
+4. Verificar el facilitador OpenZeppelin por separado si se quiere ofrecer ese modo. La ruta actual confirmada usa `SELF_SETTLE`, que espera una transacción clásica completa.
+5. Reemplazar los artículos ficticios por material con licencia de distribución.
+6. Probar errores de red después del envío: el pago puede quedar confirmado aunque el cliente no reciba la respuesta. El usuario debe consultar su wallet antes de reintentar.
 
 El panel editorial calcula 98%/2% sobre los pagos entrantes, pero el código no realiza ese reparto en el ledger.

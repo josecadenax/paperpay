@@ -1,6 +1,6 @@
 # API de PaperPay
 
-API Express en el puerto 4000. Carga tres artículos ficticios desde `data/papers.json`.
+API Express en el puerto 4000. Carga los 52 artículos ficticios de `data/papers.json` (el frontend usa una copia en `apps/web/src/mocks/papers.json` para el modo `mock`).
 
 ## Inicio
 
@@ -12,7 +12,11 @@ pnpm dev:api
 pnpm test
 ```
 
-La ruta `/api/health` indica que el proceso responde; no comprueba Horizon ni el facilitador. La URL de Railway mencionada en documentos anteriores no se verifica automáticamente en este repositorio.
+La ruta `/api/health` indica que el proceso responde; no comprueba Horizon ni el facilitador.
+
+## Despliegue
+
+La API corre en Railway. El workflow `.github/workflows/deploy-api-railway.yml` la despliega en cada push a `main` que toque `apps/api`, `packages/shared` o las dependencias: instala, corre `pnpm test`, compila y espera a que Railway confirme el deploy. Las variables de producción se configuran en Railway, no en el repositorio.
 
 ## Contrato HTTP
 
@@ -29,6 +33,8 @@ La ruta `/api/health` indica que el proceso responde; no comprueba Horizon ni el
 El requisito de pago declara `exact`, `stellar:testnet`, USDC SAC, `5000000` unidades de 7 decimales y la tesorería. `payment-signature` se decodifica como Base64 JSON (también acepta JSON directo). Una respuesta fallida devuelve `402 PAYMENT_FAILED`.
 
 ### Verificación Pollar por hash (v2)
+
+Implementada y usada por el frontend en el flujo de Pollar.
 
 Pollar firma y envía la transacción desde su propia wallet. Después, el frontend llama `POST /api/papers/:id/verify` con `{ txHash, signerPublicKey }` y la misma información en la cabecera `payment-signature` codificada como Base64 JSON:
 
@@ -55,8 +61,8 @@ El backend desplegado respondió `mode: SELF_SETTLE` el 25 de septiembre de 2026
 
 `DEMO_PAYMENTS=true` acepta las firmas de prueba `unsigned-demo-signature`, `mock_*` y `demo_*`, y emite un hash `mock_tx_*` y JWT sin transferir fondos. Funciona solo con `NODE_ENV` distinto de `production`. Déjalo en `false` salvo para una demo local. Sin este modo, una firma de prueba recibe `402`.
 
-En producción son obligatorios un `JWT_SECRET` de al menos 32 caracteres, una `STELLAR_TREASURY_PUBLIC_KEY` válida y `OPENZEPPELIN_API_KEY` si se usa el facilitador. El ejemplo de `.env` usa una clave de tesorería ficticia. `generate:treasury` crea y fondea una cuenta de Testnet con Friendbot, pero no obtiene USDC ni verifica pagos.
+En producción son obligatorios un `JWT_SECRET` aleatorio de al menos 32 caracteres (no uses valores de ejemplo: el repositorio es público), una `STELLAR_TREASURY_PUBLIC_KEY` válida y `OPENZEPPELIN_API_KEY` si se usa el facilitador. El ejemplo de `.env` usa una clave de tesorería ficticia. `generate:treasury` crea y fondea una cuenta de Testnet con Friendbot, pero no obtiene USDC ni verifica pagos.
 
 ## Pruebas
 
-`pnpm test` ejecuta 33 pruebas locales. Incluye validación simulada de respuestas de Horizon para el flujo Pollar, monto exacto e intento de reutilizar un hash; no prueba un pago externo. `pnpm --filter @paperpay/api test:testnet` verifica Friendbot, Horizon y el paywall de una API local, sin comprar artículos. `pnpm --filter @paperpay/api test:settle` usa una firma de prueba y solo puede desbloquear con `DEMO_PAYMENTS=true`.
+`pnpm test` ejecuta 37 pruebas locales. Incluye validación simulada de respuestas de Horizon para el flujo Pollar, monto exacto e intento de reutilizar un hash; no prueba un pago externo. `pnpm --filter @paperpay/api test:testnet` verifica Friendbot, Horizon y el paywall de una API local, sin comprar artículos. `pnpm --filter @paperpay/api test:settle` usa una firma de prueba y solo puede desbloquear con `DEMO_PAYMENTS=true`.
