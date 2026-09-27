@@ -41,9 +41,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="min-h-screen bg-background text-foreground">
         <PollarProviderGate>
           <Navbar />
-          <p className="border-b border-border bg-muted px-4 py-2 text-center text-xs text-muted-foreground">
-            Prototipo con artículos ficticios. El pago puede ser simulado o usar USDC de Stellar Testnet según la configuración.
-          </p>
           {children}
         </PollarProviderGate>
       </body>
