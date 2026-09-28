@@ -79,6 +79,7 @@ La protección contra reutilizar un hash de Pollar vive en memoria: un reinicio 
 - [API](apps/api/README.md): variables, endpoints y modos de liquidación.
 - [Frontend](apps/web/README.md): modos de datos y de wallet, Pollar y panel editorial.
 - [QA](docs/QA.md): qué está comprobado y qué falta.
+- [Diseño del contrato Soroban](docs/DISENO_CONTRATO_SOROBAN.md): propuesta para el reparto en la cadena y el registro de compras (no implementado).
 - [Resumen ejecutivo](docs/RESUMEN_EJECUTIVO.md), [plan](docs/PLAN.md), [flujo de usuario](docs/FLUJO_USUARIO.md), [PRD](docs/PRD_BACKEND.md), [TDD](docs/TDD_BACKEND.md) y [panorama competitivo](<docs/PaperPay  panorama competitivo DeSci, Web3 y micropagos científicos.md>): documentos de planeación del 23 y 24 de septiembre. Describen la intención original; cada uno indica al inicio en qué difiere de lo implementado.
 
 No hay licencia definida para este repositorio: el código es público, pero sin una licencia no se concede permiso de reutilización.
